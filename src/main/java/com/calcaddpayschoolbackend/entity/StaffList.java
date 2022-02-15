@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Data
@@ -26,4 +27,6 @@ public class StaffList {
     @JoinColumn(name = "position_id")
     private Position position;
     private BigDecimal salary;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "timeSheet")
+    private Set<Result> results;
 }

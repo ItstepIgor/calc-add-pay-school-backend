@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -24,4 +25,6 @@ public class AddPay {
     private String addPayName;
     private int maxPercent;
     private String description;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "addPay")
+    private Set<Result> results;
 }

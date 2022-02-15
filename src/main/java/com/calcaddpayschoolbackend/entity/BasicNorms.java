@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Data
@@ -23,5 +24,6 @@ public class BasicNorms {
     long id;
     BigDecimal basicNormValue;
     LocalDate basicNormDate;
-
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "basicNorms")
+    private Set<Result> results;
 }

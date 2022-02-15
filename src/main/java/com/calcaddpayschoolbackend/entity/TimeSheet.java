@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -18,7 +19,9 @@ public class TimeSheet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long staffListId;
+    private long peopleId;
     private int actualDaysWorked;
     private long calcSettingsId;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "staffList")
+    private Set<Result> results;
 }
