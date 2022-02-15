@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -19,4 +20,6 @@ public class Position {
     private long id;
     private String positionName;
     private String sorting;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "position")
+    private Set<StaffList> staffLists;
 }

@@ -19,7 +19,11 @@ public class StaffList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long peopleId;
-    private long positionId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "people_id")
+    private People people;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "position_id")
+    private Position position;
     private BigDecimal salary;
 }

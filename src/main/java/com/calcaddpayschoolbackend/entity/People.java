@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -24,4 +25,6 @@ public class People {
     private String phoneNumber;
     private String address;
     private boolean youngSpecial;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "people")
+    private Set<StaffList> staffLists;
 }
