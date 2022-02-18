@@ -18,7 +18,9 @@ public class Position {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(nullable = false)
     private String positionName;
+    @Column(nullable = false)
     private String sorting;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "position")
     private Set<StaffList> staffLists;

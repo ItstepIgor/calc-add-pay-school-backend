@@ -22,6 +22,7 @@ public class TimeSheet {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "people_id")
     private People people;
+    @Column(nullable = false)
     private int actualDaysWorked;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "calcsettings_id")

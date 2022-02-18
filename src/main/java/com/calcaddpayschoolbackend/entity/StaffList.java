@@ -26,6 +26,7 @@ public class StaffList {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "position_id")
     private Position position;
+    @Column(nullable = false)
     private BigDecimal salary;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "timeSheet")
     private Set<Result> results;

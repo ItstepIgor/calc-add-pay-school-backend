@@ -22,7 +22,9 @@ public class BasicNorms {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
+    @Column(nullable = false)
     BigDecimal basicNormValue;
+    @Column(nullable = false)
     LocalDate basicNormDate;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "basicNorms")
     private Set<Result> results;

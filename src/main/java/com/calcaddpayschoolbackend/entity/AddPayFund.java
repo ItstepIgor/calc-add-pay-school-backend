@@ -25,6 +25,8 @@ public class AddPayFund {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "calcsettings_id")
     private CalcSettings calcSettings;
+    @Column(nullable = false)
     private String addPayFund;
+    @Column(nullable = false)
     private String numberOrder;
 }

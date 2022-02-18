@@ -28,7 +28,9 @@ public class Result {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "time_sheet_id")
     private TimeSheet timeSheet;
+    @Column(nullable = false)
     private double percent;
+    @Column(nullable = false)
     private BigDecimal sum;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "basic_norms_id")

@@ -23,9 +23,12 @@ public class AddPay {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "add_pay_type_id")
     private AddPayType addPayType;
+    @Column(nullable = false)
     private String addPayCode;
+    @Column(nullable = false)
     private String addPayName;
     private int maxPercent;
+    @Column(nullable = false)
     private String description;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "addPay")
     private Set<Result> results;

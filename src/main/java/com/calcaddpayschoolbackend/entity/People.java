@@ -18,12 +18,19 @@ public class People {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(nullable = false)
     private String surName;
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String patronymic;
+    @Column(nullable = false)
     private String personnelNumber;
+    @Column(nullable = false)
     private String phoneNumber;
+    @Column(nullable = false)
     private String address;
+    @Column(nullable = false)
     private boolean youngSpecial;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "people")
     private Set<StaffList> staffLists;

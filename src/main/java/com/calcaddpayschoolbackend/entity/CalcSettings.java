@@ -21,7 +21,9 @@ public class CalcSettings {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(nullable = false)
     private LocalDate calcDate;
+    @Column(nullable = false)
     private int workingDays;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "calcSettings")
     private Set<TimeSheet> timeSheet;

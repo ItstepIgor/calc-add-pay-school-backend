@@ -20,6 +20,8 @@ public class Users {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "people_id")
     private People people;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private String role;
 }
