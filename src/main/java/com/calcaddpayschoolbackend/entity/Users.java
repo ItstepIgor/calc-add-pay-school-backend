@@ -17,7 +17,9 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long people_id;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn (name = "people_id")
+    private People people;
     private String password;
     private String role;
 }

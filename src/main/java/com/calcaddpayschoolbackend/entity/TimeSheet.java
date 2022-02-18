@@ -19,9 +19,13 @@ public class TimeSheet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long peopleId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "people_id")
+    private People people;
     private int actualDaysWorked;
-    private long calcSettingsId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "calcsettings_id")
+    private CalcSettings calcSettings;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "staffList")
     private Set<Result> results;
 }

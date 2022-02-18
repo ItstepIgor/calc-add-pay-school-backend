@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -20,4 +21,8 @@ public class AddPayType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     String addPayTypeName;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "addPayType")
+    private Set<AddPayFund> addPayFunds;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "addPayType")
+    private Set<AddPay> addPay;
 }

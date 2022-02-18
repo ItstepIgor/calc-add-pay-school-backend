@@ -27,4 +27,8 @@ public class People {
     private boolean youngSpecial;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "people")
     private Set<StaffList> staffLists;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "people")
+    private Set<TimeSheet> timeSheet;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "people")
+    private Users users;
 }

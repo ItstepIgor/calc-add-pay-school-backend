@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Data
@@ -19,7 +20,11 @@ import java.util.Date;
 public class CalcSettings {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     private LocalDate calcDate;
     private int workingDays;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "calcSettings")
+    private Set<TimeSheet> timeSheet;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "calcSettings")
+    private Set<AddPayFund> addPayFunds;
 }
