@@ -21,13 +21,13 @@ public class Result {
     private long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "add_pay_id")
-    private AddPay addPay;
+    private AddPay addPays;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "staff_list_id")
     private StaffList staffList;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "time_sheet_id")
-    private TimeSheet timeSheet;
+    private TimeSheet timeSheets;
     @Column(nullable = false)
     private double percent;
     @Column(nullable = false)

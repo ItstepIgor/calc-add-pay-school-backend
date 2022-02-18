@@ -21,12 +21,12 @@ public class AddPayFund {
     private long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "add_pay_type_id")
-    private AddPayType addPayType;
+    private AddPayType addPayTypes;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "calcsettings_id")
     private CalcSettings calcSettings;
     @Column(nullable = false)
-    private String addPayFund;
+    private String addPayFunds;
     @Column(nullable = false)
     private String numberOrder;
 }

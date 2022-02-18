@@ -28,6 +28,6 @@ public class StaffList {
     private Position position;
     @Column(nullable = false)
     private BigDecimal salary;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "timeSheet")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "staffList")
     private Set<Result> results;
 }

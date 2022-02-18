@@ -22,7 +22,7 @@ public class AddPay {
     private long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "add_pay_type_id")
-    private AddPayType addPayType;
+    private AddPayType addPayTypes;
     @Column(nullable = false)
     private String addPayCode;
     @Column(nullable = false)
@@ -30,7 +30,7 @@ public class AddPay {
     private int maxPercent;
     @Column(nullable = false)
     private String description;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "addPay")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "addPays")
     private Set<Result> results;
 
 }

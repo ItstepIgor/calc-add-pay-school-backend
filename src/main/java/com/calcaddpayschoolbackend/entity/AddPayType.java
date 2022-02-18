@@ -22,8 +22,8 @@ public class AddPayType {
     long id;
     @Column(nullable = false)
     String addPayTypeName;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "addPayType")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "addPayTypes")
     private Set<AddPayFund> addPayFunds;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "addPayType")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "addPayTypes")
     private Set<AddPay> addPay;
 }
