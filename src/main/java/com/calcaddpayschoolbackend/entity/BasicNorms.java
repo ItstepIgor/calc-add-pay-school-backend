@@ -26,6 +26,6 @@ public class BasicNorms {
     BigDecimal basicNormValue;
     @Column(nullable = false)
     LocalDate basicNormDate;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "basicNorms")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "basicNorms")
     private Set<Result> results;
 }

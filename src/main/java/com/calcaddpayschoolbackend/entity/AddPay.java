@@ -30,7 +30,7 @@ public class AddPay {
     private int maxPercent;
     @Column(nullable = false)
     private String description;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "addPays")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "addPays")
     private Set<Result> results;
 
 }

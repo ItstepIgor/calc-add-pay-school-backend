@@ -22,6 +22,6 @@ public class Position {
     private String positionName;
     @Column(nullable = false)
     private String sorting;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "position")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "position")
     private Set<StaffList> staffLists;
 }

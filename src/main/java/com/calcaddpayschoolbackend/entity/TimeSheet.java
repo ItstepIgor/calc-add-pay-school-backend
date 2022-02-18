@@ -27,6 +27,6 @@ public class TimeSheet {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "calcsettings_id")
     private CalcSettings calcSettings;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "timeSheets")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "timeSheets")
     private Set<Result> results;
 }
