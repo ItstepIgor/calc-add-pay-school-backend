@@ -1,13 +1,11 @@
 package com.calcaddpayschoolbackend.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @Table
@@ -20,7 +18,7 @@ public class AddPayFund extends AbstractEntity {
     @JoinColumn(name = "add_pay_type_id")
     private AddPayType addPayTypes;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "calcsettings_id")
+    @JoinColumn(name = "calc_settings_id")
     private CalcSettings calcSettings;
     @Column(nullable = false)
     private String addPayFunds;
