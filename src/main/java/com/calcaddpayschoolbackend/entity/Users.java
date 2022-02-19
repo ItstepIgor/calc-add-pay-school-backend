@@ -14,11 +14,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 public class Users {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn (name = "people_id")
+    @JoinColumn(name = "people_id")
     private People people;
     @Column(nullable = false)
     private String password;

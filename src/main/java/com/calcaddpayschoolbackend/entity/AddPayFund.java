@@ -14,11 +14,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AddPayFund {
+public class AddPayFund extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "add_pay_type_id")
     private AddPayType addPayTypes;

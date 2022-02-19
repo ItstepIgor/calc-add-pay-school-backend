@@ -15,13 +15,10 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AddPayType {
+public class AddPayType extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
     @Column(nullable = false)
-    String addPayTypeName;
+    private String addPayTypeName;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "addPayTypes")
     private Set<AddPayFund> addPayFunds;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "addPayTypes")

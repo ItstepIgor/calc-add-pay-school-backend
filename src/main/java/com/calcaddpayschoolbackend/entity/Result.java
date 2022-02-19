@@ -15,10 +15,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Result {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class Result extends AbstractEntity {
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "add_pay_id")
     private AddPay addPays;

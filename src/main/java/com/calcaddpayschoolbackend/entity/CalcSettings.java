@@ -17,10 +17,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CalcSettings {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class CalcSettings extends AbstractEntity {
+
     @Column(nullable = false)
     private LocalDate calcDate;
     @Column(nullable = false)

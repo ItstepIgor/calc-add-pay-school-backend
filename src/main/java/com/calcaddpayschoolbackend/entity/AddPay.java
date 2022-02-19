@@ -15,11 +15,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AddPay {
+public class AddPay extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "add_pay_type_id")
     private AddPayType addPayTypes;

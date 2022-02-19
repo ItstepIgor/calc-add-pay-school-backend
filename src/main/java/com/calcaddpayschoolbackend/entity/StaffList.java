@@ -16,10 +16,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StaffList {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class StaffList extends AbstractEntity {
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "people_id")
     private People people;

@@ -14,10 +14,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class People {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class People extends AbstractEntity {
+
     @Column(nullable = false)
     private String surName;
     @Column(nullable = false)

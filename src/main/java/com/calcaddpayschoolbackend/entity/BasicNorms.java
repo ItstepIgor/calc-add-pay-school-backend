@@ -17,15 +17,14 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BasicNorms {
+public class BasicNorms extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
     @Column(nullable = false)
-    BigDecimal basicNormValue;
+    private String basicNormName;
     @Column(nullable = false)
-    LocalDate basicNormDate;
+    private BigDecimal basicNormValue;
+    @Column(nullable = false)
+    private LocalDate basicNormDate;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "basicNorms")
     private Set<Result> results;
 }
