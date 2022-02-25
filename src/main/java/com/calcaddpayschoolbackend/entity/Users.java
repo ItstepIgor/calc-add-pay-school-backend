@@ -1,28 +1,24 @@
 package com.calcaddpayschoolbackend.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @Table
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Users {
+public class Users extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "people_id")
     private People people;
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

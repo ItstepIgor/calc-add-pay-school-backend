@@ -1,6 +1,5 @@
 package com.calcaddpayschoolbackend.service;
 
-import com.calcaddpayschoolbackend.entity.AddPay;
 import com.calcaddpayschoolbackend.entity.Users;
 import com.calcaddpayschoolbackend.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
