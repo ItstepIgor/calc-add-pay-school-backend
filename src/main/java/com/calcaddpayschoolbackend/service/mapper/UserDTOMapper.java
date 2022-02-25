@@ -1,22 +1,22 @@
 package com.calcaddpayschoolbackend.service.mapper;
 
-import com.calcaddpayschoolbackend.dto.UserDTO;
-import org.apache.catalina.User;
+import com.calcaddpayschoolbackend.dto.UsersDTO;
+import com.calcaddpayschoolbackend.entity.Users;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserDTOMapper implements EntityToDTOMapper<User, UserDTO> {
+public class UserDTOMapper implements EntityToDTOMapper<Users, UsersDTO> {
 
     ModelMapper modelMapper = new ModelMapper();
 
     @Override
-    public UserDTO toDTO(User entity, Object... args) {
-        return modelMapper.map(entity, UserDTO.class);
+    public UsersDTO toDTO(Users entity, Object... args) {
+        return modelMapper.map(entity, UsersDTO.class);
     }
 
     @Override
-    public User toEntity(UserDTO dto, Object... args) {
-        return modelMapper.map(dto, User.class);
+    public Users toEntity(UsersDTO dto, Object... args) {
+        return modelMapper.map(dto, Users.class);
     }
 }

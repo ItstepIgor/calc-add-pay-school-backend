@@ -4,7 +4,7 @@ import com.calcaddpayschoolbackend.entity.Role;
 import lombok.Data;
 
 @Data
-public class UserDTO {
+public class UsersDTO {
     private long id;
     private long peopleId;
     private  String password;
