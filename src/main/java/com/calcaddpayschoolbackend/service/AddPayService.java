@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,5 +31,9 @@ public class AddPayService {
 
     public void deleteAddPayById(Long id) {
         addPayRepository.deleteById(id);
+    }
+
+    public Optional<AddPay> findAll(long id) {
+        return addPayRepository.findById(id);
     }
 }

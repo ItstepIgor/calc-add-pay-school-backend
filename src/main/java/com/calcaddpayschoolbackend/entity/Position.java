@@ -17,7 +17,7 @@ public class Position extends AbstractEntity {
     @Column(nullable = false)
     private String positionName;
     @Column(nullable = false)
-    private String sorting;
+    private int sorting;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "position")
     private Set<StaffList> staffLists;
 }

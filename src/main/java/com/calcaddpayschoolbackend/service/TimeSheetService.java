@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,5 +32,9 @@ public class TimeSheetService {
 
     public void deleteTimeSheetById(Long id) {
         timeSheetRepository.deleteById(id);
+    }
+
+    public Optional<TimeSheet> findAll(long id) {
+        return timeSheetRepository.findById(id);
     }
 }

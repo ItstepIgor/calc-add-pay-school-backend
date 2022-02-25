@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,5 +31,9 @@ public class CalcSettingsService {
 
     public void deleteCalcSettingsId(Long id) {
         calcSettingsRepository.deleteById(id);
+    }
+
+    public Optional<CalcSettings> findAll(long id) {
+        return calcSettingsRepository.findById(id);
     }
 }

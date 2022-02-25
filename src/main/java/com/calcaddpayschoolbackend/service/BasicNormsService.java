@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,5 +31,9 @@ public class BasicNormsService {
 
     public void deleteBasicNormsById(Long id) {
         basicNormsRepository.deleteById(id);
+    }
+
+    public Optional<BasicNorms> findAll(long id) {
+        return basicNormsRepository.findById(id);
     }
 }
