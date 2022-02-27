@@ -30,6 +30,9 @@ public class StaffListDTOMapper implements EntityToDTOMapper<StaffList, StaffLis
         } else if (entity.getPosition() != null) {
             staffListDTO.setPositionId(entity.getPosition().getId());
         }
+//        staffListDTO.setPeopleName(entity.getPeople().getFirstName() /*+ ' ' + entity.getPeople().getSurName() + ' '
+//                + entity.getPeople().getPatronymic()*/);
+//        staffListDTO.setPositionName(entity.getPosition().getPositionName());
         return staffListDTO;
     }
 

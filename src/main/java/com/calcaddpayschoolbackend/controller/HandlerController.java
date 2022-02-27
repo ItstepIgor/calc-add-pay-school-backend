@@ -12,7 +12,7 @@ public class HandlerController {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<TemplateResponseException> handleInvalidFormatException(Exception e) {
-        return getResponseEntity("I'm teapot", e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return getResponseEntity(e.getClass().getName(), e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(NoSuchEntityException.class)
