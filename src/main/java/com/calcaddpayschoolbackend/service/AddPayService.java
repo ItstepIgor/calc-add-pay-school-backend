@@ -1,12 +1,12 @@
 package com.calcaddpayschoolbackend.service;
 
 import com.calcaddpayschoolbackend.entity.AddPay;
+import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.repository.AddPayRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +33,8 @@ public class AddPayService {
         addPayRepository.deleteById(id);
     }
 
-    public Optional<AddPay> findAll(long id) {
-        return addPayRepository.findById(id);
+    public AddPay findAddPayById(long id) {
+        return addPayRepository.findById(id).orElseThrow(() ->
+                new NoSuchEntityException(String.format("Дополнительное начасление с id %d не найдено", id)));
     }
 }

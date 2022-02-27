@@ -30,7 +30,7 @@ public class AddPayDTOMapper implements EntityToDTOMapper<AddPay, AddPayDTO> {
     @Override
     public AddPay toEntity(AddPayDTO dto, Object... args) {
         AddPay addPay = modelMapper.map(dto, AddPay.class);
-        addPay.setAddPayTypes(addPayTypeService.findAll(dto.getAddPayTypeId()).get());
+        addPay.setAddPayTypes(addPayTypeService.findAddPayTypeById(dto.getAddPayTypeId()));
         return addPay;
     }
 }

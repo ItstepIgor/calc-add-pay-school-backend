@@ -23,6 +23,11 @@ public class PeopleController {
         return peopleDTOMapper.toDTOs(peopleService.getAllPeople());
     }
 
+    @GetMapping("/getById")
+    public PeopleDTO findById(@RequestParam Long id) {
+        return peopleDTOMapper.toDTO(peopleService.findPeopleById(id));
+    }
+//    localhost:8080/api/people/get?id=1
     @PostMapping("/create")
     public void createPeople(@RequestBody PeopleDTO peopleDTO) {
         peopleService.createPeople(peopleDTOMapper.toEntity(peopleDTO));

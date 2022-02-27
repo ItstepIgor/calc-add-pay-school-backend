@@ -2,12 +2,12 @@ package com.calcaddpayschoolbackend.service;
 
 
 import com.calcaddpayschoolbackend.entity.People;
+import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.repository.PeopleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,8 +34,9 @@ public class PeopleService {
         peopleRepository.deleteById(id);
     }
 
-    public Optional<People> findById(long id) {
-        return peopleRepository.findById(id);
+    public People findPeopleById(long id) {
+        return peopleRepository.findById(id).orElseThrow(() ->
+                new NoSuchEntityException(String.format("Сотрудник с id %d не найден", id)));
     }
 
 }

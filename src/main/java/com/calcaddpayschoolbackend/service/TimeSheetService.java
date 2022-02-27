@@ -1,13 +1,12 @@
 package com.calcaddpayschoolbackend.service;
 
-import com.calcaddpayschoolbackend.entity.AddPay;
 import com.calcaddpayschoolbackend.entity.TimeSheet;
+import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.repository.TimeSheetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +33,8 @@ public class TimeSheetService {
         timeSheetRepository.deleteById(id);
     }
 
-    public Optional<TimeSheet> findAll(long id) {
-        return timeSheetRepository.findById(id);
+    public TimeSheet findTimeSheetById(long id) {
+        return timeSheetRepository.findById(id).orElseThrow(() ->
+                new NoSuchEntityException(String.format("Табель с id %d не найден", id)));
     }
 }

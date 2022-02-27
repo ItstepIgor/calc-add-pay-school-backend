@@ -1,12 +1,12 @@
 package com.calcaddpayschoolbackend.service;
 
 import com.calcaddpayschoolbackend.entity.CalcSettings;
+import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.repository.CalcSettingsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +33,8 @@ public class CalcSettingsService {
         calcSettingsRepository.deleteById(id);
     }
 
-    public Optional<CalcSettings> findAll(long id) {
-        return calcSettingsRepository.findById(id);
+    public CalcSettings findCalcSettingById(long id) {
+        return calcSettingsRepository.findById(id).orElseThrow(() ->
+                new NoSuchEntityException(String.format("Настройка расчета с id %d не найден", id)));
     }
 }

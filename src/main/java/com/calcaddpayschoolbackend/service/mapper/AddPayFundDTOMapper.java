@@ -36,8 +36,8 @@ public class AddPayFundDTOMapper implements EntityToDTOMapper<AddPayFund, AddPay
     @Override
     public AddPayFund toEntity(AddPayFundDTO dto, Object... args) {
         AddPayFund addPayFund = modelMapper.map(dto, AddPayFund.class);
-        addPayFund.setAddPayTypes(addPayTypeService.findAll(dto.getAddPayTypeId()).get());
-        addPayFund.setCalcSettings(calcSettingsService.findAll(dto.getCalcSettingId()).get());
+        addPayFund.setAddPayTypes(addPayTypeService.findAddPayTypeById(dto.getAddPayTypeId()));
+        addPayFund.setCalcSettings(calcSettingsService.findCalcSettingById(dto.getCalcSettingId()));
         return addPayFund;
     }
 }

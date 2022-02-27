@@ -1,12 +1,12 @@
 package com.calcaddpayschoolbackend.service;
 
 import com.calcaddpayschoolbackend.entity.Position;
+import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.repository.PositionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,8 +33,9 @@ public class PositionService {
         positionRepository.deleteById(id);
     }
 
-    public Optional<Position> findById(long id) {
-        return positionRepository.findById(id);
+    public Position findPositionById(long id) {
+        return positionRepository.findById(id).orElseThrow(() ->
+                new NoSuchEntityException(String.format("Должность с id %d не найден", id)));
     }
 
 }

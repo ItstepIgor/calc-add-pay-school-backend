@@ -1,12 +1,12 @@
 package com.calcaddpayschoolbackend.service;
 
 import com.calcaddpayschoolbackend.entity.AddPayType;
+import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.repository.AddPayTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +33,8 @@ public class AddPayTypeService {
         addPayTypeRepository.deleteById(id);
     }
 
-    public Optional<AddPayType> findAll(long id) {
-        return addPayTypeRepository.findById(id);
+    public AddPayType findAddPayTypeById(long id) {
+        return addPayTypeRepository.findById(id).orElseThrow(() ->
+                new NoSuchEntityException(String.format("Тип начисления с id %d не найден", id)));
     }
 }

@@ -36,8 +36,8 @@ public class StaffListDTOMapper implements EntityToDTOMapper<StaffList, StaffLis
     @Override
     public StaffList toEntity(StaffListDTO dto, Object... args) {
         StaffList staffList = modelMapper.map(dto, StaffList.class);
-        staffList.setPeople(peopleService.findById(dto.getPeopleId()).get());
-        staffList.setPosition(positionService.findById(dto.getPositionId()).get());
+        staffList.setPeople(peopleService.findPeopleById(dto.getPeopleId()));
+        staffList.setPosition(positionService.findPositionById(dto.getPositionId()));
         return staffList;
     }
 }

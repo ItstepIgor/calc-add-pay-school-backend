@@ -36,8 +36,8 @@ public class TimeSheetDTOMapper implements EntityToDTOMapper<TimeSheet, TimeShee
     @Override
     public TimeSheet toEntity(TimeSheetDTO dto, Object... args) {
         TimeSheet timeSheet = modelMapper.map(dto, TimeSheet.class);
-        timeSheet.setPeople(peopleService.findById(dto.getPeopleId()).get());
-        timeSheet.setCalcSettings(calcSettingsService.findAll(dto.getCalcSettingsId()).get());
+        timeSheet.setPeople(peopleService.findPeopleById(dto.getPeopleId()));
+        timeSheet.setCalcSettings(calcSettingsService.findCalcSettingById(dto.getCalcSettingsId()));
         return timeSheet;
     }
 }

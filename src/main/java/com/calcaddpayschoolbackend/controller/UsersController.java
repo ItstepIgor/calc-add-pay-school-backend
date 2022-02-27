@@ -23,7 +23,7 @@ public class UsersController {
     }
 
     @PostMapping("/create")
-    public void createPeople(@RequestBody UsersDTO usersDTO) {
+    public void createUsers(@RequestBody UsersDTO usersDTO) {
         usersService.createUsers(userDTOMapper.toEntity(usersDTO));
     }
 

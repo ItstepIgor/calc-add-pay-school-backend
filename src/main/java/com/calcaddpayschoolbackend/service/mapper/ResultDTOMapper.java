@@ -48,10 +48,10 @@ public class ResultDTOMapper implements EntityToDTOMapper<Result, ResultDTO> {
     @Override
     public Result toEntity(ResultDTO dto, Object... args) {
         Result result = modelMapper.map(dto, Result.class);
-        result.setAddPays(addPayService.findAll(dto.getAddPayId()).get());
-        result.setStaffList(staffListService.findAll(dto.getStaffListId()).get());
-        result.setTimeSheets(timeSheetService.findAll(dto.getTimeSheetId()).get());
-        result.setBasicNorms(basicNormsService.findAll(dto.getBasicNormsId()).get());
+        result.setAddPays(addPayService.findAddPayById(dto.getAddPayId()));
+        result.setStaffList(staffListService.findStaffListById(dto.getStaffListId()));
+        result.setTimeSheets(timeSheetService.findTimeSheetById(dto.getTimeSheetId()));
+        result.setBasicNorms(basicNormsService.findBasicNormsById(dto.getBasicNormsId()));
         return result;
     }
 }

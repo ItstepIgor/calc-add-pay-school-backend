@@ -1,13 +1,11 @@
 package com.calcaddpayschoolbackend.controller;
 
-import com.calcaddpayschoolbackend.exception.MyException;
+import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.exception.TemplateResponseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import javax.persistence.EntityNotFoundException;
 
 @ControllerAdvice
 public class HandlerController {
@@ -17,13 +15,8 @@ public class HandlerController {
         return getResponseEntity("I'm teapot", e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<TemplateResponseException> handleEntityNotFoundException(EntityNotFoundException e) {
-        return getResponseEntity(e.getClass().getName(), e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(MyException.class)
-    public ResponseEntity<TemplateResponseException> handleMyException(EntityNotFoundException e) {
+    @ExceptionHandler(NoSuchEntityException.class)
+    public ResponseEntity<TemplateResponseException> handleMyException(NoSuchEntityException e) {
         return getResponseEntity(e.getClass().getName(), e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 

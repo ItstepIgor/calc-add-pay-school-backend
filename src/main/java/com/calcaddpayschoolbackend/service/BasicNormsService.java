@@ -1,12 +1,12 @@
 package com.calcaddpayschoolbackend.service;
 
 import com.calcaddpayschoolbackend.entity.BasicNorms;
+import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.repository.BasicNormsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +33,8 @@ public class BasicNormsService {
         basicNormsRepository.deleteById(id);
     }
 
-    public Optional<BasicNorms> findAll(long id) {
-        return basicNormsRepository.findById(id);
+    public BasicNorms findBasicNormsById(long id) {
+        return basicNormsRepository.findById(id).orElseThrow(() ->
+                new NoSuchEntityException(String.format("Базовая норма с id %d не найден", id)));
     }
 }
