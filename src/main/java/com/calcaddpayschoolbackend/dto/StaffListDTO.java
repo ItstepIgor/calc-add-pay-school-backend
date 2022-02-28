@@ -8,8 +8,9 @@ import java.math.BigDecimal;
 public class StaffListDTO {
     private long id;
     private long peopleId;
-//    private String peopleName;
+    private String peopleSurAndFirstName;
     private long positionId;
-//    private String positionName;
+    private String positionName;
     private BigDecimal salary;
+    private boolean disabled;
 }

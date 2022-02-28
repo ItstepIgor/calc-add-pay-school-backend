@@ -12,7 +12,12 @@ public class UserDTOMapper implements EntityToDTOMapper<Users, UsersDTO> {
 
     @Override
     public UsersDTO toDTO(Users entity, Object... args) {
-        return modelMapper.map(entity, UsersDTO.class);
+        UsersDTO usersDTO = modelMapper.map(entity, UsersDTO.class);
+        if (entity.getPeople() != null) {
+            usersDTO.setPeopleSurAndFirstName(entity.getPeople().getSurName() + " "
+                    + entity.getPeople().getFirstName() + " " + entity.getPeople().getPatronymic());
+        }
+        return usersDTO;
     }
 
     @Override

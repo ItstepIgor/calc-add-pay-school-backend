@@ -27,6 +27,7 @@ public class AddPayFundDTOMapper implements EntityToDTOMapper<AddPayFund, AddPay
         AddPayFundDTO addPayFundDTO = modelMapper.map(entity, AddPayFundDTO.class);
         if (entity.getAddPayTypes() != null) {
             addPayFundDTO.setAddPayTypeId(entity.getAddPayTypes().getId());
+            addPayFundDTO.setAddPayTypeName(entity.getAddPayTypes().getAddPayTypeName());
         } else if (entity.getCalcSettings() != null) {
             addPayFundDTO.setCalcSettingId(entity.getCalcSettings().getId());
         }

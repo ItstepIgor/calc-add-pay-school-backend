@@ -27,4 +27,10 @@ public class StaffListController {
     public void createStaffList(@RequestBody StaffListDTO staffListDTO) {
         staffListService.createStaffList(staffListDTOMapper.toEntity(staffListDTO));
     }
+//    {
+//        "peopleId": 2,
+//            "positionId": 2,
+//            "salary": 300,
+//            "disabled": false
+//    }
 }

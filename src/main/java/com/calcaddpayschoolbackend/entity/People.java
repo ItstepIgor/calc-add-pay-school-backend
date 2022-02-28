@@ -28,7 +28,7 @@ public class People extends AbstractEntity {
     private String address;
     @Column(nullable = false)
     private boolean youngSpecial;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "people")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "people")
     private Set<StaffList> staffLists;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "people")
     private Set<TimeSheet> timeSheet;

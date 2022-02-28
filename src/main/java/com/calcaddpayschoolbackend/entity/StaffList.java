@@ -24,6 +24,8 @@ public class StaffList extends AbstractEntity {
     private Position position;
     @Column(nullable = false)
     private BigDecimal salary;
+    @Column(nullable = true)
+    private boolean disabled;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "staffList")
     private Set<Result> results;
 }

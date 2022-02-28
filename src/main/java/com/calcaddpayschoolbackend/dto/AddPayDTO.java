@@ -7,6 +7,7 @@ import lombok.Data;
 public class AddPayDTO {
     private long id;
     private long addPayTypeId;
+    private String addPayTypeName;
     private String addPayCode;
     private String addPayName;
     private int maxPercent;
