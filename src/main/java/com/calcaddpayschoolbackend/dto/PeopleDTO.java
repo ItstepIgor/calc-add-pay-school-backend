@@ -3,7 +3,8 @@ package com.calcaddpayschoolbackend.dto;
 import lombok.Data;
 
 @Data
-public class PeopleDTO {
+public class
+PeopleDTO {
     private long id;
     private String surName;
     private String firstName;

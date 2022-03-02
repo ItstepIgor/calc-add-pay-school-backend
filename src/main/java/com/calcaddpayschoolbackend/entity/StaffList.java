@@ -24,8 +24,9 @@ public class StaffList extends AbstractEntity {
     private Position position;
     @Column(nullable = false)
     private BigDecimal salary;
-    @Column(nullable = true)
-    private boolean disabled;
+    //добавление значения по умолчанию в колонку
+    @Column(columnDefinition = "boolean default false")
+    private Boolean disabled;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "staffList")
     private Set<Result> results;
 }

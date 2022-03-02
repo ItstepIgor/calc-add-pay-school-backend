@@ -25,6 +25,10 @@ public class CalcSettingsService {
         return calcSettingsRepository.findAll();
     }
 
+    public CalcSettings getMaxDateCalcSettings() {
+        return calcSettingsRepository.findFirstByOrderByCalcDateDesc();
+    }
+
     public void deleteCalcSettings(CalcSettings calcSettings) {
         calcSettingsRepository.delete(calcSettings);
     }

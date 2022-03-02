@@ -27,10 +27,20 @@ public class StaffListController {
     public void createStaffList(@RequestBody StaffListDTO staffListDTO) {
         staffListService.createStaffList(staffListDTOMapper.toEntity(staffListDTO));
     }
-//    {
+
+    //        {
 //        "peopleId": 2,
 //            "positionId": 2,
 //            "salary": 300,
 //            "disabled": false
 //    }
+    @PostMapping("/update")
+    public void updateStaffList(@RequestBody StaffListDTO staffListDTO) {
+        staffListService.createStaffList(staffListDTOMapper.toEntity(staffListDTO));
+    }
+
+    @GetMapping("/delete")
+    public void deleteStaffListById(@RequestParam long id) {
+        staffListService.deleteStaffListById(id);
+    }
 }
