@@ -37,10 +37,13 @@ public class ResultDTOMapper implements EntityToDTOMapper<Result, ResultDTO> {
             resultDTO.setAddPayId(entity.getAddPays().getId());
         } else if (entity.getStaffList() != null) {
             resultDTO.setStaffListId(entity.getStaffList().getId());
+            resultDTO.setPeopleSurAndFirstName(entity.getStaffList().getPeople().getSurName() + " "
+                    + entity.getStaffList().getPeople().getFirstName());
         } else if (entity.getTimeSheets() != null) {
             resultDTO.setTimeSheetId(entity.getTimeSheets().getId());
         } else if (entity.getBasicNorms() != null) {
             resultDTO.setBasicNormsId(entity.getBasicNorms().getId());
+            resultDTO.setBasicNormName(entity.getBasicNorms().getBasicNormName());
         }
         return resultDTO;
     }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/calcSetting")
+@RequestMapping("api/calcsetting")
 @RequiredArgsConstructor
 public class CalcSettingsController {
 
@@ -23,7 +23,7 @@ public class CalcSettingsController {
         return calcSettingsDTOMapper.toDTOs(calcSettingsService.getAllCalcSettings());
     }
 
-    @GetMapping("/getMaxDate")
+    @GetMapping("/getmaxdate")
     public CalcSettingsDTO getMaxDateCalcSetting() {
         return calcSettingsDTOMapper.toDTO(calcSettingsService.getMaxDateCalcSettings());
     }

@@ -40,7 +40,7 @@ public class UsersController {
     }
 
     @GetMapping("/delete")
-    public void deleteUsers(@RequestParam long id) {
+    public void deleteUsersById(@RequestParam long id) {
         usersService.deleteUsersById(id);
     }
 //    localhost:8080/api/users/delete?id=3

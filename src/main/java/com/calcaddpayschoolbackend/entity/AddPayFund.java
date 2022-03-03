@@ -4,6 +4,7 @@ package com.calcaddpayschoolbackend.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -21,7 +22,7 @@ public class AddPayFund extends AbstractEntity {
     @JoinColumn(name = "calc_settings_id")
     private CalcSettings calcSettings;
     @Column(nullable = false)
-    private String addPayFunds;
+    private BigDecimal addPayFunds;
     @Column(nullable = false)
     private String numberOrder;
 }

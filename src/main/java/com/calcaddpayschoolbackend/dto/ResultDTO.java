@@ -11,7 +11,9 @@ public class ResultDTO {
     private long addPayId;
     private long staffListId;
     private long timeSheetId;
+    private String peopleSurAndFirstName;
     private long basicNormsId;
+    private String basicNormName;
     private double percent;
     private BigDecimal sum;
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/timeSheet")
+@RequestMapping("/api/timesheet")
 @RequiredArgsConstructor
 public class TimeSheetController {
 
@@ -26,5 +26,15 @@ public class TimeSheetController {
     @PostMapping("/create")
     public void createTimeSheet(@RequestBody TimeSheetDTO timeSheetDTO) {
         timeSheetService.createTimeSheet(timeSheetDTOMapper.toEntity(timeSheetDTO));
+    }
+
+    @PostMapping("/update")
+    public void updateTimeSheet(@RequestBody TimeSheetDTO timeSheetDTO) {
+        timeSheetService.updateTimeSheet(timeSheetDTOMapper.toEntity(timeSheetDTO));
+    }
+
+    @GetMapping("/delete")
+    public void deleteTimeSheetById(@RequestParam long id) {
+        timeSheetService.deleteTimeSheetById(id);
     }
 }

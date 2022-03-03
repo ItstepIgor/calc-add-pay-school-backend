@@ -2,6 +2,8 @@ package com.calcaddpayschoolbackend.dto;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 
 @Data
 public class AddPayFundDTO {
@@ -9,6 +11,6 @@ public class AddPayFundDTO {
     private long addPayTypeId;
     private String addPayTypeName;
     private long calcSettingId;
-    private String addPayFunds;
+    private BigDecimal addPayFunds;
     private String numberOrder;
 }

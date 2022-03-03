@@ -23,7 +23,7 @@ public class PeopleController {
         return peopleDTOMapper.toDTOs(peopleService.getAllPeople());
     }
 
-    @GetMapping("/getById")
+    @GetMapping("/getbyid")
     public PeopleDTO findById(@RequestParam Long id) {
         return peopleDTOMapper.toDTO(peopleService.findPeopleById(id));
     }
