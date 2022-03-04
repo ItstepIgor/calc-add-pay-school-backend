@@ -24,5 +24,7 @@ public class TimeSheet extends AbstractEntity {
     @JoinColumn(name = "calc_settings_id")
     private CalcSettings calcSettings;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "timeSheets")
-    private Set<Result> results;
+    private Set<AddPayResult> addPayResults;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "timeSheets")
+    private Set<PercentSalaryResult> percentSalaryResult;
 }

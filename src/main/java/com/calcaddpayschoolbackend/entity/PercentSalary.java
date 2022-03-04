@@ -4,7 +4,6 @@ package com.calcaddpayschoolbackend.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -15,14 +14,14 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BasicNorms extends AbstractEntity {
+public class PercentSalary extends AbstractEntity {
 
     @Column(nullable = false)
-    private String basicNormName;
+    private LocalDate percentStartDate;
     @Column(nullable = false)
-    private BigDecimal basicNormValue;
+    private int percentSalaryAll;
     @Column(nullable = false)
-    private LocalDate basicNormDate;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "basicNorms")
-    private Set<AddPayResult> addPayResults;
+    private int percentSalaryForYoungSpecial;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "percentSalary")
+    private Set<PercentSalaryResult> percentSalaryResult;
 }
