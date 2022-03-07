@@ -12,5 +12,4 @@ PeopleDTO {
     private String personnelNumber;
     private String phoneNumber;
     private String address;
-    private boolean youngSpecial;
 }

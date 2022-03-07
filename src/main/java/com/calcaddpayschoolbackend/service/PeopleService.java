@@ -23,7 +23,7 @@ public class PeopleService {
     }
 
     public List<People> getAllPeople() {
-        return peopleRepository.findAll();
+        return peopleRepository.findAllByOrderByIdAsc();
     }
 
     public void deletePeople(People people) {

@@ -12,5 +12,6 @@ public class StaffListDTO {
     private long positionId;
     private String positionName;
     private BigDecimal salary;
+    private boolean youngSpecial;
     private boolean disabled;
 }
