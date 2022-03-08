@@ -16,11 +16,16 @@ public class PositionController {
 
     private final PositionDTOMapper positionDTOMapper;
 
-    private final PositionService  positionService;
+    private final PositionService positionService;
 
     @GetMapping("/get")
     public List<PositionDTO> findAll() {
         return positionDTOMapper.toDTOs(positionService.getAllPositions());
+    }
+
+    @GetMapping("/getbyid")
+    public PositionDTO findPositionById(@RequestParam long id) {
+        return positionDTOMapper.toDTO(positionService.findPositionById(id));
     }
 
     @PostMapping("/create")

@@ -23,6 +23,11 @@ public class StaffListController {
         return staffListDTOMapper.toDTOs(staffListService.getAllStaffLists());
     }
 
+    @GetMapping("/getbyid")
+    public StaffListDTO findStaffListById(@RequestParam long id) {
+        return staffListDTOMapper.toDTO(staffListService.findStaffListById(id));
+    }
+
     @PostMapping("/create")
     public void createStaffList(@RequestBody StaffListDTO staffListDTO) {
         staffListService.createStaffList(staffListDTOMapper.toEntity(staffListDTO));

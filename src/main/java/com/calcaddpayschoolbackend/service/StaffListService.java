@@ -22,7 +22,7 @@ public class StaffListService {
     }
 
     public List<StaffList> getAllStaffLists() {
-        return staffListRepository.findAll();
+        return staffListRepository.findAllByOrderByIdAsc();
     }
 
     public void deleteStaffList(StaffList staffList) {

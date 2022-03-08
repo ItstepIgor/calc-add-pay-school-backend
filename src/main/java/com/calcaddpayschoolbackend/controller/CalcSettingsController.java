@@ -23,6 +23,11 @@ public class CalcSettingsController {
         return calcSettingsDTOMapper.toDTOs(calcSettingsService.getAllCalcSettings());
     }
 
+    @GetMapping("/getbyid")
+    public CalcSettingsDTO findCalcSettingsById(@RequestParam long id) {
+        return calcSettingsDTOMapper.toDTO(calcSettingsService.findCalcSettingById(id));
+    }
+
     @GetMapping("/getmaxdate")
     public CalcSettingsDTO getMaxDateCalcSetting() {
         return calcSettingsDTOMapper.toDTO(calcSettingsService.getMaxDateCalcSettings());
