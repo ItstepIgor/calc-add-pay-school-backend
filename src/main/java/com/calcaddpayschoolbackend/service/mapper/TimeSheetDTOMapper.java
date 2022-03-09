@@ -29,7 +29,8 @@ public class TimeSheetDTOMapper implements EntityToDTOMapper<TimeSheet, TimeShee
             timeSheetDTO.setPeopleId(entity.getPeople().getId());
             timeSheetDTO.setPeopleSurAndFirstName(entity.getPeople().getSurName() + " "
                     + entity.getPeople().getFirstName() + " " + entity.getPeople().getPatronymic());
-        } else if (entity.getCalcSettings() != null) {
+        }
+        if (entity.getCalcSettings() != null) {
             timeSheetDTO.setCalcSettingsId(entity.getCalcSettings().getId());
         }
         return timeSheetDTO;

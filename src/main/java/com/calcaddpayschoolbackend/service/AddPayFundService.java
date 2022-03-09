@@ -1,6 +1,8 @@
 package com.calcaddpayschoolbackend.service;
 
 import com.calcaddpayschoolbackend.entity.AddPayFund;
+import com.calcaddpayschoolbackend.entity.AddPayType;
+import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.repository.AddPayFundRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,5 +32,10 @@ public class AddPayFundService {
 
     public void deleteAddPayFundById(Long id) {
         addPayFundRepository.deleteById(id);
+    }
+
+    public AddPayFund findAddPayFundById(long id) {
+        return addPayFundRepository.findById(id).orElseThrow(() ->
+                new NoSuchEntityException(String.format("Фонд с id %d не найден", id)));
     }
 }

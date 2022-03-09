@@ -31,4 +31,9 @@ public class AddPayTypeController {
     public List<AddPayTypeDTO> getAllAddPayType() {
         return addPayTypeDTOMapper.toDTOs(addPayTypeService.getAllAddPayTypes());
     }
+
+    @GetMapping("/getbyid")
+    public AddPayTypeDTO findAddPayTypeById(long id) {
+        return addPayTypeDTOMapper.toDTO(addPayTypeService.findAddPayTypeById(id));
+    }
 }

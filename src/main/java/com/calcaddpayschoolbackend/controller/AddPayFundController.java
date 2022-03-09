@@ -32,6 +32,11 @@ public class AddPayFundController {
         return addPayFundDTOMapper.toDTOs(addPayFundService.getAllAddPayFunds());
     }
 
+    @GetMapping("/getbyid")
+    public AddPayFundDTO findAddPayFundById(@RequestParam long id) {
+        return addPayFundDTOMapper.toDTO(addPayFundService.findAddPayFundById(id));
+    }
+
     @GetMapping("/delete")
     public void deleteAddPayFundById(@RequestParam long id) {
         addPayFundService.deleteAddPayFundById(id);

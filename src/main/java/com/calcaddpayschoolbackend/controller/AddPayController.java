@@ -32,6 +32,11 @@ public class AddPayController {
         return addPayDTOMapper.toDTOs(addPayService.getAllAddPays());
     }
 
+    @GetMapping("/getbyid")
+    public AddPayDTO findAddPayFundById(@RequestParam long id) {
+        return addPayDTOMapper.toDTO(addPayService.findAddPayById(id));
+    }
+
     @GetMapping("/delete")
     public void deleteBasicNormsById(@RequestParam long id) {
         addPayService.deleteAddPayById(id);
