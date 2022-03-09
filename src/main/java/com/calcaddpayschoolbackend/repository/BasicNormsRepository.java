@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BasicNormsRepository extends JpaRepository<BasicNorms, Long> {
+    BasicNorms findFirstByOrderByBasicNormDateDesc();
 }

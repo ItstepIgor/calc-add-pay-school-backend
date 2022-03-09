@@ -37,4 +37,8 @@ public class BasicNormsService {
         return basicNormsRepository.findById(id).orElseThrow(() ->
                 new NoSuchEntityException(String.format("Базовая норма с id %d не найден", id)));
     }
+
+    public BasicNorms getMaxDateBasicNorms() {
+        return basicNormsRepository.findFirstByOrderByBasicNormDateDesc();
+    }
 }

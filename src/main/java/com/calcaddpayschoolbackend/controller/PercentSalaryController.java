@@ -32,6 +32,16 @@ public class PercentSalaryController {
         return percentSalaryDTOMapper.toDTOs(percentSalaryService.getAllPercentSalary());
     }
 
+    @GetMapping("/getbyid")
+    public PercentSalaryDTO findPercentSalaryById(@RequestParam long id) {
+        return percentSalaryDTOMapper.toDTO(percentSalaryService.findPercentSalaryById(id));
+    }
+
+    @GetMapping("/getmaxdate")
+    public PercentSalaryDTO getMaxDateBasicNorms() {
+        return percentSalaryDTOMapper.toDTO(percentSalaryService.getMaxDatePercentSalary());
+    }
+
     @GetMapping("/delete")
     public void deletePercentSalaryById(@RequestParam long id) {
         percentSalaryService.deletePercentSalaryById(id);

@@ -25,6 +25,10 @@ public class PercentSalaryService {
         return percentSalaryRepository.findAll();
     }
 
+    public PercentSalary getMaxDatePercentSalary() {
+        return percentSalaryRepository.findFirstByOrderByPercentStartDateDesc();
+    }
+
     public void deletePercentSalary(PercentSalary percentSalary) {
         percentSalaryRepository.delete(percentSalary);
     }

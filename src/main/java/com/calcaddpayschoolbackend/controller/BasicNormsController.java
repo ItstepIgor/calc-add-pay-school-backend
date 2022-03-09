@@ -32,6 +32,16 @@ public class BasicNormsController {
         return basicNormsDTOMapper.toDTOs(basicNormsService.getAllBasicNorms());
     }
 
+    @GetMapping("/getbyid")
+    public BasicNormsDTO findBasicNormsById(@RequestParam long id) {
+        return basicNormsDTOMapper.toDTO(basicNormsService.findBasicNormsById(id));
+    }
+
+    @GetMapping("/getmaxdate")
+    public BasicNormsDTO getMaxDateBasicNorms() {
+        return basicNormsDTOMapper.toDTO(basicNormsService.getMaxDateBasicNorms());
+    }
+
     @GetMapping("/delete")
     public void deleteBasicNormsById(@RequestParam long id) {
         basicNormsService.deleteBasicNormsById(id);

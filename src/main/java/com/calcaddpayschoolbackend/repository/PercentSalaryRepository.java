@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PercentSalaryRepository extends JpaRepository<PercentSalary, Long> {
+    PercentSalary findFirstByOrderByPercentStartDateDesc();
 }
