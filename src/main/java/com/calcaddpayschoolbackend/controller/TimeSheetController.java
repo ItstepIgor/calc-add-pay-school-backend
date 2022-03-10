@@ -1,5 +1,6 @@
 package com.calcaddpayschoolbackend.controller;
 
+import com.calcaddpayschoolbackend.dto.BasicNormsDTO;
 import com.calcaddpayschoolbackend.dto.TimeSheetDTO;
 import com.calcaddpayschoolbackend.service.TimeSheetService;
 import com.calcaddpayschoolbackend.service.mapper.TimeSheetDTOMapper;
@@ -23,6 +24,16 @@ public class TimeSheetController {
         return timeSheetDTOMapper.toDTOs(timeSheetService.getAllTimeSheets());
     }
 
+    @GetMapping("/getbyid")
+    public TimeSheetDTO findTimeSheetById(@RequestParam long id) {
+        return timeSheetDTOMapper.toDTO(timeSheetService.findTimeSheetById(id));
+    }
+
+    @GetMapping("/getmaxdate")
+    public List<TimeSheetDTO> getMaxDateTimeSheet() {
+        return timeSheetDTOMapper.toDTOs(timeSheetService.getMaxDateTimeSheets());
+    }
+
     @PostMapping("/create")
     public void createTimeSheet(@RequestBody TimeSheetDTO timeSheetDTO) {
         timeSheetService.createTimeSheet(timeSheetDTOMapper.toEntity(timeSheetDTO));
@@ -32,6 +43,7 @@ public class TimeSheetController {
     public void updateTimeSheet(@RequestBody TimeSheetDTO timeSheetDTO) {
         timeSheetService.updateTimeSheet(timeSheetDTOMapper.toEntity(timeSheetDTO));
     }
+
 
     @GetMapping("/delete")
     public void deleteTimeSheetById(@RequestParam long id) {

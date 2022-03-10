@@ -37,4 +37,10 @@ public class TimeSheetService {
         return timeSheetRepository.findById(id).orElseThrow(() ->
                 new NoSuchEntityException(String.format("Табель с id %d не найден", id)));
     }
+
+    public List<TimeSheet> getMaxDateTimeSheets() {
+        return null;
+    }
+
+
 }

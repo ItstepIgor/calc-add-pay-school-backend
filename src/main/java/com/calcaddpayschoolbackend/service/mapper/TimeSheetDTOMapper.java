@@ -32,6 +32,7 @@ public class TimeSheetDTOMapper implements EntityToDTOMapper<TimeSheet, TimeShee
         }
         if (entity.getCalcSettings() != null) {
             timeSheetDTO.setCalcSettingsId(entity.getCalcSettings().getId());
+            timeSheetDTO.setCalcDate(entity.getCalcSettings().getCalcDate());
         }
         return timeSheetDTO;
     }

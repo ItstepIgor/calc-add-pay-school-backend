@@ -2,6 +2,8 @@ package com.calcaddpayschoolbackend.dto;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class TimeSheetDTO {
     private long id;
@@ -9,4 +11,5 @@ public class TimeSheetDTO {
     private String peopleSurAndFirstName;
     private int actualDaysWorked;
     private long calcSettingsId;
+    private LocalDate calcDate;
 }
