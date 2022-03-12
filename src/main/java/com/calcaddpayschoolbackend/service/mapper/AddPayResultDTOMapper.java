@@ -35,11 +35,14 @@ public class AddPayResultDTOMapper implements EntityToDTOMapper<AddPayResult, Ad
         AddPayResultDTO addPayResultDTO = modelMapper.map(entity, AddPayResultDTO.class);
         if (entity.getAddPay() != null) {
             addPayResultDTO.setAddPayId(entity.getAddPay().getId());
+            addPayResultDTO.setAddPayCode(entity.getAddPay().getAddPayCode());
+
         }
         if (entity.getStaffList() != null) {
             addPayResultDTO.setStaffListId(entity.getStaffList().getId());
             addPayResultDTO.setPeopleSurAndFirstName(entity.getStaffList().getPeople().getSurName() + " "
                     + entity.getStaffList().getPeople().getFirstName());
+            addPayResultDTO.setPositionName(entity.getStaffList().getPosition().getPositionName());
         }
         if (entity.getTimeSheets() != null) {
             addPayResultDTO.setTimeSheetId(entity.getTimeSheets().getId());

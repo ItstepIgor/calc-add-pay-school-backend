@@ -9,9 +9,11 @@ public class AddPayResultDTO {
 
     private long id;
     private long addPayId;
+    private String addPayCode;
     private long staffListId;
-    private long timeSheetId;
     private String peopleSurAndFirstName;
+    private String positionName;
+    private long timeSheetId;
     private long basicNormsId;
     private String basicNormName;
     private double percent;

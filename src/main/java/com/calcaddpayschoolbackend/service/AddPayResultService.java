@@ -1,5 +1,6 @@
 package com.calcaddpayschoolbackend.service;
 
+import com.calcaddpayschoolbackend.dto.AddPayResultDTOCreate;
 import com.calcaddpayschoolbackend.entity.AddPayResult;
 import com.calcaddpayschoolbackend.repository.AddPayResultRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +13,11 @@ import java.util.List;
 public class AddPayResultService {
     private final AddPayResultRepository addPayResultRepository;
 
-    public void createResult(AddPayResult addPayResult) {
-        addPayResultRepository.save(addPayResult);
+    public void createResult(AddPayResultDTOCreate addPayResultDTOCreate) {
+
+
+
+//        addPayResultRepository.save(addPayResult);
     }
 
     public void updateResult(AddPayResult addPayResult) {
