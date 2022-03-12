@@ -25,7 +25,7 @@ public class AddPay extends AbstractEntity {
     private int maxPercent;
     @Column(nullable = false)
     private String description;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "addPays")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "addPay")
     private Set<AddPayResult> addPayResults;
 
 }

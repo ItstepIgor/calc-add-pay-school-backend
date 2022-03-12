@@ -33,8 +33,8 @@ public class AddPayResultDTOMapper implements EntityToDTOMapper<AddPayResult, Ad
     @Override
     public AddPayResultDTO toDTO(AddPayResult entity, Object... args) {
         AddPayResultDTO addPayResultDTO = modelMapper.map(entity, AddPayResultDTO.class);
-        if (entity.getAddPays() != null) {
-            addPayResultDTO.setAddPayId(entity.getAddPays().getId());
+        if (entity.getAddPay() != null) {
+            addPayResultDTO.setAddPayId(entity.getAddPay().getId());
         }
         if (entity.getStaffList() != null) {
             addPayResultDTO.setStaffListId(entity.getStaffList().getId());
@@ -54,7 +54,7 @@ public class AddPayResultDTOMapper implements EntityToDTOMapper<AddPayResult, Ad
     @Override
     public AddPayResult toEntity(AddPayResultDTO dto, Object... args) {
         AddPayResult addPayResult = modelMapper.map(dto, AddPayResult.class);
-        addPayResult.setAddPays(addPayService.findAddPayById(dto.getAddPayId()));
+        addPayResult.setAddPay(addPayService.findAddPayById(dto.getAddPayId()));
         addPayResult.setStaffList(staffListService.findStaffListById(dto.getStaffListId()));
         addPayResult.setTimeSheets(timeSheetService.findTimeSheetById(dto.getTimeSheetId()));
         addPayResult.setBasicNorms(basicNormsService.findBasicNormsById(dto.getBasicNormsId()));
