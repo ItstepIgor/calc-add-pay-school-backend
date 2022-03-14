@@ -9,6 +9,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
+@ToString(exclude = {"addPayResults", "percentSalaryResult"})
 @Table
 @NoArgsConstructor
 @AllArgsConstructor

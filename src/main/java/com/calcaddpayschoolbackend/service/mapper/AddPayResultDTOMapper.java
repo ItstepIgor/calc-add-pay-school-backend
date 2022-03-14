@@ -58,11 +58,11 @@ public class AddPayResultDTOMapper implements EntityToDTOMapper<AddPayResult, Ad
     @Override
     public AddPayResult toEntity(AddPayResultDTO dto, Object... args) {
         AddPayResult addPayResult = modelMapper.map(dto, AddPayResult.class);
-        addPayResult.setAddPay(addPayService.findAddPayById(dto.getAddPayId()));
         addPayResult.setStaffList(staffListService.findStaffListById(dto.getStaffListId()));
         addPayResult.setTimeSheets(timeSheetService.getMaxTimeSheetForStaffList(dto.getStaffListId()));
         addPayResult.setSum(addPayResultService.calcSumAddPay(dto));
         addPayResult.setBasicNorms(basicNormsService.getMaxDateBasicNorms());
+        addPayResult.setAddPay(addPayService.findAddPayById(dto.getAddPayId()));
         return addPayResult;
     }
 }

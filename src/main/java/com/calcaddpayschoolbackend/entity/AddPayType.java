@@ -10,6 +10,7 @@ import java.util.Set;
 @Entity
 @Data
 @Table
+@ToString(exclude = {"addPayFunds", "addPay"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

@@ -11,6 +11,7 @@ import java.util.Set;
 @Entity
 @Data
 @Table
+@ToString(exclude = {"addPayResults", "percentSalaryResult"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

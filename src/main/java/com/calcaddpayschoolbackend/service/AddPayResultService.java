@@ -2,11 +2,13 @@ package com.calcaddpayschoolbackend.service;
 
 import com.calcaddpayschoolbackend.dto.AddPayResultDTO;
 import com.calcaddpayschoolbackend.entity.AddPayResult;
+import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.repository.AddPayResultRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -28,9 +30,11 @@ public class AddPayResultService {
         int workDay = calcSettingsService.getMaxDateCalcSettings().getWorkingDays();
         int actualDaysWorked = timeSheetService
                 .getMaxTimeSheetForStaffList(addPayResultDTO.getStaffListId()).getActualDaysWorked();
-        BigDecimal sumTemp = BigDecimal.valueOf(addPayResultDTO.getPercent())
-                .multiply(BigDecimal.valueOf(100)).divide(basicNormsService.getMaxDateBasicNorms().getBasicNormValue());
-        return sumTemp.divide(BigDecimal.valueOf(workDay)).multiply(BigDecimal.valueOf(actualDaysWorked));
+        double coefficient = addPayResultDTO.getPercent() / 100;
+        BigDecimal sumForAllDays = basicNormsService.getMaxDateBasicNorms().getBasicNormValue()
+                .multiply(BigDecimal.valueOf(coefficient));
+        return sumForAllDays.divide(BigDecimal.valueOf(workDay), 2, RoundingMode.CEILING)
+                .multiply(BigDecimal.valueOf(actualDaysWorked));
     }
 
 
@@ -40,6 +44,11 @@ public class AddPayResultService {
 
     public List<AddPayResult> getAllResults() {
         return addPayResultRepository.findAll();
+    }
+
+    public AddPayResult findAddPayResultById(long id) {
+        return addPayResultRepository.findById(id).orElseThrow(() ->
+                new NoSuchEntityException(String.format("Доп надбавка с id %d не найден", id)));
     }
 
     public void deleteResult(AddPayResult addPayResult) {

@@ -11,6 +11,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
+@ToString(exclude = {"addPayResults"})
 @Table
 @NoArgsConstructor
 @AllArgsConstructor
