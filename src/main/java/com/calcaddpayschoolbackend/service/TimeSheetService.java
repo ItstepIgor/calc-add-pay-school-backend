@@ -13,6 +13,8 @@ import java.util.List;
 public class TimeSheetService {
     private final TimeSheetRepository timeSheetRepository;
 
+    private final CalcSettingsService calcSettingsService;
+
     public void createTimeSheet(TimeSheet timeSheet) {
         timeSheetRepository.save(timeSheet);
     }
@@ -40,6 +42,10 @@ public class TimeSheetService {
 
     public List<TimeSheet> getMaxDateTimeSheets() {
         return null;
+    }
+
+    public TimeSheet getMaxTimeSheetForStaffList(long staffListId) {
+        return timeSheetRepository.getMaxTimeSheetForStaffList(staffListId, calcSettingsService.getMaxDateCalcSettings().getCalcDate());
     }
 
 

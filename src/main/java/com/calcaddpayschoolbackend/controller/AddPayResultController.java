@@ -18,9 +18,14 @@ public class AddPayResultController {
 
     private final AddPayResultService addPayResultService;
 
+//    @PostMapping("/create")
+//    public void createAddPayResult(@RequestBody AddPayResultDTOCreate addPayResultDTOCreate) {
+//        addPayResultService.createResult(addPayResultDTOMapper.toEntity(addPayResultDTOCreate));
+//    }
+
     @PostMapping("/create")
-    public void createAddPayResult(@RequestBody AddPayResultDTOCreate payResultDTOCreate) {
-        addPayResultService.createResult(payResultDTOCreate);
+    public void createAddPayResult(@RequestBody AddPayResultDTO addPayResultDTO) {
+        addPayResultService.createResult(addPayResultDTOMapper.toEntity(addPayResultDTO));
     }
 
     @PostMapping("/update")

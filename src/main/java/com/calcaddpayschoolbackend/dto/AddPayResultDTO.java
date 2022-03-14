@@ -3,6 +3,7 @@ package com.calcaddpayschoolbackend.dto;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 public class AddPayResultDTO {
@@ -14,6 +15,7 @@ public class AddPayResultDTO {
     private String peopleSurAndFirstName;
     private String positionName;
     private long timeSheetId;
+    private LocalDate calcDate;
     private long basicNormsId;
     private String basicNormName;
     private double percent;

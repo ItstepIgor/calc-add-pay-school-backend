@@ -2,10 +2,7 @@ package com.calcaddpayschoolbackend.service.mapper;
 
 import com.calcaddpayschoolbackend.dto.AddPayResultDTO;
 import com.calcaddpayschoolbackend.entity.AddPayResult;
-import com.calcaddpayschoolbackend.service.AddPayService;
-import com.calcaddpayschoolbackend.service.BasicNormsService;
-import com.calcaddpayschoolbackend.service.StaffListService;
-import com.calcaddpayschoolbackend.service.TimeSheetService;
+import com.calcaddpayschoolbackend.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -22,12 +19,15 @@ public class AddPayResultDTOMapper implements EntityToDTOMapper<AddPayResult, Ad
 
     private final BasicNormsService basicNormsService;
 
-    public AddPayResultDTOMapper(AddPayService addPayService, StaffListService staffListService, TimeSheetService timeSheetService, BasicNormsService basicNormsService) {
+    private final AddPayResultService addPayResultService;
+
+    public AddPayResultDTOMapper(AddPayService addPayService, StaffListService staffListService, TimeSheetService timeSheetService, BasicNormsService basicNormsService, AddPayResultService addPayResultService) {
         super();
         this.addPayService = addPayService;
         this.staffListService = staffListService;
         this.timeSheetService = timeSheetService;
         this.basicNormsService = basicNormsService;
+        this.addPayResultService = addPayResultService;
     }
 
     @Override
@@ -46,6 +46,7 @@ public class AddPayResultDTOMapper implements EntityToDTOMapper<AddPayResult, Ad
         }
         if (entity.getTimeSheets() != null) {
             addPayResultDTO.setTimeSheetId(entity.getTimeSheets().getId());
+            addPayResultDTO.setCalcDate(entity.getTimeSheets().getCalcSettings().getCalcDate());
         }
         if (entity.getBasicNorms() != null) {
             addPayResultDTO.setBasicNormsId(entity.getBasicNorms().getId());
@@ -59,8 +60,9 @@ public class AddPayResultDTOMapper implements EntityToDTOMapper<AddPayResult, Ad
         AddPayResult addPayResult = modelMapper.map(dto, AddPayResult.class);
         addPayResult.setAddPay(addPayService.findAddPayById(dto.getAddPayId()));
         addPayResult.setStaffList(staffListService.findStaffListById(dto.getStaffListId()));
-        addPayResult.setTimeSheets(timeSheetService.findTimeSheetById(dto.getTimeSheetId()));
-        addPayResult.setBasicNorms(basicNormsService.findBasicNormsById(dto.getBasicNormsId()));
+        addPayResult.setTimeSheets(timeSheetService.getMaxTimeSheetForStaffList(dto.getStaffListId()));
+        addPayResult.setSum(addPayResultService.calcSumAddPay(dto));
+        addPayResult.setBasicNorms(basicNormsService.getMaxDateBasicNorms());
         return addPayResult;
     }
 }
