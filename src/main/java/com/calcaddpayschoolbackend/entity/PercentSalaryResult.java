@@ -26,5 +26,7 @@ public class PercentSalaryResult extends AbstractEntity {
     @JoinColumn(name = "percent_salary_id")
     private PercentSalary percentSalary;
     @Column(nullable = false)
+    private int percent;
+    @Column(nullable = false)
     private BigDecimal sum;
 }

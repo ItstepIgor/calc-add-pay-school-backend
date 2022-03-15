@@ -37,4 +37,8 @@ public class StaffListService {
         return staffListRepository.findById(id).orElseThrow(() ->
                 new NoSuchEntityException(String.format("Штатное с id %d не найден", id)));
     }
+
+    public void calcPercentSalary() {
+        System.out.println("Посчитали премию");
+    }
 }

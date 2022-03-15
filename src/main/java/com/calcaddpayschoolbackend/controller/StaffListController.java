@@ -28,6 +28,11 @@ public class StaffListController {
         return staffListDTOMapper.toDTO(staffListService.findStaffListById(id));
     }
 
+    @GetMapping("/calcpercentsalary")
+    public void calcPercentSalary() {
+        staffListService.calcPercentSalary();
+    }
+
     @PostMapping("/create")
     public void createStaffList(@RequestBody StaffListDTO staffListDTO) {
         staffListService.createStaffList(staffListDTOMapper.toEntity(staffListDTO));

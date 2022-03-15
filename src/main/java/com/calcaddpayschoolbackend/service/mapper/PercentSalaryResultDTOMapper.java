@@ -34,9 +34,11 @@ public class PercentSalaryResultDTOMapper implements EntityToDTOMapper<PercentSa
             percentSalaryResultDTO.setStaffListId(entity.getStaffList().getId());
             percentSalaryResultDTO.setPeopleSurAndFirstName(entity.getStaffList().getPeople().getSurName() + " "
                     + entity.getStaffList().getPeople().getFirstName());
+            percentSalaryResultDTO.setPositionName(entity.getStaffList().getPosition().getPositionName());
         }
         if (entity.getTimeSheets() != null) {
             percentSalaryResultDTO.setTimeSheetId(entity.getTimeSheets().getId());
+            percentSalaryResultDTO.setCalcDate(entity.getTimeSheets().getCalcSettings().getCalcDate());
         }
         if (entity.getPercentSalary() != null) {
             percentSalaryResultDTO.setPercentSalaryId(entity.getPercentSalary().getId());
