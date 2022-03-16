@@ -1,17 +1,26 @@
 package com.calcaddpayschoolbackend.service;
 
+import com.calcaddpayschoolbackend.entity.PercentSalary;
 import com.calcaddpayschoolbackend.entity.StaffList;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
+import com.calcaddpayschoolbackend.repository.CalcSettingsRepository;
+import com.calcaddpayschoolbackend.repository.PercentSalaryRepository;
 import com.calcaddpayschoolbackend.repository.StaffListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class StaffListService {
     private final StaffListRepository staffListRepository;
+
+    private final PercentSalaryRepository percentSalaryRepository;
+
+    private final CalcSettingsRepository calcSettingsRepository;
 
     public void createStaffList(StaffList staffList) {
         staffListRepository.save(staffList);
@@ -39,6 +48,15 @@ public class StaffListService {
     }
 
     public void calcPercentSalary() {
-        System.out.println("Посчитали премию");
+        List<StaffList> staffLists = getAllStaffLists();
+
+        int percentSalaryAll = percentSalaryRepository.findFirstByOrderByPercentStartDateDesc().getPercentSalaryAll();
+        int percentSalaryForYoungSpecial = percentSalaryRepository.findFirstByOrderByPercentStartDateDesc().getPercentSalaryForYoungSpecial();
+        int workingDays = calcSettingsRepository.findFirstByOrderByCalcDateDesc().getWorkingDays();
+
+
+        for (StaffList staffList : staffLists) {
+            System.out.println(staffList.getSalary().multiply(BigDecimal.valueOf(percentSalaryAll / 100)));
+        }
     }
 }
