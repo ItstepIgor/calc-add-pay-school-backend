@@ -6,6 +6,7 @@ import com.calcaddpayschoolbackend.repository.AddPayFundRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -23,6 +24,10 @@ public class AddPayFundService {
 
     public List<AddPayFund> getAllAddPayFunds() {
         return addPayFundRepository.findAll();
+    }
+
+    public List<AddPayFund> getAllAddPayCurrentFund(LocalDate date) {
+        return addPayFundRepository.getAddPayCurrentFund(date);
     }
 
     public void deleteAddPayFund(AddPayFund addPayFund) {

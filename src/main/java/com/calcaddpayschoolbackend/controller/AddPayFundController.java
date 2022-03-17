@@ -4,8 +4,10 @@ import com.calcaddpayschoolbackend.dto.AddPayFundDTO;
 import com.calcaddpayschoolbackend.service.AddPayFundService;
 import com.calcaddpayschoolbackend.service.mapper.AddPayFundDTOMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -30,6 +32,13 @@ public class AddPayFundController {
     @GetMapping("/get")
     public List<AddPayFundDTO> getAllAddPayFund() {
         return addPayFundDTOMapper.toDTOs(addPayFundService.getAllAddPayFunds());
+    }
+
+    @GetMapping("/getcurrentfund")
+    public List<AddPayFundDTO> getAllAddPayCurrentFund(@RequestParam
+                                                       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                                                               LocalDate date) {
+        return addPayFundDTOMapper.toDTOs(addPayFundService.getAllAddPayCurrentFund(date));
     }
 
     @GetMapping("/getbyid")
