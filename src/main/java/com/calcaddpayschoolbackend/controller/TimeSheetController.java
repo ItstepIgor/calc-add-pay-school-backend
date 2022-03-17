@@ -1,6 +1,7 @@
 package com.calcaddpayschoolbackend.controller;
 
 import com.calcaddpayschoolbackend.dto.TimeSheetDTO;
+import com.calcaddpayschoolbackend.dto.TimeSheetUpdateDayDTO;
 import com.calcaddpayschoolbackend.service.TimeSheetService;
 import com.calcaddpayschoolbackend.service.mapper.TimeSheetDTOMapper;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,11 @@ public class TimeSheetController {
     @PostMapping("/update")
     public void updateTimeSheet(@RequestBody TimeSheetDTO timeSheetDTO) {
         timeSheetService.updateTimeSheet(timeSheetDTOMapper.toEntity(timeSheetDTO));
+    }
+
+    @PostMapping("/updateday")
+    public void updateTimeSheetDay(@RequestBody TimeSheetUpdateDayDTO timeSheetUpdateDayDTO) {
+        timeSheetService.updateTimeSheetDay(timeSheetUpdateDayDTO.getId(), timeSheetUpdateDayDTO.getActualDaysWorked());
     }
 
 

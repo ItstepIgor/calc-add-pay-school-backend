@@ -23,6 +23,11 @@ public class StaffListController {
         return staffListDTOMapper.toDTOs(staffListService.getAllStaffLists());
     }
 
+    @GetMapping("/getwhoworked")
+    public List<StaffListDTO> findAllWhoWorked() {
+        return staffListDTOMapper.toDTOs(staffListService.getStaffListsWhoWorked());
+    }
+
     @GetMapping("/getbyid")
     public StaffListDTO findStaffListById(@RequestParam long id) {
         return staffListDTOMapper.toDTO(staffListService.findStaffListById(id));
@@ -30,7 +35,7 @@ public class StaffListController {
 
     @GetMapping("/calcpercentsalary")
     public void calcPercentSalary() {
-        staffListService.calcPercentSalary();
+        staffListService.calcAndSavePercentSalaryResult();
     }
 
     @PostMapping("/create")

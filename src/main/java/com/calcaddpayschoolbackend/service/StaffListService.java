@@ -41,6 +41,10 @@ public class StaffListService {
         return staffListRepository.findAllByOrderByIdAsc();
     }
 
+    public List<StaffList> getStaffListsWhoWorked() {
+        return staffListRepository.findAllByDisabledIsTrueOrderByIdAsc();
+    }
+
     public void deleteStaffList(StaffList staffList) {
         staffListRepository.delete(staffList);
     }
@@ -54,31 +58,49 @@ public class StaffListService {
                 new NoSuchEntityException(String.format("Штатное с id %d не найден", id)));
     }
 
-    public void calcPercentSalary() {
-        List<StaffList> staffLists = getAllStaffLists();
 
-        PercentSalary percentStartDateDesc = percentSalaryRepository.findFirstByOrderByPercentStartDateDesc();
-        double percentSalaryAll = percentStartDateDesc.getPercentSalaryAll();
-//        int percentSalaryForYoungSpecial = percentStartDateDesc.getPercentSalaryForYoungSpecial();
+    public void calcAndSavePercentSalaryResult() {
+        List<StaffList> staffLists = getStaffListsWhoWorked();
+
+        PercentSalary percentDate = percentSalaryRepository.findFirstByOrderByPercentStartDateDesc();
         int workingDays = calcSettingsRepository.findFirstByOrderByCalcDateDesc().getWorkingDays();
 
         for (StaffList staffList : staffLists) {
-            PercentSalaryResult percentSalaryResult = null;
-            System.out.println(timeSheetService.getMaxTimeSheetForStaffList(staffList.getId()));
+
             TimeSheet maxTimeSheetForStaffList = timeSheetService.getMaxTimeSheetForStaffList(staffList.getId());
-            System.out.println(staffList);
-            percentSalaryResult.setStaffList(staffList);
-            System.out.println(percentStartDateDesc);
-            percentSalaryResult.setPercentSalary(percentStartDateDesc);
-            System.out.println(maxTimeSheetForStaffList);
-            percentSalaryResult.setTimeSheets(maxTimeSheetForStaffList);
-            percentSalaryResult.setPercent((int) percentSalaryAll);
+
             BigDecimal bigDecimal = BigDecimal.valueOf(maxTimeSheetForStaffList.getActualDaysWorked()).multiply(BigDecimal
-                            .valueOf(((percentSalaryAll / 100) * staffList.getSalary().doubleValue()) / workingDays))
+                            .valueOf((((double) percentDate.getPercentSalaryAll() / 100)
+                                    * staffList.getSalary().doubleValue()) / workingDays))
                     .setScale(2, RoundingMode.HALF_UP);
-            percentSalaryResult.setSum(bigDecimal);
-            System.out.println(percentSalaryResult);
+
+            PercentSalaryResult percentSalaryResult = PercentSalaryResult.builder()
+                    .staffList(staffList)
+                    .timeSheets(maxTimeSheetForStaffList)
+                    .percentSalary(percentDate)
+                    .percent(percentDate.getPercentSalaryAll())
+                    .sum(bigDecimal)
+                    .build();
             percentSalaryResultRepository.save(percentSalaryResult);
+
+            if (staffList.isYoungSpecial()) {
+//                BigDecimal bigDecimalYoungSpecial = BigDecimal.valueOf(maxTimeSheetForStaffList.getActualDaysWorked())
+//                        .multiply(BigDecimal.valueOf((((double) percentDate.getPercentSalaryForYoungSpecial() / 100)
+//                                * staffList.getSalary().doubleValue()) / workingDays))
+//                        .setScale(2, RoundingMode.HALF_UP);
+//             Уточнить какой процент брать  Если просто процент от оклада то берем эту переменную
+                BigDecimal bigDecimalYoungSpecial = BigDecimal.valueOf(((double) percentDate.getPercentSalaryForYoungSpecial() / 100)
+                                * staffList.getSalary().doubleValue())
+                        .setScale(2, RoundingMode.HALF_UP);
+                PercentSalaryResult percentSalaryResultYoungSpecial = PercentSalaryResult.builder()
+                        .staffList(percentSalaryResult.getStaffList())
+                        .timeSheets(percentSalaryResult.getTimeSheets())
+                        .percentSalary(percentSalaryResult.getPercentSalary())
+                        .percent(percentDate.getPercentSalaryForYoungSpecial())
+                        .sum(bigDecimalYoungSpecial)
+                        .build();
+                percentSalaryResultRepository.save(percentSalaryResultYoungSpecial);
+            }
         }
     }
 }

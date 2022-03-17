@@ -9,7 +9,7 @@ import java.util.Set;
 @Entity
 @Data
 @Table
-@ToString(exclude = {"staffLists", "timeSheet"})
+@ToString(exclude = {"staffLists", "timeSheet", "users"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
