@@ -1,6 +1,7 @@
 package com.calcaddpayschoolbackend.controller;
 
 import com.calcaddpayschoolbackend.dto.AddPayResultDTO;
+import com.calcaddpayschoolbackend.dto.AddPayResultSumDTO;
 import com.calcaddpayschoolbackend.service.AddPayResultService;
 import com.calcaddpayschoolbackend.service.mapper.AddPayResultDTOMapper;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,11 @@ public class AddPayResultController {
     @GetMapping("/get")
     public List<AddPayResultDTO> getAllAddPayResult() {
         return addPayResultDTOMapper.toDTOs(addPayResultService.getAllResults());
+    }
+
+    @GetMapping("/getallsum")
+    public AddPayResultSumDTO getAllAddPayResultSumForMonth() {
+        return addPayResultService.getAllAddPayResultSumForMonth();
     }
 
     @GetMapping("/getbyid")

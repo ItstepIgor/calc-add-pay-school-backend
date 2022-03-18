@@ -6,6 +6,7 @@ import com.calcaddpayschoolbackend.repository.PercentSalaryResultRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -13,6 +14,8 @@ import java.util.List;
 public class PercentSalaryResultService {
 
     private final PercentSalaryResultRepository percentSalaryResultRepository;
+
+    private final CalcSettingsService calcSettingsService;
 
     public void createPercentSalaryResult(PercentSalaryResult percentSalaryResult) {
         percentSalaryResultRepository.save(percentSalaryResult);
@@ -24,6 +27,10 @@ public class PercentSalaryResultService {
 
     public List<PercentSalaryResult> getAllPercentSalaryResults() {
         return percentSalaryResultRepository.findAll();
+    }
+
+    public BigDecimal getAllSumForMonth() {
+        return percentSalaryResultRepository.getAllSumForMonth(calcSettingsService.getMaxDateCalcSettings().getCalcDate());
     }
 
     public void deletePercentSalaryResult(PercentSalaryResult percentSalaryResult) {

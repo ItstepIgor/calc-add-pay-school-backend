@@ -6,6 +6,7 @@ import com.calcaddpayschoolbackend.service.mapper.PercentSalaryResultDTOMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -31,6 +32,11 @@ public class PercentSalaryResultController {
     @GetMapping("/get")
     public List<PercentSalaryResultDTO> getAllPercentSalaryResult() {
         return percentSalaryResultDTOMapper.toDTOs(percentSalaryResultService.getAllPercentSalaryResults());
+    }
+
+    @GetMapping("/getallsum")
+    public BigDecimal getAllSumForMonth() {
+        return percentSalaryResultService.getAllSumForMonth();
     }
 
     @GetMapping("/delete")

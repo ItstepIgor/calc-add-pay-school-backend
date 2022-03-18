@@ -35,8 +35,8 @@ public class AddPayFundController {
     }
 
     @GetMapping("/getcurrentfund")
-    public List<AddPayFundDTO> getAllAddPayCurrentFund(@RequestParam
-                                                       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    public List<AddPayFundDTO> getAllAddPayCurrentFund(@RequestParam(value = "date")
+                                                       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
                                                                LocalDate date) {
         return addPayFundDTOMapper.toDTOs(addPayFundService.getAllAddPayCurrentFund(date));
     }

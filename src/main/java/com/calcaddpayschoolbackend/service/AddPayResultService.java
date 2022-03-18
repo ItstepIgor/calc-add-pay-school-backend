@@ -1,6 +1,7 @@
 package com.calcaddpayschoolbackend.service;
 
 import com.calcaddpayschoolbackend.dto.AddPayResultDTO;
+import com.calcaddpayschoolbackend.dto.AddPayResultSumDTO;
 import com.calcaddpayschoolbackend.entity.AddPayResult;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.repository.AddPayResultRepository;
@@ -49,6 +50,14 @@ public class AddPayResultService {
     public AddPayResult findAddPayResultById(long id) {
         return addPayResultRepository.findById(id).orElseThrow(() ->
                 new NoSuchEntityException(String.format("Доп надбавка с id %d не найден", id)));
+    }
+
+    public AddPayResultSumDTO getAllAddPayResultSumForMonth() {
+        AddPayResultSumDTO addPayResultSumDTO = new AddPayResultSumDTO();
+        addPayResultSumDTO.setBonusSum(addPayResultRepository.getAllSumForMonth(1) == null ? BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(1));
+        addPayResultSumDTO.setComplicationSum(addPayResultRepository.getAllSumForMonth(2) == null ? BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(2));
+        addPayResultSumDTO.setMotivationSum(addPayResultRepository.getAllSumForMonth(3) == null ? BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(3));
+        return addPayResultSumDTO;
     }
 
     public void deleteResult(AddPayResult addPayResult) {
