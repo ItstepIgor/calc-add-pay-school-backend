@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
@@ -20,7 +19,6 @@ public interface TimeSheetRepository extends JpaRepository<TimeSheet, Long> {
 
 
     @Modifying(clearAutomatically=true)
-    @Transactional
     @Query("update TimeSheet set actualDaysWorked=:actualDaysWorked where id=:id")
     void updateTimeSheetDay(@Param("id") long id, @Param("actualDaysWorked") int actualDaysWorked);
 

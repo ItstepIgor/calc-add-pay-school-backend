@@ -2,11 +2,13 @@ package com.calcaddpayschoolbackend.service;
 
 import com.calcaddpayschoolbackend.entity.TimeSheet;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
+import com.calcaddpayschoolbackend.pojo.TimeSheetUpdateDay;
 import com.calcaddpayschoolbackend.repository.TimeSheetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -45,8 +47,11 @@ public class TimeSheetService {
         return null;
     }
 
-    public void updateTimeSheetDay(long id, int actualDaysWorked) {
-        timeSheetRepository.updateTimeSheetDay(id, actualDaysWorked);
+    @Transactional
+    public void updateTimeSheetDay(List<TimeSheetUpdateDay> timeSheetUpdateDays) {
+        for (TimeSheetUpdateDay timeSheetUpdateDay : timeSheetUpdateDays) {
+            timeSheetRepository.updateTimeSheetDay(timeSheetUpdateDay.getId(), timeSheetUpdateDay.getActualDaysWorked());
+        }
     }
 
     public TimeSheet getMaxTimeSheetForStaffList(long staffListId) {

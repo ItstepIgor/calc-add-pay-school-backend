@@ -1,10 +1,10 @@
-package com.calcaddpayschoolbackend.dto;
+package com.calcaddpayschoolbackend.pojo;
 
 
 import lombok.Data;
 
 @Data
-public class TimeSheetUpdateDayDTO {
+public class TimeSheetUpdateDay {
     private long id;
     private int actualDaysWorked;
 }
