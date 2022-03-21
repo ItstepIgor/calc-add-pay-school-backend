@@ -23,8 +23,8 @@ public class AddPay extends AbstractEntity {
     private String addPayCode;
     @Column(nullable = false)
     private String addPayName;
-    private int maxPercent;
     @Column(nullable = false)
+    private int maxPercent;
     private String description;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "addPay")
     private Set<AddPayResult> addPayResults;

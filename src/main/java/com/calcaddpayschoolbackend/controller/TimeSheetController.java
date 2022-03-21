@@ -1,7 +1,7 @@
 package com.calcaddpayschoolbackend.controller;
 
 import com.calcaddpayschoolbackend.dto.TimeSheetDTO;
-import com.calcaddpayschoolbackend.pojo.TimeSheetUpdateDay;
+import com.calcaddpayschoolbackend.pojo.TimeSheetUpdateDayPojo;
 import com.calcaddpayschoolbackend.service.TimeSheetService;
 import com.calcaddpayschoolbackend.service.mapper.TimeSheetDTOMapper;
 import lombok.RequiredArgsConstructor;
@@ -45,8 +45,8 @@ public class TimeSheetController {
     }
 
     @PostMapping("/updateday")
-    public void updateTimeSheetDay(@RequestBody List<TimeSheetUpdateDay> timeSheetUpdateDays) {
-        timeSheetService.updateTimeSheetDay(timeSheetUpdateDays);
+    public void updateTimeSheetDay(@RequestBody List<TimeSheetUpdateDayPojo> timeSheetUpdateDayPojos) {
+        timeSheetService.updateTimeSheetDay(timeSheetUpdateDayPojos);
     }
 
 

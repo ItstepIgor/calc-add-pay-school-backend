@@ -25,22 +25,23 @@ public class AddPayFundDTOMapper implements EntityToDTOMapper<AddPayFund, AddPay
     @Override
     public AddPayFundDTO toDTO(AddPayFund entity, Object... args) {
         AddPayFundDTO addPayFundDTO = modelMapper.map(entity, AddPayFundDTO.class);
-        if (entity.getAddPayTypes() != null) {
-            addPayFundDTO.setAddPayTypeId(entity.getAddPayTypes().getId());
-            addPayFundDTO.setAddPayTypeName(entity.getAddPayTypes().getAddPayTypeName());
-        }
-        if (entity.getCalcSettings() != null) {
-            addPayFundDTO.setCalcSettingId(entity.getCalcSettings().getId());
-            addPayFundDTO.setCalcDate(entity.getCalcSettings().getCalcDate());
-        }
+//        if (entity.getAddPayTypes() != null) {
+//            addPayFundDTO.setAddPayTypeId(entity.getAddPayTypes().getId());
+//            addPayFundDTO.setAddPayTypeName(entity.getAddPayTypes().getAddPayTypeName());
+//        }
+//        if (entity.getCalcSettings() != null) {
+//            addPayFundDTO.setCalcSettingId(entity.getCalcSettings().getId());
+//            addPayFundDTO.setCalcDate(entity.getCalcSettings().getCalcDate());
+//        }
         return addPayFundDTO;
     }
 
     @Override
     public AddPayFund toEntity(AddPayFundDTO dto, Object... args) {
         AddPayFund addPayFund = modelMapper.map(dto, AddPayFund.class);
-        addPayFund.setAddPayTypes(addPayTypeService.findAddPayTypeById(dto.getAddPayTypeId()));
+//        addPayFund.setAddPayTypes(addPayTypeService.findAddPayTypeById(dto.getAddPayType().getId()));
         addPayFund.setCalcSettings(calcSettingsService.getMaxDateCalcSettings());
+        System.out.println(addPayFund);
         return addPayFund;
     }
 }
