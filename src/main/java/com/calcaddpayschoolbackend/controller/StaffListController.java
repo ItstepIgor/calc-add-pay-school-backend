@@ -28,6 +28,11 @@ public class StaffListController {
         return staffListDTOMapper.toDTOs(staffListService.getStaffListsWhoWorked());
     }
 
+    @GetMapping("/getwhodidnotwork")
+    public List<StaffListDTO> findAllWhoDidNotWork() {
+        return staffListDTOMapper.toDTOs(staffListService.findAllWhoDidNotWork());
+    }
+
     @GetMapping("/getbyid")
     public StaffListDTO findStaffListById(@RequestParam long id) {
         return staffListDTOMapper.toDTO(staffListService.findStaffListById(id));

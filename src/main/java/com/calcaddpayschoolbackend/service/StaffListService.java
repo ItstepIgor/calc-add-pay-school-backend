@@ -45,6 +45,10 @@ public class StaffListService {
         return staffListRepository.findAllByDisabledIsTrueOrderByIdAsc();
     }
 
+    public List<StaffList> findAllWhoDidNotWork() {
+        return staffListRepository.findAllByDisabledIsFalseOrderByIdAsc();
+    }
+
     public void deleteStaffList(StaffList staffList) {
         staffListRepository.delete(staffList);
     }

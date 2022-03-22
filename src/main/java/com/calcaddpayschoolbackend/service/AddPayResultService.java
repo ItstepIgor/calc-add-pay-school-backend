@@ -1,6 +1,8 @@
 package com.calcaddpayschoolbackend.service;
 
 import com.calcaddpayschoolbackend.dto.AddPayResultDTO;
+import com.calcaddpayschoolbackend.exception.NoCurrentCalcDateException;
+import com.calcaddpayschoolbackend.exception.PercentValueException;
 import com.calcaddpayschoolbackend.pojo.AddPayResultSumPojo;
 import com.calcaddpayschoolbackend.entity.AddPayResult;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Service
@@ -24,7 +28,11 @@ public class AddPayResultService {
     private final TimeSheetService timeSheetService;
 
     public void createResult(AddPayResult addPayResult) {
-        addPayResultRepository.save(addPayResult);
+        if (addPayResult.getPercent() > addPayResult.getAddPay().getMaxPercent()) {
+            throw new PercentValueException();
+        } else {
+            addPayResultRepository.save(addPayResult);
+        }
     }
 
     public BigDecimal calcSumAddPay(AddPayResultDTO addPayResultDTO) {
@@ -54,9 +62,12 @@ public class AddPayResultService {
 
     public AddPayResultSumPojo getAllAddPayResultSumForMonth() {
         AddPayResultSumPojo addPayResultSumPojo = new AddPayResultSumPojo();
-        addPayResultSumPojo.setBonusSum(addPayResultRepository.getAllSumForMonth(1) == null ? BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(1));
-        addPayResultSumPojo.setComplicationSum(addPayResultRepository.getAllSumForMonth(2) == null ? BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(2));
-        addPayResultSumPojo.setMotivationSum(addPayResultRepository.getAllSumForMonth(3) == null ? BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(3));
+        addPayResultSumPojo.setBonusSum(addPayResultRepository.getAllSumForMonth(1) == null ?
+                BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(1));
+        addPayResultSumPojo.setComplicationSum(addPayResultRepository.getAllSumForMonth(2) == null ?
+                BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(2));
+        addPayResultSumPojo.setMotivationSum(addPayResultRepository.getAllSumForMonth(3) == null ?
+                BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(3));
         return addPayResultSumPojo;
     }
 

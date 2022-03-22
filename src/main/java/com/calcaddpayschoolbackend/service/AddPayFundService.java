@@ -1,12 +1,15 @@
 package com.calcaddpayschoolbackend.service;
 
 import com.calcaddpayschoolbackend.entity.AddPayFund;
+import com.calcaddpayschoolbackend.exception.FundExistsOnThisDate;
+import com.calcaddpayschoolbackend.exception.NoCurrentCalcDateException;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.repository.AddPayFundRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Service
@@ -15,7 +18,13 @@ public class AddPayFundService {
     private final AddPayFundRepository addPayFundRepository;
 
     public void createAddPayFund(AddPayFund addPayFund) {
-        addPayFundRepository.save(addPayFund);
+        if (Period.between(addPayFund.getCalcSettings().getCalcDate(), LocalDate.now()).getDays() > 25) {
+            throw new NoCurrentCalcDateException();
+        } /*else if (addPayFund.getCalcSettings().getCalcDate().equals(addPayFundRepository.)) {
+            throw new FundExistsOnThisDate("String");
+        }*/ else {
+            addPayFundRepository.save(addPayFund);
+        }
     }
 
     public void updateAddPayFund(AddPayFund addPayFund) {

@@ -41,4 +41,6 @@ public class CalcSettingsService {
         return calcSettingsRepository.findById(id).orElseThrow(() ->
                 new NoSuchEntityException(String.format("Настройка расчета с id %d не найден", id)));
     }
+
+
 }

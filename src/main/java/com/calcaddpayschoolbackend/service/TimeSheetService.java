@@ -1,6 +1,7 @@
 package com.calcaddpayschoolbackend.service;
 
 import com.calcaddpayschoolbackend.entity.TimeSheet;
+import com.calcaddpayschoolbackend.exception.NoCurrentCalcDateException;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.pojo.TimeSheetUpdateDayPojo;
 import com.calcaddpayschoolbackend.repository.TimeSheetRepository;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Service
@@ -19,7 +22,11 @@ public class TimeSheetService {
     private final CalcSettingsService calcSettingsService;
 
     public void createTimeSheet(TimeSheet timeSheet) {
-        timeSheetRepository.save(timeSheet);
+        if (Period.between(timeSheet.getCalcSettings().getCalcDate(), LocalDate.now()).getDays() > 25) {
+            throw new NoCurrentCalcDateException();
+        } else {
+            timeSheetRepository.save(timeSheet);
+        }
     }
 
     public void updateTimeSheet(TimeSheet timeSheet) {

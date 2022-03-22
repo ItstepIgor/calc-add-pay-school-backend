@@ -13,5 +13,5 @@ public interface StaffListRepository extends JpaRepository<StaffList, Long> {
 
     List<StaffList> findAllByDisabledIsTrueOrderByIdAsc();
 
-
+    List<StaffList> findAllByDisabledIsFalseOrderByIdAsc();
 }
