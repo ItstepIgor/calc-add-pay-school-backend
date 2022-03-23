@@ -18,8 +18,13 @@ public interface TimeSheetRepository extends JpaRepository<TimeSheet, Long> {
     TimeSheet getMaxTimeSheetForStaffList(@Param("staffListId") long staffListId, @Param("calcDate") LocalDate calcDate);
 
 
-    @Modifying(clearAutomatically=true)
+    @Modifying(clearAutomatically = true)
     @Query("update TimeSheet set actualDaysWorked=:actualDaysWorked where id=:id")
     void updateTimeSheetDay(@Param("id") long id, @Param("actualDaysWorked") int actualDaysWorked);
+
+
+    @Query("select max(c.calcDate) from TimeSheet t join t.calcSettings c where  t.people.id=:peopleId")
+    LocalDate getMaxTimeSheetForPeople(@Param("peopleId") long peopleId);
+
 
 }

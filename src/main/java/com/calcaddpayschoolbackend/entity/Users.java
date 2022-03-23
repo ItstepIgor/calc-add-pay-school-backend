@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Users extends AbstractEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "people_id")
+    @JoinColumn(name = "people_id", nullable = false)
     private People people;
     @Column(nullable = false)
     private String password;

@@ -4,6 +4,7 @@ import com.calcaddpayschoolbackend.entity.PercentSalary;
 import com.calcaddpayschoolbackend.entity.PercentSalaryResult;
 import com.calcaddpayschoolbackend.entity.StaffList;
 import com.calcaddpayschoolbackend.entity.TimeSheet;
+import com.calcaddpayschoolbackend.exception.EntityExistsOnThisDateException;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.repository.CalcSettingsRepository;
 import com.calcaddpayschoolbackend.repository.PercentSalaryRepository;
@@ -30,7 +31,14 @@ public class StaffListService {
     private final TimeSheetService timeSheetService;
 
     public void createStaffList(StaffList staffList) {
+//        if (timeSheet.getCalcSettings().getCalcDate().equals(timeSheetRepository.getMaxTimeSheetForPeople(timeSheet.getPeople().getId()))) {
+//            throw new EntityExistsOnThisDateException(String.format("На текущую дату штатное расписание для %s %s " +
+//                            "уже сохранено", peopleService.findPeopleById(timeSheet.getPeople().getId()).getSurName(),
+//                    peopleService.findPeopleById(timeSheet.getPeople().getId()).getFirstName()));
+//        } else {
+
         staffListRepository.save(staffList);
+//        }
     }
 
     public void updateStaffList(StaffList staffList) {

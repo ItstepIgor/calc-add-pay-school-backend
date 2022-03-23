@@ -18,10 +18,10 @@ import java.util.Set;
 public class StaffList extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "people_id")
+    @JoinColumn(name = "people_id", nullable = false)
     private People people;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "position_id")
+    @JoinColumn(name = "position_id", nullable = false)
     private Position position;
     @Column(nullable = false)
     private BigDecimal salary;

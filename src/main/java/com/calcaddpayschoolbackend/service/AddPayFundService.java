@@ -1,12 +1,13 @@
 package com.calcaddpayschoolbackend.service;
 
 import com.calcaddpayschoolbackend.entity.AddPayFund;
-import com.calcaddpayschoolbackend.exception.FundExistsOnThisDate;
+import com.calcaddpayschoolbackend.exception.EntityExistsOnThisDateException;
 import com.calcaddpayschoolbackend.exception.NoCurrentCalcDateException;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.repository.AddPayFundRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -17,12 +18,17 @@ import java.util.List;
 public class AddPayFundService {
     private final AddPayFundRepository addPayFundRepository;
 
+    private final AddPayTypeService addPayTypeService;
+
+    @Transactional
     public void createAddPayFund(AddPayFund addPayFund) {
         if (Period.between(addPayFund.getCalcSettings().getCalcDate(), LocalDate.now()).getDays() > 25) {
             throw new NoCurrentCalcDateException();
-        } /*else if (addPayFund.getCalcSettings().getCalcDate().equals(addPayFundRepository.)) {
-            throw new FundExistsOnThisDate("String");
-        }*/ else {
+        } else if (addPayFund.getCalcSettings().getCalcDate().equals(addPayFundRepository
+                .getAddPayFundMaxDate(addPayFund.getAddPayTypes().getId()))) {
+            throw new EntityExistsOnThisDateException(String.format("На текущую дату фонды для %s уже сохранены",
+                    addPayTypeService.findAddPayTypeById(addPayFund.getAddPayTypes().getId()).getAddPayTypeName()));
+        } else {
             addPayFundRepository.save(addPayFund);
         }
     }
@@ -36,7 +42,7 @@ public class AddPayFundService {
     }
 
     public List<AddPayFund> getAllAddPayCurrentFund(LocalDate date) {
-        return addPayFundRepository.getAddPayCurrentFund(date);
+        return addPayFundRepository.getAddPayCurrentFunds(date);
     }
 
     public void deleteAddPayFund(AddPayFund addPayFund) {

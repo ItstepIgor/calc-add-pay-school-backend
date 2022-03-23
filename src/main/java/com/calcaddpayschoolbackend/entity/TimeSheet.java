@@ -17,12 +17,12 @@ import java.util.Set;
 public class TimeSheet extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "people_id")
+    @JoinColumn(name = "people_id", nullable = false)
     private People people;
     @Column(nullable = false)
     private int actualDaysWorked;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "calc_settings_id")
+    @JoinColumn(name = "calc_settings_id", nullable = false)
     private CalcSettings calcSettings;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "timeSheets")
     private Set<AddPayResult> addPayResults;

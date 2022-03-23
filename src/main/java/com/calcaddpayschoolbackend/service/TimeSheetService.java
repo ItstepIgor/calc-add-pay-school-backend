@@ -1,6 +1,7 @@
 package com.calcaddpayschoolbackend.service;
 
 import com.calcaddpayschoolbackend.entity.TimeSheet;
+import com.calcaddpayschoolbackend.exception.EntityExistsOnThisDateException;
 import com.calcaddpayschoolbackend.exception.NoCurrentCalcDateException;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.pojo.TimeSheetUpdateDayPojo;
@@ -21,9 +22,16 @@ public class TimeSheetService {
 
     private final CalcSettingsService calcSettingsService;
 
+    private final PeopleService peopleService;
+
     public void createTimeSheet(TimeSheet timeSheet) {
         if (Period.between(timeSheet.getCalcSettings().getCalcDate(), LocalDate.now()).getDays() > 25) {
             throw new NoCurrentCalcDateException();
+        } else if (timeSheet.getCalcSettings().getCalcDate().equals(timeSheetRepository
+                .getMaxTimeSheetForPeople(timeSheet.getPeople().getId()))) {
+            throw new EntityExistsOnThisDateException(String.format("На текущую дату штатное расписание для %s %s " +
+                            "уже сохранено", peopleService.findPeopleById(timeSheet.getPeople().getId()).getSurName(),
+                    peopleService.findPeopleById(timeSheet.getPeople().getId()).getFirstName()));
         } else {
             timeSheetRepository.save(timeSheet);
         }

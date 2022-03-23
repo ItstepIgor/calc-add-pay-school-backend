@@ -16,10 +16,10 @@ import java.math.BigDecimal;
 public class AddPayFund extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "add_pay_type_id")
+    @JoinColumn(name = "add_pay_type_id", nullable = false)
     private AddPayType addPayTypes;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "calc_settings_id")
+    @JoinColumn(name = "calc_settings_id", nullable = false)
     private CalcSettings calcSettings;
     @Column(nullable = false)
     private BigDecimal addPayFunds;
