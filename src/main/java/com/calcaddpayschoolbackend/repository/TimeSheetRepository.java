@@ -24,7 +24,7 @@ public interface TimeSheetRepository extends JpaRepository<TimeSheet, Long> {
 
 
     @Query("select concat(p.surName,' ', p.firstName,' ', p.patronymic) from StaffList s join s.people p where s.id=:staffListId")
-    TimeSheet getPeopleFioByStaffList(@Param("staffListId") long staffListId);
+    String getPeopleFioByStaffList(@Param("staffListId") long staffListId);
 
     @Modifying(clearAutomatically = true)
     @Query("update TimeSheet set actualDaysWorked=:actualDaysWorked where id=:id")
