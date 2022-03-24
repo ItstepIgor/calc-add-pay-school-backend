@@ -65,11 +65,21 @@ public class TimeSheetService {
     @Transactional
     public void updateTimeSheetDay(List<TimeSheetUpdateDayPojo> timeSheetUpdateDayPojos) {
         for (TimeSheetUpdateDayPojo timeSheetUpdateDayPojo : timeSheetUpdateDayPojos) {
-            timeSheetRepository.updateTimeSheetDay(timeSheetUpdateDayPojo.getId(), timeSheetUpdateDayPojo.getActualDaysWorked());
+            timeSheetRepository.updateTimeSheetDay(timeSheetUpdateDayPojo.getId(),
+                    timeSheetUpdateDayPojo.getActualDaysWorked());
         }
     }
 
     public TimeSheet getMaxTimeSheetForStaffList(long staffListId) {
-        return timeSheetRepository.getMaxTimeSheetForStaffList(staffListId, calcSettingsService.getMaxDateCalcSettings().getCalcDate());
+        TimeSheet timeSheet;
+        if (!timeSheetRepository.isExistsTimeSheetForStaffList(staffListId, calcSettingsService.getMaxDateCalcSettings()
+                .getCalcDate())) {
+            throw new EntityExistsOnThisDateException(String.format("Табель для %s отсутствует", timeSheetRepository
+                    .getPeopleFioByStaffList(staffListId)));
+        } else {
+            timeSheet = timeSheetRepository.getMaxTimeSheetForStaffList(staffListId,
+                    calcSettingsService.getMaxDateCalcSettings().getCalcDate());
+        }
+        return timeSheet;
     }
 }

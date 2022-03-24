@@ -12,6 +12,7 @@ import com.calcaddpayschoolbackend.repository.PercentSalaryResultRepository;
 import com.calcaddpayschoolbackend.repository.StaffListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -30,15 +31,17 @@ public class StaffListService {
 
     private final TimeSheetService timeSheetService;
 
-    public void createStaffList(StaffList staffList) {
-//        if (timeSheet.getCalcSettings().getCalcDate().equals(timeSheetRepository.getMaxTimeSheetForPeople(timeSheet.getPeople().getId()))) {
-//            throw new EntityExistsOnThisDateException(String.format("На текущую дату штатное расписание для %s %s " +
-//                            "уже сохранено", peopleService.findPeopleById(timeSheet.getPeople().getId()).getSurName(),
-//                    peopleService.findPeopleById(timeSheet.getPeople().getId()).getFirstName()));
-//        } else {
+    private final PeopleService peopleService;
 
-        staffListRepository.save(staffList);
-//        }
+    @Transactional
+    public void createStaffList(StaffList staffList) {
+        if (staffListRepository.isExistStaffList(staffList.getPeople().getId(), staffList.getPosition().getId())) {
+            throw new EntityExistsOnThisDateException(String.format("На текущую дату штатное расписание для %s %s " +
+                            "уже сохранено", peopleService.findPeopleById(staffList.getPeople().getId()).getSurName(),
+                    peopleService.findPeopleById(staffList.getPeople().getId()).getFirstName()));
+        } else {
+            staffListRepository.save(staffList);
+        }
     }
 
     public void updateStaffList(StaffList staffList) {
