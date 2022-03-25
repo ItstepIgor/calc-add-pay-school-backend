@@ -7,6 +7,7 @@ import com.calcaddpayschoolbackend.service.mapper.AddPayResultDTOMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,12 +20,12 @@ public class AddPayResultController {
     private final AddPayResultService addPayResultService;
 
     @PostMapping("/create")
-    public void createAddPayResult(@RequestBody AddPayResultDTO addPayResultDTO) {
+    public void createAddPayResult(@RequestBody @Valid AddPayResultDTO addPayResultDTO) {
         addPayResultService.createResult(addPayResultDTOMapper.toEntity(addPayResultDTO));
     }
 
     @PostMapping("/update")
-    public void updateAddPayResult(@RequestBody AddPayResultDTO addPayResultDTO) {
+    public void updateAddPayResult(@RequestBody @Valid AddPayResultDTO addPayResultDTO) {
         addPayResultService.updateResult(addPayResultDTOMapper.toEntity(addPayResultDTO));
     }
 

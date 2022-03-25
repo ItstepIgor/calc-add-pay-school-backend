@@ -1,9 +1,6 @@
 package com.calcaddpayschoolbackend.controller;
 
-import com.calcaddpayschoolbackend.exception.NoCurrentCalcDateException;
-import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
-import com.calcaddpayschoolbackend.exception.PercentValueException;
-import com.calcaddpayschoolbackend.exception.TemplateResponseException;
+import com.calcaddpayschoolbackend.exception.*;
 import com.calcaddpayschoolbackend.util.ExtractStringFromException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -35,6 +32,11 @@ public class HandlerController {
         return getResponseEntity(exception.getClass().getName(), exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(EntityExistsOnThisDateException.class)
+    public ResponseEntity<TemplateResponseException> handleMyException(EntityExistsOnThisDateException exception) {
+        return getResponseEntity(exception.getClass().getName(), exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<TemplateResponseException> handleMyException(DataIntegrityViolationException e) {
         return getResponseEntity(e.getClass().getName(), ExtractStringFromException.extractStringFromException(e
@@ -42,6 +44,7 @@ public class HandlerController {
     }
 
     private ResponseEntity<TemplateResponseException> getResponseEntity(String error, String message, HttpStatus status) {
+        System.out.println(message);
         return new ResponseEntity<>(new TemplateResponseException(status.value(), error, message), status);
     }
 }

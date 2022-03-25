@@ -29,8 +29,8 @@ public class TimeSheetService {
             throw new NoCurrentCalcDateException();
         } else if (timeSheet.getCalcSettings().getCalcDate().equals(timeSheetRepository
                 .getMaxTimeSheetForPeople(timeSheet.getPeople().getId()))) {
-            throw new EntityExistsOnThisDateException(String.format("На текущую дату штатное расписание для %s %s " +
-                            "уже сохранено", peopleService.findPeopleById(timeSheet.getPeople().getId()).getSurName(),
+            throw new EntityExistsOnThisDateException(String.format("На текущую дату табель для %s %s " +
+                            "уже сохранен", peopleService.findPeopleById(timeSheet.getPeople().getId()).getSurName(),
                     peopleService.findPeopleById(timeSheet.getPeople().getId()).getFirstName()));
         } else {
             timeSheetRepository.save(timeSheet);

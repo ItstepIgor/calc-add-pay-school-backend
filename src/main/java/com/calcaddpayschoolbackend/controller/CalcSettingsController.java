@@ -7,6 +7,7 @@ import com.calcaddpayschoolbackend.service.mapper.CalcSettingsDTOMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -34,12 +35,12 @@ public class CalcSettingsController {
     }
 
     @PostMapping("/create")
-    public void createCalcSetting(@RequestBody CalcSettingsDTO calcSettingsDTO) {
+    public void createCalcSetting(@RequestBody @Valid CalcSettingsDTO calcSettingsDTO) {
         calcSettingsService.createCalcSettings(calcSettingsDTOMapper.toEntity(calcSettingsDTO));
     }
 
     @PostMapping("/update")
-    public void updateCalcSetting(@RequestBody CalcSettingsDTO calcSettingsDTO) {
+    public void updateCalcSetting(@RequestBody @Valid CalcSettingsDTO calcSettingsDTO) {
         calcSettingsService.createCalcSettings(calcSettingsDTOMapper.toEntity(calcSettingsDTO));
     }
 

@@ -7,6 +7,7 @@ import com.calcaddpayschoolbackend.service.mapper.PeopleDTOMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,7 @@ public class PeopleController {
     }
 //    localhost:8080/api/people/get?id=1
     @PostMapping("/create")
-    public void createPeople(@RequestBody PeopleDTO peopleDTO) {
+    public void createPeople(@RequestBody @Valid PeopleDTO peopleDTO) {
         peopleService.createPeople(peopleDTOMapper.toEntity(peopleDTO));
     }
 //    {
@@ -43,7 +44,7 @@ public class PeopleController {
 //    }
 
     @PostMapping("/update")
-    public void updatePeople(@RequestBody PeopleDTO peopleDTO) {
+    public void updatePeople(@RequestBody @Valid PeopleDTO peopleDTO) {
         peopleService.updatePeople(peopleDTOMapper.toEntity(peopleDTO));
     }
 

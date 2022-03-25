@@ -6,6 +6,7 @@ import com.calcaddpayschoolbackend.service.mapper.PercentSalaryDTOMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,12 +19,12 @@ public class PercentSalaryController {
     private final PercentSalaryService percentSalaryService;
 
     @PostMapping("/create")
-    public void createPercentSalary(@RequestBody PercentSalaryDTO percentSalaryDTO) {
+    public void createPercentSalary(@RequestBody @Valid PercentSalaryDTO percentSalaryDTO) {
         percentSalaryService.createPercentSalary(percentSalaryDTOMapper.toEntity(percentSalaryDTO));
     }
 
     @PostMapping("/update")
-    public void updatePercentSalary(@RequestBody PercentSalaryDTO percentSalaryDTO) {
+    public void updatePercentSalary(@RequestBody @Valid PercentSalaryDTO percentSalaryDTO) {
         percentSalaryService.updatePercentSalary(percentSalaryDTOMapper.toEntity(percentSalaryDTO));
     }
 

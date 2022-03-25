@@ -7,6 +7,7 @@ import com.calcaddpayschoolbackend.service.mapper.PositionDTOMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,12 +30,12 @@ public class PositionController {
     }
 
     @PostMapping("/create")
-    public void createPosition(@RequestBody PositionDTO positionDTO) {
+    public void createPosition(@RequestBody @Valid PositionDTO positionDTO) {
         positionService.createPosition(positionDTOMapper.toEntity(positionDTO));
     }
 
     @PostMapping("/update")
-    public void updatePosition(@RequestBody PositionDTO positionDTO) {
+    public void updatePosition(@RequestBody @Valid PositionDTO positionDTO) {
         positionService.updatePosition(positionDTOMapper.toEntity(positionDTO));
     }
 

@@ -6,6 +6,7 @@ import com.calcaddpayschoolbackend.service.mapper.BasicNormsDTOMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,12 +19,12 @@ public class BasicNormsController {
     private final BasicNormsService basicNormsService;
 
     @PostMapping("/create")
-    public void createBasicNorms(@RequestBody BasicNormsDTO basicNormsDTO) {
+    public void createBasicNorms(@RequestBody @Valid BasicNormsDTO basicNormsDTO) {
         basicNormsService.createBasicNorms(basicNormsDTOMapper.toEntity(basicNormsDTO));
     }
 
     @PostMapping("/update")
-    public void updateBasicNorms(@RequestBody BasicNormsDTO basicNormsDTO) {
+    public void updateBasicNorms(@RequestBody @Valid BasicNormsDTO basicNormsDTO) {
         basicNormsService.updateBasicNorms(basicNormsDTOMapper.toEntity(basicNormsDTO));
     }
 

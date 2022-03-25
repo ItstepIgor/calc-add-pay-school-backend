@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,12 +21,12 @@ public class AddPayFundController {
     private final AddPayFundService addPayFundService;
 
     @PostMapping("/create")
-    public void createAddPayFund(@RequestBody AddPayFundDTO addPayFundDTO) {
+    public void createAddPayFund(@RequestBody @Valid AddPayFundDTO addPayFundDTO) {
         addPayFundService.createAddPayFund(addPayFundDTOMapper.toEntity(addPayFundDTO));
     }
 
     @PostMapping("/update")
-    public void updateAddPayFund(@RequestBody AddPayFundDTO addPayFundDTO) {
+    public void updateAddPayFund(@RequestBody @Valid AddPayFundDTO addPayFundDTO) {
         addPayFundService.updateAddPayFund(addPayFundDTOMapper.toEntity(addPayFundDTO));
     }
 
