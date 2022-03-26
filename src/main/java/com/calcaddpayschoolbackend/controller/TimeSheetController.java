@@ -39,7 +39,7 @@ public class TimeSheetController {
         timeSheetService.createTimeSheet(timeSheetDTOMapper.toEntity(timeSheetDTO));
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public void updateTimeSheet(@RequestBody TimeSheetDTO timeSheetDTO) {
         timeSheetService.updateTimeSheet(timeSheetDTOMapper.toEntity(timeSheetDTO));
     }
