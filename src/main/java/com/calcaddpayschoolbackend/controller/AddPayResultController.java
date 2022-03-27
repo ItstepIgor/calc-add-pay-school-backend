@@ -24,7 +24,7 @@ public class AddPayResultController {
         addPayResultService.createResult(addPayResultDTOMapper.toEntity(addPayResultDTO));
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public void updateAddPayResult(@RequestBody @Valid AddPayResultDTO addPayResultDTO) {
         addPayResultService.updateResult(addPayResultDTOMapper.toEntity(addPayResultDTO));
     }

@@ -2,8 +2,8 @@ package com.calcaddpayschoolbackend.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -21,7 +21,7 @@ public class AddPayResultDTO {
     private long basicNormsId;
     private String basicNormName;
     @Min(1)
+    @Max(100)
     private double percent;
-    @NotBlank
     private BigDecimal sum;
 }
