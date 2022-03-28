@@ -23,7 +23,7 @@ public class PercentSalaryController {
         percentSalaryService.createPercentSalary(percentSalaryDTOMapper.toEntity(percentSalaryDTO));
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public void updatePercentSalary(@RequestBody @Valid PercentSalaryDTO percentSalaryDTO) {
         percentSalaryService.updatePercentSalary(percentSalaryDTOMapper.toEntity(percentSalaryDTO));
     }

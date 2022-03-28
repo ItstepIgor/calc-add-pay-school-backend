@@ -43,7 +43,7 @@ public class PeopleController {
 //            "youngSpecial": true
 //    }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public void updatePeople(@RequestBody @Valid PeopleDTO peopleDTO) {
         peopleService.updatePeople(peopleDTOMapper.toEntity(peopleDTO));
     }

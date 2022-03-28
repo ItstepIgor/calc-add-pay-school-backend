@@ -22,7 +22,7 @@ public class AddPayTypeController {
         addPayTypeService.createAddPayType(addPayTypeDTOMapper.toEntity(addPayTypeDTO));
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public void updateAddPayType(@RequestBody AddPayTypeDTO addPayTypeDTO) {
         addPayTypeService.updateAddPayType(addPayTypeDTOMapper.toEntity(addPayTypeDTO));
     }

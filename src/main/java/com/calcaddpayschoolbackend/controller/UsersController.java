@@ -34,7 +34,7 @@ public class UsersController {
 //    }
 
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public void updateUsers(@RequestBody UsersDTO usersDTO) {
         usersService.updateUsers(userDTOMapper.toEntity(usersDTO));
     }

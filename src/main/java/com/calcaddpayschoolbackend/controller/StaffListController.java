@@ -54,9 +54,9 @@ public class StaffListController {
 //            "salary": 300,
 //            "disabled": false
 //    }
-    @PostMapping("/update")
+    @PutMapping("/update")
     public void updateStaffList(@RequestBody StaffListDTO staffListDTO) {
-        staffListService.createStaffList(staffListDTOMapper.toEntity(staffListDTO));
+        staffListService.updateStaffList(staffListDTOMapper.toEntity(staffListDTO));
     }
 
     @GetMapping("/delete")

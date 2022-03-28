@@ -36,9 +36,10 @@ public class StaffListService {
     @Transactional
     public void createStaffList(StaffList staffList) {
         if (staffListRepository.isExistStaffList(staffList.getPeople().getId(), staffList.getPosition().getId())) {
-            throw new EntityExistsOnThisDateException(String.format("На текущую дату штатное расписание для %s %s " +
+            throw new EntityExistsOnThisDateException(String.format("Штатное расписание для %s %s должность %s " +
                             "уже сохранено", peopleService.findPeopleById(staffList.getPeople().getId()).getSurName(),
-                    peopleService.findPeopleById(staffList.getPeople().getId()).getFirstName()));
+                    peopleService.findPeopleById(staffList.getPeople().getId()).getFirstName(),
+                    staffList.getPosition().getPositionName()));
         } else {
             staffListRepository.save(staffList);
         }

@@ -25,7 +25,7 @@ public class AddPayFundController {
         addPayFundService.createAddPayFund(addPayFundDTOMapper.toEntity(addPayFundDTO));
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public void updateAddPayFund(@RequestBody @Valid AddPayFundDTO addPayFundDTO) {
         addPayFundService.updateAddPayFund(addPayFundDTOMapper.toEntity(addPayFundDTO));
     }

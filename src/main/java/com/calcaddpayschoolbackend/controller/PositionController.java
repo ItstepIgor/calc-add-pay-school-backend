@@ -34,7 +34,7 @@ public class PositionController {
         positionService.createPosition(positionDTOMapper.toEntity(positionDTO));
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public void updatePosition(@RequestBody @Valid PositionDTO positionDTO) {
         positionService.updatePosition(positionDTOMapper.toEntity(positionDTO));
     }

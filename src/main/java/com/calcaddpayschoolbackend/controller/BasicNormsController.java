@@ -23,7 +23,7 @@ public class BasicNormsController {
         basicNormsService.createBasicNorms(basicNormsDTOMapper.toEntity(basicNormsDTO));
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public void updateBasicNorms(@RequestBody @Valid BasicNormsDTO basicNormsDTO) {
         basicNormsService.updateBasicNorms(basicNormsDTOMapper.toEntity(basicNormsDTO));
     }

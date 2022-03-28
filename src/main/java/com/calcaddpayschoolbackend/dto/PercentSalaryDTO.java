@@ -2,16 +2,17 @@ package com.calcaddpayschoolbackend.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
 public class PercentSalaryDTO {
     private long id;
-    @NotBlank
+    @NotNull
     private LocalDate percentStartDate;
-    @NotBlank
+    @Min(1)
     private int percentSalaryAll;
-    @NotBlank
+    @Min(1)
     private int percentSalaryForYoungSpecial;
 }

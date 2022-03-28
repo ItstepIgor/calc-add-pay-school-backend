@@ -39,9 +39,9 @@ public class CalcSettingsController {
         calcSettingsService.createCalcSettings(calcSettingsDTOMapper.toEntity(calcSettingsDTO));
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public void updateCalcSetting(@RequestBody @Valid CalcSettingsDTO calcSettingsDTO) {
-        calcSettingsService.createCalcSettings(calcSettingsDTOMapper.toEntity(calcSettingsDTO));
+        calcSettingsService.updateCalcSettings(calcSettingsDTOMapper.toEntity(calcSettingsDTO));
     }
 
     @GetMapping("/delete")

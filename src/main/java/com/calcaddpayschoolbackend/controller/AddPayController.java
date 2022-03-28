@@ -23,7 +23,7 @@ public class AddPayController {
         addPayService.createAddPay(addPayDTOMapper.toEntity(addPayDTO));
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public void updateBasicNorms(@RequestBody @Valid AddPayDTO addPayDTO) {
         addPayService.updateAddPay(addPayDTOMapper.toEntity(addPayDTO));
     }

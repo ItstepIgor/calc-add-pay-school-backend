@@ -2,7 +2,9 @@ package com.calcaddpayschoolbackend.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -11,8 +13,8 @@ public class BasicNormsDTO {
     private long id;
     @NotBlank
     private String basicNormName;
-    @NotBlank
+    @Min(1)
     private BigDecimal basicNormValue;
-    @NotBlank
+    @NotNull
     private LocalDate basicNormDate;
 }

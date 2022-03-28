@@ -14,7 +14,6 @@ PeopleDTO {
     private String firstName;
     @NotBlank
     private String patronymic;
-    @NotBlank
     private String personnelNumber;
     @NotBlank
     private String phoneNumber;
