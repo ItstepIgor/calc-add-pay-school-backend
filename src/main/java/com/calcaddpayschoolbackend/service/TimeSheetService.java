@@ -45,6 +45,10 @@ public class TimeSheetService {
         return timeSheetRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
+    public List<TimeSheet> getTimeSheetsWhoWorked() {
+        return null/*timeSheetRepository.findAllByDisabledIsTrueOrderByIdAsc()*/;
+    }
+
     public void deleteTimeSheet(TimeSheet timeSheet) {
         timeSheetRepository.delete(timeSheet);
     }
@@ -58,8 +62,8 @@ public class TimeSheetService {
                 new NoSuchEntityException(String.format("Табель с id %d не найден", id)));
     }
 
-    public List<TimeSheet> getMaxDateTimeSheets() {
-        return null;
+    public List<TimeSheet> getAllTimeSheetsWithMaxDate() {
+        return timeSheetRepository.findTimeSheetByCalcSettingsEquals(calcSettingsService.getMaxDateCalcSettings());
     }
 
     @Transactional

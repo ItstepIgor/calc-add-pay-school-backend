@@ -1,5 +1,6 @@
 package com.calcaddpayschoolbackend.repository;
 
+import com.calcaddpayschoolbackend.entity.CalcSettings;
 import com.calcaddpayschoolbackend.entity.TimeSheet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -8,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface TimeSheetRepository extends JpaRepository<TimeSheet, Long> {
@@ -34,5 +36,10 @@ public interface TimeSheetRepository extends JpaRepository<TimeSheet, Long> {
     @Query("select max(c.calcDate) from TimeSheet t join t.calcSettings c where  t.people.id=:peopleId")
     LocalDate getMaxTimeSheetForPeople(@Param("peopleId") long peopleId);
 
+//Нижний метод с запросом
+//    @Query("select t from TimeSheet t where t.calcSettings.id=:calcSettingsId")
+//    List<TimeSheet> getAllTimeSheetsWithMaxDate(@Param("calcSettingsId") long calcSettingsId);
+
+    List<TimeSheet> findTimeSheetByCalcSettingsEquals(CalcSettings calcSettings);
 
 }

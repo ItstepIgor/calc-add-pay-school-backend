@@ -24,14 +24,19 @@ public class TimeSheetController {
         return timeSheetDTOMapper.toDTOs(timeSheetService.getAllTimeSheets());
     }
 
+    @GetMapping("/getwhoworked")
+    public List<TimeSheetDTO> findAllWhoWorked() {
+        return timeSheetDTOMapper.toDTOs(timeSheetService.getTimeSheetsWhoWorked());
+    }
+
     @GetMapping("/getbyid")
     public TimeSheetDTO findTimeSheetById(@RequestParam long id) {
         return timeSheetDTOMapper.toDTO(timeSheetService.findTimeSheetById(id));
     }
 
-    @GetMapping("/getmaxdate")
-    public List<TimeSheetDTO> getMaxDateTimeSheet() {
-        return timeSheetDTOMapper.toDTOs(timeSheetService.getMaxDateTimeSheets());
+    @GetMapping("/getcurrenttimesheets")
+    public List<TimeSheetDTO> getAllTimeSheetsWithMaxDate() {
+        return timeSheetDTOMapper.toDTOs(timeSheetService.getAllTimeSheetsWithMaxDate());
     }
 
     @PostMapping("/create")
