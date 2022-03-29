@@ -1,19 +1,16 @@
 package com.calcaddpayschoolbackend.service;
 
 import com.calcaddpayschoolbackend.dto.AddPayResultDTO;
-import com.calcaddpayschoolbackend.exception.NoCurrentCalcDateException;
-import com.calcaddpayschoolbackend.exception.PercentValueException;
-import com.calcaddpayschoolbackend.pojo.AddPayResultSumPojo;
 import com.calcaddpayschoolbackend.entity.AddPayResult;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
+import com.calcaddpayschoolbackend.exception.PercentValueException;
+import com.calcaddpayschoolbackend.pojo.AddPayResultSumPojo;
 import com.calcaddpayschoolbackend.repository.AddPayResultRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.List;
 
 @Service
