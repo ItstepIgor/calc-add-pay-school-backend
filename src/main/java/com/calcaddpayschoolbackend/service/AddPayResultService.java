@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -52,6 +53,11 @@ public class AddPayResultService {
         return addPayResultRepository.findAll();
     }
 
+    public List<AddPayResult> getAllAddPayResultForMonth() {
+        return addPayResultRepository
+                .getAllAddPayResultForMonth(calcSettingsService.getMaxDateCalcSettings().getCalcDate());
+    }
+
     public AddPayResult findAddPayResultById(long id) {
         return addPayResultRepository.findById(id).orElseThrow(() ->
                 new NoSuchEntityException(String.format("Доп надбавка с id %d не найден", id)));
@@ -59,12 +65,13 @@ public class AddPayResultService {
 
     public AddPayResultSumPojo getAllAddPayResultSumForMonth() {
         AddPayResultSumPojo addPayResultSumPojo = new AddPayResultSumPojo();
-        addPayResultSumPojo.setBonusSum(addPayResultRepository.getAllSumForMonth(1) == null ?
-                BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(1));
-        addPayResultSumPojo.setComplicationSum(addPayResultRepository.getAllSumForMonth(2) == null ?
-                BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(2));
-        addPayResultSumPojo.setMotivationSum(addPayResultRepository.getAllSumForMonth(3) == null ?
-                BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(3));
+        LocalDate calcDate = calcSettingsService.getMaxDateCalcSettings().getCalcDate();
+        addPayResultSumPojo.setBonusSum(addPayResultRepository.getAllSumForMonth(1, calcDate) == null ?
+                BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(1, calcDate));
+        addPayResultSumPojo.setComplicationSum(addPayResultRepository.getAllSumForMonth(2, calcDate) == null ?
+                BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(2, calcDate));
+        addPayResultSumPojo.setMotivationSum(addPayResultRepository.getAllSumForMonth(3, calcDate) == null ?
+                BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(3, calcDate));
         return addPayResultSumPojo;
     }
 

@@ -43,6 +43,11 @@ public class StaffListController {
         staffListService.calcAndSavePercentSalaryResult();
     }
 
+    @GetMapping("/createalltimesheets")
+    public void createAllTimeSheetsWhoWorked() {
+        staffListService.createAllTimeSheetsWhoWorked();
+    }
+
     @PostMapping("/create")
     public void createStaffList(@RequestBody StaffListDTO staffListDTO) {
         staffListService.createStaffList(staffListDTOMapper.toEntity(staffListDTO));

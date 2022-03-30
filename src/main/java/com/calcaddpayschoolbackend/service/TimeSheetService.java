@@ -45,9 +45,6 @@ public class TimeSheetService {
         return timeSheetRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
-    public List<TimeSheet> getTimeSheetsWhoWorked() {
-        return null/*timeSheetRepository.findAllByDisabledIsTrueOrderByIdAsc()*/;
-    }
 
     public void deleteTimeSheet(TimeSheet timeSheet) {
         timeSheetRepository.delete(timeSheet);

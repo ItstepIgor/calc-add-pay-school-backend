@@ -6,7 +6,6 @@ import com.calcaddpayschoolbackend.entity.StaffList;
 import com.calcaddpayschoolbackend.entity.TimeSheet;
 import com.calcaddpayschoolbackend.exception.EntityExistsOnThisDateException;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
-import com.calcaddpayschoolbackend.repository.CalcSettingsRepository;
 import com.calcaddpayschoolbackend.repository.PercentSalaryRepository;
 import com.calcaddpayschoolbackend.repository.PercentSalaryResultRepository;
 import com.calcaddpayschoolbackend.repository.StaffListRepository;
@@ -27,7 +26,7 @@ public class StaffListService {
 
     private final PercentSalaryResultRepository percentSalaryResultRepository;
 
-    private final CalcSettingsRepository calcSettingsRepository;
+    private final CalcSettingsService calcSettingsService;
 
     private final TimeSheetService timeSheetService;
 
@@ -75,11 +74,25 @@ public class StaffListService {
     }
 
 
+    @Transactional
+    public void createAllTimeSheetsWhoWorked() {
+        List<StaffList> staffLists = getStaffListsWhoWorked();
+        for (StaffList staffList : staffLists) {
+            TimeSheet timeSheet = TimeSheet.builder()
+                    .people(staffList.getPeople())
+                    .calcSettings(calcSettingsService.getMaxDateCalcSettings())
+                    .actualDaysWorked(0)
+                    .build();
+            timeSheetService.createTimeSheet(timeSheet);
+        }
+    }
+
+    @Transactional
     public void calcAndSavePercentSalaryResult() {
         List<StaffList> staffLists = getStaffListsWhoWorked();
 
         PercentSalary percentDate = percentSalaryRepository.findFirstByOrderByPercentStartDateDesc();
-        int workingDays = calcSettingsRepository.findFirstByOrderByCalcDateDesc().getWorkingDays();
+        int workingDays = calcSettingsService.getMaxDateCalcSettings().getWorkingDays();
 
         for (StaffList staffList : staffLists) {
 

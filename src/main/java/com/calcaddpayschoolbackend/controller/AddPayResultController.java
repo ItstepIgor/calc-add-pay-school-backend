@@ -34,6 +34,11 @@ public class AddPayResultController {
         return addPayResultDTOMapper.toDTOs(addPayResultService.getAllResults());
     }
 
+    @GetMapping("/getformonth")
+    public List<AddPayResultDTO> getAllAddPayResultForMonth() {
+        return addPayResultDTOMapper.toDTOs(addPayResultService.getAllAddPayResultForMonth());
+    }
+
     @GetMapping("/getallsum")
     public AddPayResultSumPojo getAllAddPayResultSumForMonth() {
         return addPayResultService.getAllAddPayResultSumForMonth();

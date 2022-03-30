@@ -30,7 +30,12 @@ public class PercentSalaryResultService {
     }
 
     public BigDecimal getAllSumForMonth() {
-        return percentSalaryResultRepository.getAllSumForMonth(calcSettingsService.getMaxDateCalcSettings().getCalcDate());
+        BigDecimal allSumForMonth = percentSalaryResultRepository
+                .getAllSumForMonth(calcSettingsService.getMaxDateCalcSettings().getCalcDate());
+        if (allSumForMonth == null) {
+            allSumForMonth = BigDecimal.valueOf(0);
+        }
+        return allSumForMonth;
     }
 
     public void deletePercentSalaryResult(PercentSalaryResult percentSalaryResult) {
