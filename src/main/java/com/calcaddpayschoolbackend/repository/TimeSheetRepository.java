@@ -24,10 +24,6 @@ public interface TimeSheetRepository extends JpaRepository<TimeSheet, Long> {
             "where  s.id = :staffListId and c.calcDate=:calcDate")
     boolean isExistsTimeSheetForStaffList(@Param("staffListId") long staffListId, @Param("calcDate") LocalDate calcDate);
 
-
-    @Query("select concat(p.surName,' ', p.firstName,' ', p.patronymic) from StaffList s join s.people p where s.id=:staffListId")
-    String getPeopleFioByStaffList(@Param("staffListId") long staffListId);
-
     @Modifying(clearAutomatically = true)
     @Query("update TimeSheet set actualDaysWorked=:actualDaysWorked where id=:id")
     void updateTimeSheetDay(@Param("id") long id, @Param("actualDaysWorked") int actualDaysWorked);
@@ -35,6 +31,10 @@ public interface TimeSheetRepository extends JpaRepository<TimeSheet, Long> {
 
     @Query("select max(c.calcDate) from TimeSheet t join t.calcSettings c where  t.people.id=:peopleId")
     LocalDate getMaxTimeSheetForPeople(@Param("peopleId") long peopleId);
+
+//    Сделал вместо запроса метод в PeopleService
+//    @Query("select concat(p.surName,' ', p.firstName,' ', p.patronymic) from StaffList s join s.people p where s.id=:staffListId")
+//    String getPeopleFioByStaffList(@Param("staffListId") long staffListId);
 
 //Нижний метод с запросом
 //    @Query("select t from TimeSheet t where t.calcSettings.id=:calcSettingsId")

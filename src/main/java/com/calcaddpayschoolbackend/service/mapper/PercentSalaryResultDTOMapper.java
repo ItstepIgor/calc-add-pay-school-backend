@@ -2,6 +2,7 @@ package com.calcaddpayschoolbackend.service.mapper;
 
 import com.calcaddpayschoolbackend.dto.PercentSalaryResultDTO;
 import com.calcaddpayschoolbackend.entity.PercentSalaryResult;
+import com.calcaddpayschoolbackend.service.PeopleService;
 import com.calcaddpayschoolbackend.service.PercentSalaryService;
 import com.calcaddpayschoolbackend.service.StaffListService;
 import com.calcaddpayschoolbackend.service.TimeSheetService;
@@ -18,11 +19,14 @@ public class PercentSalaryResultDTOMapper implements EntityToDTOMapper<PercentSa
 
     private final TimeSheetService timeSheetService;
 
+    private final PeopleService peopleService;
+
     private final PercentSalaryService percentSalaryService;
 
-    public PercentSalaryResultDTOMapper(StaffListService staffListService, TimeSheetService timeSheetService, PercentSalaryService percentSalaryService) {
+    public PercentSalaryResultDTOMapper(StaffListService staffListService, TimeSheetService timeSheetService, PeopleService peopleService, PercentSalaryService percentSalaryService) {
         this.staffListService = staffListService;
         this.timeSheetService = timeSheetService;
+        this.peopleService = peopleService;
         this.percentSalaryService = percentSalaryService;
     }
 
@@ -32,8 +36,10 @@ public class PercentSalaryResultDTOMapper implements EntityToDTOMapper<PercentSa
         PercentSalaryResultDTO percentSalaryResultDTO = modelMapper.map(entity, PercentSalaryResultDTO.class);
         if (entity.getStaffList() != null) {
             percentSalaryResultDTO.setStaffListId(entity.getStaffList().getId());
-            percentSalaryResultDTO.setPeopleSurAndFirstName(entity.getStaffList().getPeople().getSurName() + " "
-                    + entity.getStaffList().getPeople().getFirstName());
+            percentSalaryResultDTO.setPeopleSurAndFirstName(peopleService.findFIOPeopleById(entity
+                    .getStaffList()
+                    .getPeople()
+                    .getId()));
             percentSalaryResultDTO.setPositionName(entity.getStaffList().getPosition().getPositionName());
         }
         if (entity.getTimeSheets() != null) {

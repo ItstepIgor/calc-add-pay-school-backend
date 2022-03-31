@@ -27,8 +27,7 @@ public class StaffListDTOMapper implements EntityToDTOMapper<StaffList, StaffLis
         StaffListDTO staffListDTO = modelMapper.map(entity, StaffListDTO.class);
         if (entity.getPeople() != null) {
             staffListDTO.setPeopleId(entity.getPeople().getId());
-            staffListDTO.setPeopleSurAndFirstName(entity.getPeople().getSurName() + " "
-                    + entity.getPeople().getFirstName() + " " + entity.getPeople().getPatronymic());
+            staffListDTO.setPeopleSurAndFirstName(peopleService.findFIOPeopleById(entity.getPeople().getId()));
         }
         if (entity.getPosition() != null) {
             staffListDTO.setPositionId(entity.getPosition().getId());

@@ -34,6 +34,12 @@ public class PeopleService {
         peopleRepository.deleteById(id);
     }
 
+    public String findFIOPeopleById(long id) {
+        People person = peopleRepository.findById(id).orElseThrow(() ->
+                new NoSuchEntityException(String.format("Сотрудник с id %d не найден", id)));
+        return person.getSurName() + " " + person.getFirstName() + " " + person.getPatronymic();
+    }
+
     public People findPeopleById(long id) {
         return peopleRepository.findById(id).orElseThrow(() ->
                 new NoSuchEntityException(String.format("Сотрудник с id %d не найден", id)));

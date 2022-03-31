@@ -6,6 +6,7 @@ import com.calcaddpayschoolbackend.exception.NoCurrentCalcDateException;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.repository.AddPayFundRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +39,7 @@ public class AddPayFundService {
     }
 
     public List<AddPayFund> getAllAddPayFunds() {
-        return addPayFundRepository.findAll();
+        return addPayFundRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
     public List<AddPayFund> getAllAddPayCurrentFund(LocalDate date) {

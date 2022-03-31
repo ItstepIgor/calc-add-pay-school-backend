@@ -17,15 +17,18 @@ public class AddPayResultDTOMapper implements EntityToDTOMapper<AddPayResult, Ad
 
     private final TimeSheetService timeSheetService;
 
+    private final PeopleService peopleService;
+
     private final BasicNormsService basicNormsService;
 
     private final AddPayResultService addPayResultService;
 
-    public AddPayResultDTOMapper(AddPayService addPayService, StaffListService staffListService, TimeSheetService timeSheetService, BasicNormsService basicNormsService, AddPayResultService addPayResultService) {
+    public AddPayResultDTOMapper(AddPayService addPayService, StaffListService staffListService, TimeSheetService timeSheetService, PeopleService peopleService, BasicNormsService basicNormsService, AddPayResultService addPayResultService) {
         super();
         this.addPayService = addPayService;
         this.staffListService = staffListService;
         this.timeSheetService = timeSheetService;
+        this.peopleService = peopleService;
         this.basicNormsService = basicNormsService;
         this.addPayResultService = addPayResultService;
     }
@@ -40,8 +43,10 @@ public class AddPayResultDTOMapper implements EntityToDTOMapper<AddPayResult, Ad
         }
         if (entity.getStaffList() != null) {
             addPayResultDTO.setStaffListId(entity.getStaffList().getId());
-            addPayResultDTO.setPeopleSurAndFirstName(entity.getStaffList().getPeople().getSurName() + " "
-                    + entity.getStaffList().getPeople().getFirstName());
+            addPayResultDTO.setPeopleSurAndFirstName(peopleService.findFIOPeopleById(entity
+                    .getStaffList()
+                    .getPeople()
+                    .getId()));
             addPayResultDTO.setPositionName(entity.getStaffList().getPosition().getPositionName());
         }
         if (entity.getTimeSheets() != null) {
