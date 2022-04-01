@@ -47,7 +47,7 @@ public class AddPayFundController {
         return addPayFundDTOMapper.toDTO(addPayFundService.findAddPayFundById(id));
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public void deleteAddPayFundById(@RequestParam long id) {
         addPayFundService.deleteAddPayFundById(id);
     }

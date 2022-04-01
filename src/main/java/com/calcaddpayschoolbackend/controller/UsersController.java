@@ -39,7 +39,7 @@ public class UsersController {
         usersService.updateUsers(userDTOMapper.toEntity(usersDTO));
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public void deleteUsersById(@RequestParam long id) {
         usersService.deleteUsersById(id);
     }

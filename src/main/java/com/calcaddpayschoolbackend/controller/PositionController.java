@@ -39,7 +39,7 @@ public class PositionController {
         positionService.updatePosition(positionDTOMapper.toEntity(positionDTO));
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public void deletePosition(@RequestParam long id) {
         positionService.deletePositionById(id);
     }

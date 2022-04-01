@@ -9,14 +9,15 @@ public class ExtractStringFromException {
     public static String extractStringFromException(String string) {
         String mistake = null;
         String table = null;
-        String regex = ("(Подробности:)(\\s+\\D*\\(id\\)\\D*\\d+\\D*?)(\"+)(\\D*)(\")");
+//        String regex = ("(Подробности:)(\\s+\\D*\\(id\\)\\D*\\d+\\D*?)(\"+)(\\D*)(\")");
+        String regex = ("(Подробности:\\s+\\D*\\(id\\)\\D*\\d+\\))(\\D*?)(\"+)(\\D*)(\")");
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(string);
         while (matcher.find()) {
             mistake = matcher.group(2);
             table = matcher.group(4);
         }
-        return mistake + findRuNameTable(table);
+        return "На удаляемую запись" + mistake + findRuNameTable(table);
     }
 
     private static String findRuNameTable(String string) {

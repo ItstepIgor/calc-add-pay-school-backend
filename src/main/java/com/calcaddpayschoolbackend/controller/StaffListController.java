@@ -64,7 +64,7 @@ public class StaffListController {
         staffListService.updateStaffList(staffListDTOMapper.toEntity(staffListDTO));
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public void deleteStaffListById(@RequestParam long id) {
         staffListService.deleteStaffListById(id);
     }

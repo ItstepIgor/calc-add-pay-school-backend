@@ -50,7 +50,7 @@ public class TimeSheetController {
     }
 
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public void deleteTimeSheetById(@RequestParam long id) {
         timeSheetService.deleteTimeSheetById(id);
     }

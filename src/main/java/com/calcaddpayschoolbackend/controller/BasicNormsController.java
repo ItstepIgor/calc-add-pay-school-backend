@@ -43,7 +43,7 @@ public class BasicNormsController {
         return basicNormsDTOMapper.toDTO(basicNormsService.getMaxDateBasicNorms());
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public void deleteBasicNormsById(@RequestParam long id) {
         basicNormsService.deleteBasicNormsById(id);
     }

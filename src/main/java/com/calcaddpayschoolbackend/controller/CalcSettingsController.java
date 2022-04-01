@@ -44,7 +44,7 @@ public class CalcSettingsController {
         calcSettingsService.updateCalcSettings(calcSettingsDTOMapper.toEntity(calcSettingsDTO));
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public void deleteCalcSettings(@RequestParam long id) {
         calcSettingsService.deleteCalcSettingsId(id);
     }

@@ -18,12 +18,15 @@ public class PositionService {
 
     @Transactional
     public void createPosition(Position position) {
-        checkSorting(position.getSorting());
-        positionRepository.save(position);
+        if (positionRepository.existPositionSorting(position.getSorting())) {
+            checkAndUpdateSorting(position.getSorting());
+            positionRepository.save(position);
+        } else {
+            positionRepository.save(position);
+        }
     }
 
-
-    public void checkSorting(int sorting) {
+    public void checkAndUpdateSorting(int sorting) {
         List<Position> positions = getAllPositions();
         for (int i = positions.size() - 1; i > 0; i--) {
             if (positions.get(i).getSorting() >= sorting) {
@@ -35,8 +38,15 @@ public class PositionService {
         }
     }
 
+    @Transactional
     public void updatePosition(Position position) {
-        positionRepository.save(position);
+        if (positionRepository.existPositionSorting(position.getSorting())) {
+            checkAndUpdateSorting(position.getSorting());
+            positionRepository.save(position);
+        } else {
+            positionRepository.save(position);
+        }
+//        positionRepository.save(position);
     }
 
     public List<Position> getAllPositions() {
@@ -49,6 +59,10 @@ public class PositionService {
 
     public void deletePositionById(Long id) {
         positionRepository.deleteById(id);
+    }
+
+    private boolean sortingPosition(int sorting) {
+        return positionRepository.existPositionSorting(sorting);
     }
 
     public Position findPositionById(long id) {

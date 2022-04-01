@@ -38,7 +38,7 @@ public class AddPayController {
         return addPayDTOMapper.toDTO(addPayService.findAddPayById(id));
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public void deleteBasicNormsById(@RequestParam long id) {
         addPayService.deleteAddPayById(id);
     }

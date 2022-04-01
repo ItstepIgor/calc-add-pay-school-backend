@@ -39,7 +39,7 @@ public class PercentSalaryResultController {
         return percentSalaryResultService.getAllSumForMonth();
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public void deletePercentSalaryResultById(@RequestParam long id) {
         percentSalaryResultService.deletePercentSalaryResultById(id);
     }

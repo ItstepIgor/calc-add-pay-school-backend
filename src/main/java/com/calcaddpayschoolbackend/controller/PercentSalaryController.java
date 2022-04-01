@@ -43,7 +43,7 @@ public class PercentSalaryController {
         return percentSalaryDTOMapper.toDTO(percentSalaryService.getMaxDatePercentSalary());
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public void deletePercentSalaryById(@RequestParam long id) {
         percentSalaryService.deletePercentSalaryById(id);
     }

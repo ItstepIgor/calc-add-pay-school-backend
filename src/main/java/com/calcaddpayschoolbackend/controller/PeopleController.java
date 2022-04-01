@@ -48,7 +48,7 @@ public class PeopleController {
         peopleService.updatePeople(peopleDTOMapper.toEntity(peopleDTO));
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public void deletePeople(@RequestParam long id) {
         peopleService.deletePeopleById(id);
     }

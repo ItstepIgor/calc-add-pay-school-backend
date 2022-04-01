@@ -13,4 +13,7 @@ public interface PositionRepository extends JpaRepository<Position, Long> {
     @Modifying(clearAutomatically = true)
     @Query("update Position set sorting=:sorting where id=:id")
     void updatePositionSorting(@Param("id") long id, @Param("sorting") int sorting);
+
+    @Query("select (count (p) > 0) from Position p where p.sorting=:sorting")
+    boolean existPositionSorting(@Param("sorting") int sorting);
 }

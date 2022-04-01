@@ -49,7 +49,7 @@ public class AddPayResultController {
         return addPayResultDTOMapper.toDTO(addPayResultService.findAddPayResultById(id));
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public void deleteAddPayResultById(@RequestParam long id) {
         addPayResultService.deleteResultById(id);
     }
