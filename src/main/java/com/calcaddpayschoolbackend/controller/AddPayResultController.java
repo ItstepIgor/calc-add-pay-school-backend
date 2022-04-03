@@ -5,6 +5,8 @@ import com.calcaddpayschoolbackend.pojo.AddPayResultSumPojo;
 import com.calcaddpayschoolbackend.service.AddPayResultService;
 import com.calcaddpayschoolbackend.service.mapper.AddPayResultDTOMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,7 +32,8 @@ public class AddPayResultController {
     }
 
     @GetMapping("/get")
-    public List<AddPayResultDTO> getAllAddPayResult() {
+    public List<AddPayResultDTO> getAllAddPayResult(Authentication authentication) {
+        System.out.println((UserDetails)authentication.getPrincipal());
         return addPayResultDTOMapper.toDTOs(addPayResultService.getAllResults());
     }
 

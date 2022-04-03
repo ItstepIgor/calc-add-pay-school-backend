@@ -25,14 +25,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/login, /api/**").hasRole("ADMIN")
+//                .antMatchers("/api/**").hasRole("ADMIN")
 //                .anyRequest().authenticated()
                 .antMatchers("/**").permitAll()
-                .and().httpBasic()
-                .and()
-                .formLogin();
+                .and().httpBasic();
+//                .and()
+//                .formLogin()
 //                .loginPage("/login")
-//                .loginProcessingUrl("/authorize")
+//                .loginProcessingUrl("/authorize");
 //                .usernameParameter("username")
 //                .passwordParameter("password")
 //                .defaultSuccessUrl("/")
