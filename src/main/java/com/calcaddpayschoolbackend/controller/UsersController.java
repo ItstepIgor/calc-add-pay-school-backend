@@ -1,6 +1,7 @@
 package com.calcaddpayschoolbackend.controller;
 
 import com.calcaddpayschoolbackend.dto.UsersDTO;
+import com.calcaddpayschoolbackend.service.CustomUserDetailsService;
 import com.calcaddpayschoolbackend.service.UsersService;
 import com.calcaddpayschoolbackend.service.mapper.UserDTOMapper;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +18,17 @@ public class UsersController {
 
     private final UsersService usersService;
 
+    private final CustomUserDetailsService customUserDetailsService;
+
     @GetMapping("/get")
     public List<UsersDTO> findAll() {
         return userDTOMapper.toDTOs(usersService.getAllUsers());
     }
+
+//    @GetMapping("/getuser")
+//    public UserDetails getUser(@RequestParam String login) {
+//        return customUserDetailsService.loadUserByUsername(login);
+//    }
 
     @PostMapping("/create")
     public void createUsers(@RequestBody UsersDTO usersDTO) {

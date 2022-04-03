@@ -17,6 +17,8 @@ public class Users extends AbstractEntity {
     @JoinColumn(name = "people_id", nullable = false)
     private People people;
     @Column(nullable = false)
+    private String login;
+    @Column(nullable = false)
     private String password;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
