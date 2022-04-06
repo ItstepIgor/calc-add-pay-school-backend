@@ -1,6 +1,7 @@
 package com.calcaddpayschoolbackend.controller;
 
 import com.calcaddpayschoolbackend.dto.UsersDTO;
+import com.calcaddpayschoolbackend.pojo.RolePojo;
 import com.calcaddpayschoolbackend.service.CustomUserDetailsService;
 import com.calcaddpayschoolbackend.service.UsersService;
 import com.calcaddpayschoolbackend.service.mapper.UserDTOMapper;
@@ -23,6 +24,16 @@ public class UsersController {
     @GetMapping("/get")
     public List<UsersDTO> findAll() {
         return userDTOMapper.toDTOs(usersService.getAllUsers());
+    }
+
+    @GetMapping("/getbyid")
+    public UsersDTO findTimeSheetById(@RequestParam long id) {
+        return userDTOMapper.toDTO(usersService.findUserById(id));
+    }
+
+    @GetMapping("/getByEnumRole")
+    public List<RolePojo> getByEnumRole() {
+        return usersService.getByEnumRole();
     }
 
 //    @GetMapping("/getuser")
