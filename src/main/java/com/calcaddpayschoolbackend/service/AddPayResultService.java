@@ -3,6 +3,7 @@ package com.calcaddpayschoolbackend.service;
 import com.calcaddpayschoolbackend.dto.AddPayResultDTO;
 import com.calcaddpayschoolbackend.entity.AddPayResult;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
+import com.calcaddpayschoolbackend.exception.NotTimeSheetDayException;
 import com.calcaddpayschoolbackend.exception.PercentValueException;
 import com.calcaddpayschoolbackend.pojo.AddPayResultSumPojo;
 import com.calcaddpayschoolbackend.repository.AddPayResultRepository;
@@ -25,6 +26,10 @@ public class AddPayResultService {
 
     private final TimeSheetService timeSheetService;
 
+    private final StaffListService staffListService;
+
+    private final PeopleService peopleService;
+
     public void createResult(AddPayResult addPayResult) {
         if (addPayResult.getPercent() > addPayResult.getAddPay().getMaxPercent()) {
             throw new PercentValueException();
@@ -37,6 +42,11 @@ public class AddPayResultService {
         int workDay = calcSettingsService.getMaxDateCalcSettings().getWorkingDays();
         int actualDaysWorked = timeSheetService
                 .getMaxTimeSheetForStaffList(addPayResultDTO.getStaffListId()).getActualDaysWorked();
+        if (actualDaysWorked == 0) {
+            throw new NotTimeSheetDayException(String.format("В табеле для сотрудника %s заполнено 0 рабочих дней",
+                    peopleService.findFIOPeopleById(staffListService
+                            .findStaffListById(addPayResultDTO.getStaffListId()).getPeople().getId())));
+        }
         double coefficient = addPayResultDTO.getPercent() / 100;
         BigDecimal sumForAllDays = basicNormsService.getMaxDateBasicNorms().getBasicNormValue()
                 .multiply(BigDecimal.valueOf(coefficient));
@@ -50,7 +60,7 @@ public class AddPayResultService {
     }
 
     public List<AddPayResult> getAllResults() {
-        return addPayResultRepository.findAll();
+        return addPayResultRepository.findAllSortingByPosition();
     }
 
     public List<AddPayResult> getAllAddPayResultForMonth() {

@@ -1,6 +1,5 @@
 package com.calcaddpayschoolbackend.repository;
 
-import com.calcaddpayschoolbackend.entity.CalcSettings;
 import com.calcaddpayschoolbackend.entity.TimeSheet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -32,6 +31,10 @@ public interface TimeSheetRepository extends JpaRepository<TimeSheet, Long> {
     @Query("select max(c.calcDate) from TimeSheet t join t.calcSettings c where  t.people.id=:peopleId")
     LocalDate getMaxTimeSheetForPeople(@Param("peopleId") long peopleId);
 
+    @Query("select ts from TimeSheet ts join ts.calcSettings cs join ts.people p " +
+            "join p.staffLists st join st.position pos order by cs.calcDate, pos.sorting, p.surName")
+    List<TimeSheet> findAllSortingByPosition();
+
 //    Сделал вместо запроса метод в PeopleService
 //    @Query("select concat(p.surName,' ', p.firstName,' ', p.patronymic) from StaffList s join s.people p where s.id=:staffListId")
 //    String getPeopleFioByStaffList(@Param("staffListId") long staffListId);
@@ -40,6 +43,8 @@ public interface TimeSheetRepository extends JpaRepository<TimeSheet, Long> {
 //    @Query("select t from TimeSheet t where t.calcSettings.id=:calcSettingsId")
 //    List<TimeSheet> getAllTimeSheetsWithMaxDate(@Param("calcSettingsId") long calcSettingsId);
 
-    List<TimeSheet> findTimeSheetByCalcSettingsEquals(CalcSettings calcSettings);
+    @Query("select ts from TimeSheet ts join ts.calcSettings cs join ts.people p " +
+            "join p.staffLists st join st.position pos where cs.calcDate=:calcDate order by pos.sorting, p.surName")
+    List<TimeSheet> findTimeSheetByCalcDate(@Param("calcDate") LocalDate calcDate);
 
 }

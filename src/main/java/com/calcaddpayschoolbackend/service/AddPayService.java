@@ -4,6 +4,7 @@ import com.calcaddpayschoolbackend.entity.AddPay;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.repository.AddPayRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class AddPayService {
     }
 
     public List<AddPay> getAllAddPays() {
-        return addPayRepository.findAll();
+        return addPayRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
     public void deleteAddPay(AddPay addPay) {

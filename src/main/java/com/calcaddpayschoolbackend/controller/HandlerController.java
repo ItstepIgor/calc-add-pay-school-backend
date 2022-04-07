@@ -32,6 +32,17 @@ public class HandlerController {
         return getResponseEntity(exception.getClass().getName(), exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(NotDeleteException.class)
+    public ResponseEntity<TemplateResponseException> handleMyException(NotDeleteException exception) {
+        return getResponseEntity(exception.getClass().getName(), exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NotTimeSheetDayException.class)
+    public ResponseEntity<TemplateResponseException> handleMyException(NotTimeSheetDayException exception) {
+        return getResponseEntity(exception.getClass().getName(), exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+
     @ExceptionHandler(EntityExistsOnThisDateException.class)
     public ResponseEntity<TemplateResponseException> handleMyException(EntityExistsOnThisDateException exception) {
         return getResponseEntity(exception.getClass().getName(), exception.getMessage(), HttpStatus.BAD_REQUEST);

@@ -13,9 +13,13 @@ public interface StaffListRepository extends JpaRepository<StaffList, Long> {
 
     List<StaffList> findAllByOrderByIdAsc();
 
-    List<StaffList> findAllByDisabledIsTrueOrderByIdAsc();
+    @Query("select st from StaffList st join  st.people p join st.position pos " +
+            "where st.disabled=true order by pos.sorting, p.surName")
+    List<StaffList> findAllByWhoWorked();
 
-    List<StaffList> findAllByDisabledIsFalseOrderByIdAsc();
+    @Query("select st from StaffList st join  st.people p join st.position pos " +
+            "where st.disabled=false order by pos.sorting, p.surName")
+    List<StaffList> findAllWhoDidNotWork();
 
     @Query("select (count (s) > 0) from StaffList s where s.people.id=:peopleId and s.position.id=:positionId")
     boolean isExistStaffList(@Param("peopleId") long peopleId, @Param("positionId") long positionId);

@@ -3,6 +3,7 @@ package com.calcaddpayschoolbackend.service;
 import com.calcaddpayschoolbackend.entity.Role;
 import com.calcaddpayschoolbackend.entity.Users;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
+import com.calcaddpayschoolbackend.exception.NotDeleteException;
 import com.calcaddpayschoolbackend.pojo.RolePojo;
 import com.calcaddpayschoolbackend.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +48,11 @@ public class UsersService {
     }
 
     public void deleteUsersById(Long id) {
-        usersRepository.deleteById(id);
+        if (id == 1) {
+            throw new NotDeleteException();
+        } else {
+            usersRepository.deleteById(id);
+        }
     }
 
 }

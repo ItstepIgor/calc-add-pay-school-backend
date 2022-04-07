@@ -4,6 +4,7 @@ import com.calcaddpayschoolbackend.dto.UsersDTO;
 import com.calcaddpayschoolbackend.entity.Users;
 import com.calcaddpayschoolbackend.service.PeopleService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,9 +12,12 @@ public class UserDTOMapper implements EntityToDTOMapper<Users, UsersDTO> {
 
     ModelMapper modelMapper = new ModelMapper();
 
+    private final BCryptPasswordEncoder passwordEncoder;
+
     private final PeopleService peopleService;
 
-    public UserDTOMapper(PeopleService peopleService) {
+    public UserDTOMapper(BCryptPasswordEncoder passwordEncoder, PeopleService peopleService) {
+        this.passwordEncoder = passwordEncoder;
         this.peopleService = peopleService;
     }
 
@@ -28,6 +32,8 @@ public class UserDTOMapper implements EntityToDTOMapper<Users, UsersDTO> {
 
     @Override
     public Users toEntity(UsersDTO dto, Object... args) {
-        return modelMapper.map(dto, Users.class);
+        Users users = modelMapper.map(dto, Users.class);
+        users.setPassword(passwordEncoder.encode(dto.getPassword()));
+        return users;
     }
 }

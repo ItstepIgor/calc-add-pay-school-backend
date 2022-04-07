@@ -4,6 +4,7 @@ import com.calcaddpayschoolbackend.entity.CalcSettings;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.repository.CalcSettingsRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class CalcSettingsService {
     }
 
     public List<CalcSettings> getAllCalcSettings() {
-        return calcSettingsRepository.findAll();
+        return calcSettingsRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
     public CalcSettings getMaxDateCalcSettings() {

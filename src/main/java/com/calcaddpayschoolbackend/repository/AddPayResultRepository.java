@@ -17,8 +17,13 @@ public interface AddPayResultRepository extends JpaRepository<AddPayResult, Long
             "asr.timeSheets ts join ts.calcSettings cs where apt.id=:id and cs.calcDate=:calcDate")
     BigDecimal getAllSumForMonth(@Param("id") long id, @Param("calcDate") LocalDate calcDate);
 
-    @Query("select asr from AddPayResult asr join asr.timeSheets ts join ts.calcSettings cs where cs.calcDate=:calcDate")
+    @Query("select asr from AddPayResult asr join asr.timeSheets ts join ts.calcSettings cs join ts.people p " +
+            "join p.staffLists st join st.position pos where cs.calcDate=:calcDate order by pos.sorting, p.surName")
     List<AddPayResult> getAllAddPayResultForMonth(@Param("calcDate") LocalDate calcDate);
+
+    @Query("select asr from AddPayResult asr join asr.timeSheets ts join ts.calcSettings cs join ts.people p " +
+            "join p.staffLists st join st.position pos order by cs.calcDate, pos.sorting, p.surName")
+    List<AddPayResult> findAllSortingByPosition();
 
 }
 

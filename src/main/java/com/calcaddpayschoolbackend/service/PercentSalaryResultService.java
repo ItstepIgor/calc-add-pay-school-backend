@@ -26,7 +26,7 @@ public class PercentSalaryResultService {
     }
 
     public List<PercentSalaryResult> getAllPercentSalaryResults() {
-        return percentSalaryResultRepository.findAll();
+        return percentSalaryResultRepository.findAllSortingByPosition();
     }
 
     public BigDecimal getAllSumForMonth() {

@@ -32,8 +32,7 @@ public class AddPayResultController {
     }
 
     @GetMapping("/get")
-    public List<AddPayResultDTO> getAllAddPayResult(Authentication authentication) {
-        System.out.println((UserDetails)authentication.getPrincipal());
+    public List<AddPayResultDTO> getAllAddPayResult() {
         return addPayResultDTOMapper.toDTOs(addPayResultService.getAllResults());
     }
 

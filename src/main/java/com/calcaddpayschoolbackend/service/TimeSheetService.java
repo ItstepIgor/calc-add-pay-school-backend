@@ -7,7 +7,6 @@ import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.pojo.TimeSheetUpdateDayPojo;
 import com.calcaddpayschoolbackend.repository.TimeSheetRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -41,7 +40,7 @@ public class TimeSheetService {
     }
 
     public List<TimeSheet> getAllTimeSheets() {
-        return timeSheetRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        return timeSheetRepository.findAllSortingByPosition();
     }
 
 
@@ -59,7 +58,8 @@ public class TimeSheetService {
     }
 
     public List<TimeSheet> getAllTimeSheetsWithMaxDate() {
-        return timeSheetRepository.findTimeSheetByCalcSettingsEquals(calcSettingsService.getMaxDateCalcSettings());
+        return timeSheetRepository
+                .findTimeSheetByCalcDate(calcSettingsService.getMaxDateCalcSettings().getCalcDate());
     }
 
     @Transactional
