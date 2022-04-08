@@ -21,16 +21,13 @@ public class AddPayResultDTOMapper implements EntityToDTOMapper<AddPayResult, Ad
 
     private final BasicNormsService basicNormsService;
 
-    private final AddPayResultService addPayResultService;
-
-    public AddPayResultDTOMapper(AddPayService addPayService, StaffListService staffListService, TimeSheetService timeSheetService, PeopleService peopleService, BasicNormsService basicNormsService, AddPayResultService addPayResultService) {
+    public AddPayResultDTOMapper(AddPayService addPayService, StaffListService staffListService, TimeSheetService timeSheetService, PeopleService peopleService, BasicNormsService basicNormsService) {
         super();
         this.addPayService = addPayService;
         this.staffListService = staffListService;
         this.timeSheetService = timeSheetService;
         this.peopleService = peopleService;
         this.basicNormsService = basicNormsService;
-        this.addPayResultService = addPayResultService;
     }
 
     @Override
@@ -65,7 +62,6 @@ public class AddPayResultDTOMapper implements EntityToDTOMapper<AddPayResult, Ad
         AddPayResult addPayResult = modelMapper.map(dto, AddPayResult.class);
         addPayResult.setStaffList(staffListService.findStaffListById(dto.getStaffListId()));
         addPayResult.setTimeSheets(timeSheetService.getMaxTimeSheetForStaffList(dto.getStaffListId()));
-        addPayResult.setSum(addPayResultService.calcSumAddPay(dto));
         addPayResult.setBasicNorms(basicNormsService.getMaxDateBasicNorms());
         addPayResult.setAddPay(addPayService.findAddPayById(dto.getAddPayId()));
         return addPayResult;

@@ -1,11 +1,12 @@
 package com.calcaddpayschoolbackend.service;
 
-import com.calcaddpayschoolbackend.dto.AddPayResultDTO;
+import com.calcaddpayschoolbackend.entity.AddPayFund;
 import com.calcaddpayschoolbackend.entity.AddPayResult;
+import com.calcaddpayschoolbackend.exception.EntityExistsOnThisDateException;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.exception.NotTimeSheetDayException;
 import com.calcaddpayschoolbackend.exception.PercentValueException;
-import com.calcaddpayschoolbackend.pojo.AddPayResultSumPojo;
+import com.calcaddpayschoolbackend.pojo.ResultAllSumForMonthPojo;
 import com.calcaddpayschoolbackend.repository.AddPayResultRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,12 @@ import java.util.List;
 public class AddPayResultService {
     private final AddPayResultRepository addPayResultRepository;
 
+    private final AddPayFundService addPayFundService;
+
+    private final AddPayTypeService addPayTypeService;
+
+    private final PercentSalaryResultService percentSalaryResultService;
+
     private final BasicNormsService basicNormsService;
 
     private final CalcSettingsService calcSettingsService;
@@ -33,27 +40,51 @@ public class AddPayResultService {
     public void createResult(AddPayResult addPayResult) {
         if (addPayResult.getPercent() > addPayResult.getAddPay().getMaxPercent()) {
             throw new PercentValueException();
+        } else if (addPayResultRepository.isExistsAddPayResults(addPayResult.getAddPay().getId(),
+                addPayResult.getTimeSheets().getId(), addPayResult.getStaffList().getId())) {
+            throw new EntityExistsOnThisDateException(String.format("На текущую дату дополнительная оплата с кодом %s " +
+                            "для %s уже сохранен", addPayResult.getAddPay().getAddPayCode(),
+                    peopleService.findFIOPeopleById(addPayResult.getStaffList().getPeople().getId())));
         } else {
+            BigDecimal sum = calcSumAddPay(addPayResult);
+            addPayResult.setSum(sum);
             addPayResultRepository.save(addPayResult);
         }
     }
 
-    public BigDecimal calcSumAddPay(AddPayResultDTO addPayResultDTO) {
+    public void saveBalanceToAddPayResult(AddPayResult addPayResult) {
+        if (addPayResult.getPercent() > addPayResult.getAddPay().getMaxPercent()) {
+            throw new PercentValueException();
+        } else if (addPayResultRepository.isExistsAddPayResults(addPayResult.getAddPay().getId(),
+                addPayResult.getTimeSheets().getId(), addPayResult.getStaffList().getId())) {
+            AddPayResult addPayResultFromDb = addPayResultRepository.getAddPayResultsByAddPayAndStaffList(
+                    addPayResult.getAddPay().getId(), addPayResult.getTimeSheets().getId(),
+                    addPayResult.getStaffList().getId());
+            addPayResultFromDb.setSum(addPayResultFromDb.getSum().add(addPayResult.getSum()));
+            addPayResultRepository.save(addPayResultFromDb);
+        } else {
+            BigDecimal sum = calcSumAddPay(addPayResult);
+            addPayResult.setSum(sum);
+            addPayResultRepository.save(addPayResult);
+        }
+    }
+
+
+    public BigDecimal calcSumAddPay(AddPayResult addPayResult) {
         int workDay = calcSettingsService.getMaxDateCalcSettings().getWorkingDays();
         int actualDaysWorked = timeSheetService
-                .getMaxTimeSheetForStaffList(addPayResultDTO.getStaffListId()).getActualDaysWorked();
+                .getMaxTimeSheetForStaffList(addPayResult.getStaffList().getId()).getActualDaysWorked();
         if (actualDaysWorked == 0) {
             throw new NotTimeSheetDayException(String.format("В табеле для сотрудника %s заполнено 0 рабочих дней",
                     peopleService.findFIOPeopleById(staffListService
-                            .findStaffListById(addPayResultDTO.getStaffListId()).getPeople().getId())));
+                            .findStaffListById(addPayResult.getStaffList().getId()).getPeople().getId())));
         }
-        double coefficient = addPayResultDTO.getPercent() / 100;
+        double coefficient = addPayResult.getPercent() / 100;
         BigDecimal sumForAllDays = basicNormsService.getMaxDateBasicNorms().getBasicNormValue()
                 .multiply(BigDecimal.valueOf(coefficient));
         return sumForAllDays.divide(BigDecimal.valueOf(workDay), 2, RoundingMode.CEILING)
                 .multiply(BigDecimal.valueOf(actualDaysWorked));
     }
-
 
     public void updateResult(AddPayResult addPayResult) {
         addPayResultRepository.save(addPayResult);
@@ -73,16 +104,29 @@ public class AddPayResultService {
                 new NoSuchEntityException(String.format("Доп надбавка с id %d не найден", id)));
     }
 
-    public AddPayResultSumPojo getAllAddPayResultSumForMonth() {
-        AddPayResultSumPojo addPayResultSumPojo = new AddPayResultSumPojo();
+    public ResultAllSumForMonthPojo getAllAddPayResultSumForMonth() {
+        ResultAllSumForMonthPojo resultAllSumForMonthPojo = new ResultAllSumForMonthPojo();
         LocalDate calcDate = calcSettingsService.getMaxDateCalcSettings().getCalcDate();
-        addPayResultSumPojo.setBonusSum(addPayResultRepository.getAllSumForMonth(1, calcDate) == null ?
-                BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(1, calcDate));
-        addPayResultSumPojo.setComplicationSum(addPayResultRepository.getAllSumForMonth(2, calcDate) == null ?
-                BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(2, calcDate));
-        addPayResultSumPojo.setMotivationSum(addPayResultRepository.getAllSumForMonth(3, calcDate) == null ?
-                BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(3, calcDate));
-        return addPayResultSumPojo;
+        List<AddPayFund> addPayCurrentFund = addPayFundService.getAllAddPayCurrentFund(calcDate);
+        BigDecimal allSumForMonth = percentSalaryResultService.getAllSumForMonth();
+        for (AddPayFund addPayFund : addPayCurrentFund) {
+            if (addPayFund.getAddPayTypes().getId() == 1) {
+                resultAllSumForMonthPojo.setBonusSum(addPayFund.getAddPayFunds().subtract(addPayResultRepository
+                        .getAllSumForMonth(1, calcDate) == null ? BigDecimal.valueOf(0)
+                        : addPayResultRepository.getAllSumForMonth(1, calcDate)).subtract(allSumForMonth));
+                resultAllSumForMonthPojo.setBonusName(addPayTypeService.findAddPayTypeById(1).getAddPayTypeName());
+            } else if (addPayFund.getAddPayTypes().getId() == 2) {
+                resultAllSumForMonthPojo.setComplicationSum(addPayFund.getAddPayFunds().subtract(addPayResultRepository
+                        .getAllSumForMonth(2, calcDate) == null ? BigDecimal.valueOf(0)
+                        : addPayResultRepository.getAllSumForMonth(2, calcDate)));
+                resultAllSumForMonthPojo.setComplicationName(addPayTypeService.findAddPayTypeById(2).getAddPayTypeName());
+            } else if (addPayFund.getAddPayTypes().getId() == 3) {
+                resultAllSumForMonthPojo.setMotivationSum(addPayFund.getAddPayFunds().subtract(addPayResultRepository.getAllSumForMonth(3, calcDate) == null ?
+                        BigDecimal.valueOf(0) : addPayResultRepository.getAllSumForMonth(3, calcDate)));
+                resultAllSumForMonthPojo.setMotivationName(addPayTypeService.findAddPayTypeById(3).getAddPayTypeName());
+            }
+        }
+        return resultAllSumForMonthPojo;
     }
 
     public void deleteResult(AddPayResult addPayResult) {

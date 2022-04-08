@@ -20,7 +20,7 @@ public class AddPayResultDTO {
     private LocalDate calcDate;
     private long basicNormsId;
     private String basicNormName;
-    @Min(1)
+    @Min(0)
     @Max(100)
     private double percent;
     private BigDecimal sum;

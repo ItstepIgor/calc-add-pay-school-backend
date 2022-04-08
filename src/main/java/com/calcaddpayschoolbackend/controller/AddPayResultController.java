@@ -1,12 +1,10 @@
 package com.calcaddpayschoolbackend.controller;
 
 import com.calcaddpayschoolbackend.dto.AddPayResultDTO;
-import com.calcaddpayschoolbackend.pojo.AddPayResultSumPojo;
+import com.calcaddpayschoolbackend.pojo.ResultAllSumForMonthPojo;
 import com.calcaddpayschoolbackend.service.AddPayResultService;
 import com.calcaddpayschoolbackend.service.mapper.AddPayResultDTOMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,6 +29,11 @@ public class AddPayResultController {
         addPayResultService.updateResult(addPayResultDTOMapper.toEntity(addPayResultDTO));
     }
 
+    @PostMapping("/savebalance")
+    public void saveBalanceToAddPayResult(@RequestBody @Valid AddPayResultDTO addPayResultDTO) {
+        addPayResultService.saveBalanceToAddPayResult(addPayResultDTOMapper.toEntity(addPayResultDTO));
+    }
+
     @GetMapping("/get")
     public List<AddPayResultDTO> getAllAddPayResult() {
         return addPayResultDTOMapper.toDTOs(addPayResultService.getAllResults());
@@ -42,7 +45,7 @@ public class AddPayResultController {
     }
 
     @GetMapping("/getallsum")
-    public AddPayResultSumPojo getAllAddPayResultSumForMonth() {
+    public ResultAllSumForMonthPojo getAllAddPayResultSumForMonth() {
         return addPayResultService.getAllAddPayResultSumForMonth();
     }
 

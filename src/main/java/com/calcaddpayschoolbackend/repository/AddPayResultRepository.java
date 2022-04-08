@@ -25,6 +25,15 @@ public interface AddPayResultRepository extends JpaRepository<AddPayResult, Long
             "join p.staffLists st join st.position pos order by cs.calcDate, pos.sorting, p.surName")
     List<AddPayResult> findAllSortingByPosition();
 
+    @Query("select (count (apr) > 0) from AddPayResult apr join apr.timeSheets ts join apr.addPay ap " +
+            "join apr.staffList st where ap.id=:addPayId and ts.id=:timeSheetId and st.id=:staffListId")
+    boolean isExistsAddPayResults(@Param("addPayId") long addPayId, @Param("timeSheetId") long timeSheetId
+            , @Param("staffListId") long staffListId);
+
+    @Query("select apr from AddPayResult apr join apr.timeSheets ts join apr.addPay ap " +
+            "join apr.staffList st where ap.id=:addPayId and ts.id=:timeSheetId and st.id=:staffListId")
+    AddPayResult getAddPayResultsByAddPayAndStaffList(@Param("addPayId") long addPayId, @Param("timeSheetId") long timeSheetId
+            , @Param("staffListId") long staffListId);
 }
 
 
