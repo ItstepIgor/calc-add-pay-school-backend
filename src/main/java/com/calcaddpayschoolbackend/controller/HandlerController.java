@@ -27,6 +27,11 @@ public class HandlerController {
         return getResponseEntity(exception.getClass().getName(), exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(BalanceSumException.class)
+    public ResponseEntity<TemplateResponseException> handleMyException(BalanceSumException exception) {
+        return getResponseEntity(exception.getClass().getName(), exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(PercentValueException.class)
     public ResponseEntity<TemplateResponseException> handleMyException(PercentValueException exception) {
         return getResponseEntity(exception.getClass().getName(), exception.getMessage(), HttpStatus.BAD_REQUEST);
