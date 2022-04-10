@@ -6,6 +6,7 @@ import com.calcaddpayschoolbackend.entity.StaffList;
 import com.calcaddpayschoolbackend.entity.TimeSheet;
 import com.calcaddpayschoolbackend.exception.EntityExistsOnThisDateException;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
+import com.calcaddpayschoolbackend.pojo.BonusPojo;
 import com.calcaddpayschoolbackend.repository.StaffListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -46,8 +47,15 @@ public class StaffListService {
     }
 
     public List<StaffList> getAllStaffLists() {
+        List<BonusPojo> bonusPojo = staffListRepository.findByAllBonus();
+        for (BonusPojo pojo : bonusPojo) {
+            System.out.println(pojo.getFio() + " " + pojo.getPos() + " " + pojo.getPremia()
+                    + " " + pojo.getSumdop() + " " + pojo.getCod() + " " + pojo.getSumall());
+        }
         return staffListRepository.findAllByOrderByIdAsc();
     }
+
+
 
     public List<StaffList> getStaffListsWhoWorked() {
         return staffListRepository.findAllByWhoWorked();
@@ -64,6 +72,7 @@ public class StaffListService {
     public void deleteStaffListById(Long id) {
         staffListRepository.deleteById(id);
     }
+
 
     public StaffList findStaffListById(long id) {
         return staffListRepository.findById(id).orElseThrow(() ->
