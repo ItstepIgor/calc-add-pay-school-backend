@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.19.0.final using JasperReports Library version 6.19.0-646c68931cebf1a58bc65c4359d1f0ca223c5e94  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employees" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="ea9d9eab-78ea-4cb9-adce-7588ae6a483e">
+	<parameter name="CalcDate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
+	</parameter>
 	<field name="fio" class="java.lang.String"/>
 	<field name="pos" class="java.lang.String"/>
 	<field name="premia" class="java.math.BigDecimal"/>
@@ -16,28 +19,61 @@
 	<variable name="sumall1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
 		<variableExpression><![CDATA[$F{sumall}]]></variableExpression>
 	</variable>
+	<variable name="Year" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
 	<title>
-		<band height="72">
-			<frame>
-				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="067e5760-2a3c-4197-92e5-afbec0f9ce47"/>
-				<staticText>
-					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="7fd19f78-c0bc-46e9-a879-cead959aa829"/>
-					<textElement>
-						<font size="34" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Java Techie]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="d542e825-fb57-41bd-b967-ba4a22515efe"/>
-					<textElement textAlignment="Right">
-						<font size="14" isBold="false"/>
-					</textElement>
-					<text><![CDATA[Employee Reports]]></text>
-				</staticText>
-			</frame>
+		<band height="159">
+			<staticText>
+				<reportElement x="0" y="0" width="130" height="54" uuid="222d367e-c2cd-40d1-982d-cb91b83bdb46"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<text><![CDATA[Аддзел па адукацыі
+Віцебскага раеннага
+выканаўчага камитэта
+ДУА "Варонаўская сярэдняя школа Віцебскага раёна"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="0" width="148" height="54" uuid="10029bec-1abe-48e8-bda7-904169951603"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<text><![CDATA[Отдел по образованию
+Витебского районного
+исполнительного комитета
+ГУО "Вороновская  средняя школа 
+Витебского района"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="63" width="60" height="16" uuid="3ddcda52-2002-4b9b-9f57-91e4195f8ed4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<text><![CDATA[Приказ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="116" width="558" height="40" uuid="38050e21-3895-43e8-896f-c207e9adcd23"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["       В соответствии с Указом Президента Республики Беларусь от 18.01.2019 № 27 «Об оплате труда работников бюджетных организаций» и коллективного договора, регистрационный № 1702 О от 31.01.2020 г  ПРИКАЗЫВАЮ: выплатить премию за " + new SimpleDateFormat("MMMMM").format($P{CalcDate}) + " месяц "+new SimpleDateFormat("yyyy").format($P{CalcDate})+" г. в размере  5 %."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="85" width="314" height="20" uuid="7f72eed8-0156-4722-a7c9-6e016c6e5b7b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["О распределении премиальных за "+new SimpleDateFormat("MMMMM").format($P{CalcDate})+" "+new SimpleDateFormat("yyyy").format($P{CalcDate})+" года"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="58" y="65" width="172" height="14" uuid="bbaa8217-7e9f-4448-9d73-97ba1b06e403"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Загад № 20 -к   от 02.04.2022"]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -57,12 +93,12 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" size="10" isBold="true"/>
+					<font fontName="DejaVu Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ФИО]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="158" y="0" width="111" height="18" forecolor="#006699" backcolor="#E6E6E6" uuid="e9b64414-ad92-4257-a8f2-63a23c460255">
+				<reportElement mode="Opaque" x="158" y="0" width="132" height="18" forecolor="#006699" backcolor="#E6E6E6" uuid="e9b64414-ad92-4257-a8f2-63a23c460255">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="372fc4a5-58e8-4f68-9b0b-b8c92b4521d4"/>
 				</reportElement>
 				<box>
@@ -73,13 +109,14 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" size="10" isBold="true"/>
+					<font fontName="DejaVu Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Должность]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="269" y="0" width="58" height="18" forecolor="#006699" backcolor="#E6E6E6" uuid="12ce83f4-fe29-45f6-b1d5-5e016771ec1b">
+				<reportElement mode="Opaque" x="290" y="0" width="45" height="18" forecolor="#006699" backcolor="#E6E6E6" uuid="12ce83f4-fe29-45f6-b1d5-5e016771ec1b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aafde1ac-9f21-4267-b383-ffd18072315c"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineColor="#000000"/>
@@ -89,13 +126,14 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" size="10" isBold="true"/>
+					<font fontName="DejaVu Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Премия]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="327" y="0" width="67" height="18" forecolor="#006699" backcolor="#E6E6E6" uuid="e2a0186b-afad-426b-b9f2-2152394df140">
+				<reportElement mode="Opaque" x="335" y="0" width="45" height="18" forecolor="#006699" backcolor="#E6E6E6" uuid="e2a0186b-afad-426b-b9f2-2152394df140">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c05cb4c4-7321-464e-b20b-38a19f892a19"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineColor="#000000"/>
@@ -105,12 +143,12 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" size="10" isBold="true"/>
+					<font fontName="DejaVu Serif" size="6" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Доп.сумма]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="394" y="0" width="92" height="18" forecolor="#006699" backcolor="#E6E6E6" uuid="6d3e02fc-d8db-485a-96c9-54fa46d8a0ef">
+				<reportElement mode="Opaque" x="380" y="0" width="134" height="18" forecolor="#006699" backcolor="#E6E6E6" uuid="6d3e02fc-d8db-485a-96c9-54fa46d8a0ef">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="95c0a1aa-91d9-473d-a271-b59d6dea0342"/>
 				</reportElement>
 				<box>
@@ -121,13 +159,14 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" size="10" isBold="true"/>
+					<font fontName="DejaVu Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Код]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="486" y="0" width="68" height="18" forecolor="#006699" backcolor="#E6E6E6" uuid="9d39b1e9-ac02-4d51-8db0-4309b5c26bcf">
+				<reportElement mode="Opaque" x="514" y="0" width="45" height="18" forecolor="#006699" backcolor="#E6E6E6" uuid="9d39b1e9-ac02-4d51-8db0-4309b5c26bcf">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aafde1ac-9f21-4267-b383-ffd18072315c"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineColor="#000000"/>
@@ -137,7 +176,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" size="10" isBold="true"/>
+					<font fontName="DejaVu Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Сумма]]></text>
 			</staticText>
@@ -153,7 +192,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" size="10" isBold="true"/>
+					<font fontName="DejaVu Serif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[№ п/п]]></text>
 			</staticText>
@@ -172,12 +211,12 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" size="9"/>
+					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{fio}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[  $F{fio}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="158" y="0" width="111" height="18" uuid="b9c4d404-6ffe-47b5-aeaf-ee9ffb804c6a">
+				<reportElement x="158" y="0" width="132" height="18" uuid="b9c4d404-6ffe-47b5-aeaf-ee9ffb804c6a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="372fc4a5-58e8-4f68-9b0b-b8c92b4521d4"/>
 				</reportElement>
 				<box>
@@ -187,13 +226,14 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" size="9"/>
+					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{pos}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[  $F{pos}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement x="269" y="0" width="58" height="18" uuid="72ac64bb-1484-4b8a-8bdb-6ddcf6c57c70">
+				<reportElement x="290" y="0" width="45" height="18" uuid="72ac64bb-1484-4b8a-8bdb-6ddcf6c57c70">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aafde1ac-9f21-4267-b383-ffd18072315c"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -202,13 +242,14 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" size="9"/>
+					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{premia}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement x="327" y="0" width="67" height="18" uuid="c7d9f004-ba41-4c99-9a6c-cfbf3173864a">
+				<reportElement x="335" y="0" width="45" height="18" uuid="c7d9f004-ba41-4c99-9a6c-cfbf3173864a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c05cb4c4-7321-464e-b20b-38a19f892a19"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -217,12 +258,12 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" size="9"/>
+					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sumdop}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="StretchHeight">
-				<reportElement x="394" y="0" width="92" height="18" uuid="f6b932f3-4a67-4720-9e27-53a9da43dedc">
+			<textField>
+				<reportElement x="380" y="0" width="134" height="18" uuid="f6b932f3-4a67-4720-9e27-53a9da43dedc">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="95c0a1aa-91d9-473d-a271-b59d6dea0342"/>
 				</reportElement>
 				<box>
@@ -232,7 +273,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" size="9"/>
+					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cod}]]></textFieldExpression>
 			</textField>
@@ -247,13 +288,14 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" size="9"/>
+					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement x="486" y="0" width="68" height="18" uuid="6808c78b-2ae1-4b18-86a3-16e50cae46fd">
+				<reportElement x="514" y="0" width="45" height="18" uuid="6808c78b-2ae1-4b18-86a3-16e50cae46fd">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aafde1ac-9f21-4267-b383-ffd18072315c"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -262,7 +304,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" size="9"/>
+					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sumall}]]></textFieldExpression>
 			</textField>
@@ -271,8 +313,9 @@
 	<columnFooter>
 		<band height="18">
 			<textField textAdjust="StretchHeight">
-				<reportElement positionType="FixRelativeToBottom" x="269" y="0" width="58" height="18" uuid="18e31770-5d43-4226-9856-20425b3de622">
+				<reportElement positionType="FixRelativeToBottom" x="290" y="0" width="45" height="18" uuid="18e31770-5d43-4226-9856-20425b3de622">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aafde1ac-9f21-4267-b383-ffd18072315c"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -281,13 +324,14 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" size="9"/>
+					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{premia1}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement positionType="Float" x="327" y="0" width="67" height="18" uuid="ffeca331-024e-4e6a-a377-ae27e560476a">
+				<reportElement positionType="Float" x="335" y="0" width="45" height="18" uuid="ffeca331-024e-4e6a-a377-ae27e560476a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c05cb4c4-7321-464e-b20b-38a19f892a19"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -296,13 +340,14 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" size="9"/>
+					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{sumdop1}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement positionType="Float" x="486" y="0" width="68" height="18" uuid="958a3d15-33ab-4dee-a5a8-aeba1864eace">
+				<reportElement positionType="Float" x="514" y="0" width="45" height="18" uuid="958a3d15-33ab-4dee-a5a8-aeba1864eace">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aafde1ac-9f21-4267-b383-ffd18072315c"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -311,16 +356,16 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" size="9"/>
+					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{sumall1}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="107">
+		<band height="113">
 			<textField>
-				<reportElement mode="Opaque" x="0" y="94" width="515" height="13" backcolor="#E6E6E6" uuid="c7f5dcbd-921c-4949-8f5c-3922c35efa2c"/>
+				<reportElement mode="Opaque" x="70" y="100" width="515" height="13" backcolor="#E6E6E6" uuid="c7f5dcbd-921c-4949-8f5c-3922c35efa2c"/>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Serif"/>
 				</textElement>
