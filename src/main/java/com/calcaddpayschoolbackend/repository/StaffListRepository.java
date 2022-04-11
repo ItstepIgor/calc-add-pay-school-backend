@@ -38,13 +38,13 @@ public interface StaffListRepository extends JpaRepository<StaffList, Long> {
             "LEFT JOIN add_pay ap ON ap.id = apr.add_pay_id " +
             "LEFT JOIN add_pay_type apt on apt.id = ap.add_pay_type_id " +
             "LEFT JOIN percent_salary_result psr ON sl.id = psr.staff_list_id " +
-            "LEFT JOIN time_sheet ts on p.id = ts.people_id " +
+            "LEFT JOIN time_sheet ts on ts.id = apr.time_sheet_id " +
             "LEFT JOIN calc_settings cs on ts.calc_settings_id = cs.id " +
             "WHERE psr.percent <> (SELECT ps.percent_salary_for_young_special " +
             "FROM percent_salary ps WHERE percent_start_date = " +
             "(SELECT MAX(percent_start_date) FROM percent_salary)) " +
             "AND cs.calc_date = (SELECT MAX(calc_date) FROM calc_settings)" +
-            "AND apt.id = 2 GROUP BY fio, pos, premia", nativeQuery = true)
+            "GROUP BY fio, pos, premia", nativeQuery = true)
     List<BonusPojo> findByAllBonus();
 
 }
