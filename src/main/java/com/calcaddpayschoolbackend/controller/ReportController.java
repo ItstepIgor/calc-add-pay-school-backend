@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -49,10 +50,11 @@ public class ReportController {
     @RequestMapping(value = "/bonus", method = RequestMethod.GET)
     @ResponseBody
     public void getRpt1(HttpServletResponse bonus) throws JRException, IOException {
-        System.out.println("Проверка");
+//        System.out.println("Проверка");
         JasperPrint jasperPrint = reportService.createReport();
         bonus.setContentType("application/x-pdf");
-        bonus.setHeader("Content-disposition", "inline; filename=bonus.pdf");
+//        bonus.setHeader("Content-disposition", "inline; filename=bonus.pdf");
+        bonus.setHeader(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=bonus.pdf");
         final OutputStream outStream = bonus.getOutputStream();
         JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
     }
