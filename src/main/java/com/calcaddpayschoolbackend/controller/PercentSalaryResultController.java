@@ -34,10 +34,10 @@ public class PercentSalaryResultController {
         return percentSalaryResultDTOMapper.toDTOs(percentSalaryResultService.getAllPercentSalaryResults());
     }
 
-//    @GetMapping("/getallsum")
-//    public BigDecimal getAllSumForMonth() {
-//        return percentSalaryResultService.getAllSumForMonth();
-//    }
+    @GetMapping("/getallsum")
+    public BigDecimal getAllSumForMonth() {
+        return percentSalaryResultService.getAllSumForMonth();
+    }
 
     @DeleteMapping("/delete")
     public void deletePercentSalaryResultById(@RequestParam long id) {

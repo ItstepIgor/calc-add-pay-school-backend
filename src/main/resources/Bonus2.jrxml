@@ -4,6 +4,7 @@
 	<parameter name="CalcDate" class="java.util.Date">
 		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
 	</parameter>
+	<parameter name="NumberDateOrder" class="java.lang.String"/>
 	<field name="fio" class="java.lang.String"/>
 	<field name="pos" class="java.lang.String"/>
 	<field name="premia" class="java.math.BigDecimal"/>
@@ -68,11 +69,11 @@
 				<textFieldExpression><![CDATA["О распределении премиальных за "+new SimpleDateFormat("MMMMM").format($P{CalcDate})+" "+new SimpleDateFormat("yyyy").format($P{CalcDate})+" года"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="58" y="65" width="172" height="14" uuid="bbaa8217-7e9f-4448-9d73-97ba1b06e403"/>
+				<reportElement x="58" y="65" width="222" height="14" uuid="bbaa8217-7e9f-4448-9d73-97ba1b06e403"/>
 				<textElement>
 					<font fontName="DejaVu Serif"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Загад № 20 -к   от 02.04.2022"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{NumberDateOrder}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -213,7 +214,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[  $F{fio}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[" "+$F{fio}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="158" y="0" width="132" height="18" uuid="b9c4d404-6ffe-47b5-aeaf-ee9ffb804c6a">
@@ -228,7 +229,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[  $F{pos}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[" "+$F{pos}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
 				<reportElement x="290" y="0" width="45" height="18" uuid="72ac64bb-1484-4b8a-8bdb-6ddcf6c57c70">
