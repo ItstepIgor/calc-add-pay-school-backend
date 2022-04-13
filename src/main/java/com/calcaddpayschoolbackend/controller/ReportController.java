@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 @RestController
-@RequestMapping("api/report")
+@RequestMapping("api/s/report")
 @RequiredArgsConstructor
 public class ReportController {
 
