@@ -25,28 +25,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login").anonymous()
-                .antMatchers("/login, /api/**").hasRole("ADMIN")
-                .antMatchers("/login, /api/**").hasAnyRole("HR","ADMIN")
-                .antMatchers("/login, /api/s/**").authenticated()
-//                .antMatchers("/api/**").hasRole("ADMIN")
+                .antMatchers("/api/login/**", "/api/role/**", "/api/s/**").hasAnyRole("ADMIN", "HR", "SECRETARY")
+                .antMatchers("/api/hr/**").hasAnyRole("ADMIN", "HR")
+                .antMatchers("/api/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
 //                .antMatchers("/**").permitAll()
                 .and().httpBasic();
-//                .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .loginProcessingUrl("/authorize");
-//                .usernameParameter("username")
-//                .passwordParameter("password")
-//                .defaultSuccessUrl("/")
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .logoutUrl("/logout")
-//                .logoutSuccessUrl("/");
     }
-
 
 //Необходим если в базе храним не зашифрованные пароли
 //    @Bean

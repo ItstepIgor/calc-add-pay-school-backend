@@ -19,6 +19,7 @@ import java.util.List;
 public class AddPayFundService {
     private final AddPayFundRepository addPayFundRepository;
 
+    private final CalcSettingsService calcSettingsService;
     private final AddPayTypeService addPayTypeService;
 
     @Transactional
@@ -26,7 +27,8 @@ public class AddPayFundService {
         if (Period.between(addPayFund.getCalcSettings().getCalcDate(), LocalDate.now()).getDays() > 25) {
             throw new NoCurrentCalcDateException();
         } else if (addPayFund.getCalcSettings().getCalcDate().equals(addPayFundRepository
-                .getAddPayFundMaxDate(addPayFund.getAddPayTypes().getId()))) {
+                .getLastAddPayFund(addPayFund.getAddPayTypes().getId(),
+                        calcSettingsService.getMaxDateCalcSettings().getId()).getCalcSettings().getCalcDate())) {
             throw new EntityExistsOnThisDateException(String.format("На текущую дату фонды для %s уже сохранены",
                     addPayTypeService.findAddPayTypeById(addPayFund.getAddPayTypes().getId()).getAddPayTypeName()));
         } else {
@@ -44,6 +46,11 @@ public class AddPayFundService {
 
     public List<AddPayFund> getAllAddPayCurrentFund(LocalDate date) {
         return addPayFundRepository.getAddPayCurrentFunds(date);
+    }
+
+    public String getAddPayFundNumberOrder(int addPayTypeId) {
+        return addPayFundRepository.getLastAddPayFund(addPayTypeId,
+                calcSettingsService.getMaxDateCalcSettings().getId()).getNumberOrder();
     }
 
     public void deleteAddPayFund(AddPayFund addPayFund) {

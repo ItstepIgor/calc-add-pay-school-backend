@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/position")
+@RequestMapping("api/hr/position")
 @RequiredArgsConstructor
 public class PositionController {
 

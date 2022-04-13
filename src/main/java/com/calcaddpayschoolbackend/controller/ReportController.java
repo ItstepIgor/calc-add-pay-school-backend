@@ -27,35 +27,13 @@ public class ReportController {
         return reportService.exportReport(format);
     }
 
-
-//    @GetMapping()
-//    public void getDocument(HttpServletResponse response) throws IOException, JRException {
-//
-//        String sourceFileName = ResourceUtils.getFile(ResourceUtils.CLASSPATH_URL_PREFIX + "SampleJasperTemplate.jasper").getAbsolutePath();
-//// creating our list of beans
-//        List<SampleBean> dataList = new ArrayList<SampleBean>();
-//        SampleBean sampleBean = new SampleBean();
-//        sampleBean.setName("some name");
-//        sampleBean.setColor("red");
-//        dataList.add(sampleBean);
-//// creating datasource from bean list
-//        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataList);
-//        Map parameters = new HashMap();
-//        JasperPrint jasperPrint = JasperFillManager.fillReport(sourceFileName, parameters, beanColDataSource);
-//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
-//        response.setContentType("application/pdf");
-//        response.addHeader("Content-Disposition", "inline; filename=jasper.pdf;");
-//    }
-
     @RequestMapping(value = "/bonus", method = RequestMethod.GET)
     @ResponseBody
-    public void getRpt1(HttpServletResponse bonus) throws JRException, IOException {
-//        System.out.println("Проверка");
+    public void getReportBonus(HttpServletResponse responseReportBonus) throws JRException, IOException {
         JasperPrint jasperPrint = reportService.createReport();
-        bonus.setContentType("application/x-pdf");
-//        bonus.setHeader("Content-disposition", "inline; filename=bonus.pdf");
-        bonus.setHeader(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=bonus.pdf");
-        final OutputStream outStream = bonus.getOutputStream();
+        responseReportBonus.setContentType("application/x-pdf");
+        responseReportBonus.setHeader(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=bonus.pdf");
+        final OutputStream outStream = responseReportBonus.getOutputStream();
         JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
     }
 }

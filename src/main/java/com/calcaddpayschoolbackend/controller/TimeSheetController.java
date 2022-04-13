@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/timesheet")
+@RequestMapping("/api/hr/timesheet")
 @RequiredArgsConstructor
 public class TimeSheetController {
 

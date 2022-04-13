@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/calcsetting")
+@RequestMapping("api/hr/calcsetting")
 @RequiredArgsConstructor
 public class CalcSettingsController {
 

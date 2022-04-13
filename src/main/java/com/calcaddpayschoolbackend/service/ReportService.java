@@ -23,13 +23,15 @@ public class ReportService {
 
     private final StaffListRepository staffListRepository;
 
+    private final AddPayFundService addPayFundService;
+
     private final CalcSettingsService calcSettingsService;
 
     public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
         String path = "E:\\";
         List<BonusPojo> bonusPojo = staffListRepository.findByAllBonus();
         //load file and compile it
-        File file = ResourceUtils.getFile("classpath:Bonus2.jrxml");
+        File file = ResourceUtils.getFile("classpath:ReportBonus.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(bonusPojo);
         Map<String, Object> parameters = new HashMap<>();
@@ -49,17 +51,15 @@ public class ReportService {
     }
 
     public JasperPrint createReport() throws FileNotFoundException, JRException {
-        String path = "E:\\";
         List<BonusPojo> bonusPojo = staffListRepository.findByAllBonus();
-        //load file and compile it
-        File file = ResourceUtils.getFile("classpath:Bonus2.jrxml");
+        File file = ResourceUtils.getFile("classpath:ReportBonus.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(bonusPojo);
+        LocalDate localDate = calcSettingsService.getMaxDateCalcSettings().getCalcDate();
+        Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("createdBy", "Java Techie");
-
+        parameters.put("CalcDate", date);
+        parameters.put("NumberDateOrder", addPayFundService.getAddPayFundNumberOrder(1));
         return JasperFillManager.fillReport(jasperReport, parameters, dataSource);
     }
-
-
 }

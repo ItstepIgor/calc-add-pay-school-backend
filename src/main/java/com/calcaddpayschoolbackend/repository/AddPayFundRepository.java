@@ -16,11 +16,7 @@ public interface AddPayFundRepository extends JpaRepository<AddPayFund, Long> {
     List<AddPayFund> getAddPayCurrentFunds(@Param("date") LocalDate date);
 
 
-    @Query("select max(c.calcDate) from AddPayFund af join af.calcSettings c where af.addPayTypes.id=:addPayTypeId")
-    LocalDate getAddPayFundMaxDate(@Param("addPayTypeId") long addPayTypeId);
+    @Query("select af from AddPayFund af where af.addPayTypes.id=:addPayTypeId and af.calcSettings.id=:calcSettingsId")
+    AddPayFund getLastAddPayFund(@Param("addPayTypeId") long addPayTypeId, @Param("calcSettingsId") long calcSettingsId);
 
 }
-
-//    select max(cs.calc_date) from add_pay_fund apf
-//    left join calc_settings cs on cs.id = apf.calc_settings_id
-//        where apf.add_pay_type_id=3;
