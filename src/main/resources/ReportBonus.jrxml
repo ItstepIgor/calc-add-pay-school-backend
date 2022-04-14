@@ -8,18 +8,18 @@
 	<parameter name="NumberDateOrder" class="java.lang.String"/>
 	<field name="fio" class="java.lang.String"/>
 	<field name="pos" class="java.lang.String"/>
-	<field name="premia" class="java.math.BigDecimal"/>
-	<field name="sumdop" class="java.math.BigDecimal"/>
+	<field name="bonusSum" class="java.math.BigDecimal"/>
+	<field name="addSum" class="java.math.BigDecimal"/>
 	<field name="cod" class="java.lang.String"/>
-	<field name="sumall" class="java.math.BigDecimal"/>
-	<variable name="premia1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
-		<variableExpression><![CDATA[$F{premia}]]></variableExpression>
+	<field name="allSum" class="java.math.BigDecimal"/>
+	<variable name="bonusSum1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{bonusSum}]]></variableExpression>
 	</variable>
-	<variable name="sumdop1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
-		<variableExpression><![CDATA[$F{sumdop}]]></variableExpression>
+	<variable name="addSum1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{addSum}]]></variableExpression>
 	</variable>
-	<variable name="sumall1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
-		<variableExpression><![CDATA[$F{sumall}]]></variableExpression>
+	<variable name="allSum1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{allSum}]]></variableExpression>
 	</variable>
 	<variable name="Year" class="java.lang.String"/>
 	<background>
@@ -246,7 +246,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{premia}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{bonusSum}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
 				<reportElement x="335" y="0" width="45" height="18" uuid="c7d9f004-ba41-4c99-9a6c-cfbf3173864a">
@@ -262,7 +262,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{sumdop}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{addSum}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="380" y="0" width="134" height="18" uuid="f6b932f3-4a67-4720-9e27-53a9da43dedc">
@@ -308,7 +308,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{sumall}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{allSum}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -328,7 +328,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{premia1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{bonusSum1}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" x="335" y="0" width="45" height="18" uuid="ffeca331-024e-4e6a-a377-ae27e560476a">
@@ -344,7 +344,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{sumdop1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{addSum1}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" x="514" y="0" width="45" height="18" uuid="958a3d15-33ab-4dee-a5a8-aeba1864eace">
@@ -360,7 +360,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{sumall1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{allSum1}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

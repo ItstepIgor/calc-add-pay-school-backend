@@ -48,7 +48,7 @@ public class AddPayFundService {
         return addPayFundRepository.getAddPayCurrentFunds(date);
     }
 
-    public String getAddPayFundNumberOrder(int addPayTypeId) {
+    public String getAddPayFundNumberOrder(long addPayTypeId) {
         return addPayFundRepository.getLastAddPayFund(addPayTypeId,
                 calcSettingsService.getMaxDateCalcSettings().getId()).getNumberOrder();
     }

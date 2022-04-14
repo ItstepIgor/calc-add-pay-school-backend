@@ -29,10 +29,10 @@ public class ReportController {
 
     @RequestMapping(value = "/bonus", method = RequestMethod.GET)
     @ResponseBody
-    public void getReportBonus(HttpServletResponse responseReportBonus) throws JRException, IOException {
-        JasperPrint jasperPrint = reportService.createReport();
+    public void getReportBonus(@RequestParam long id, HttpServletResponse responseReportBonus) throws JRException, IOException {
+        JasperPrint jasperPrint = reportService.createReport(id);
         responseReportBonus.setContentType("application/x-pdf");
-        responseReportBonus.setHeader(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=bonus.pdf");
+        responseReportBonus.setHeader(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=report.pdf");
         final OutputStream outStream = responseReportBonus.getOutputStream();
         JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
     }

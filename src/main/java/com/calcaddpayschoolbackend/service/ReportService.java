@@ -1,6 +1,7 @@
 package com.calcaddpayschoolbackend.service;
 
 import com.calcaddpayschoolbackend.pojo.BonusPojo;
+import com.calcaddpayschoolbackend.pojo.ComplicationAndMotivationPojo;
 import com.calcaddpayschoolbackend.repository.StaffListRepository;
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.*;
@@ -50,16 +51,37 @@ public class ReportService {
         return "report generated in path : " + path;
     }
 
-    public JasperPrint createReport() throws FileNotFoundException, JRException {
-        List<BonusPojo> bonusPojo = staffListRepository.findByAllBonus();
-        File file = ResourceUtils.getFile("classpath:ReportBonus.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(bonusPojo);
+    public JasperPrint createReport(long addPayTypeId) throws FileNotFoundException, JRException {
+
+        JRBeanCollectionDataSource dataSource = null;
+        JasperReport jasperReport = null;
+
+        if (addPayTypeId == 1) {
+            System.out.println(addPayTypeId);
+            List<BonusPojo> bonusPojo = staffListRepository.findByAllBonus();
+            File file = ResourceUtils.getFile("classpath:ReportBonus.jrxml");
+            jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+            dataSource = new JRBeanCollectionDataSource(bonusPojo);
+
+        } else if (addPayTypeId == 2 || addPayTypeId == 3) {
+            System.out.println(addPayTypeId);
+            List<ComplicationAndMotivationPojo> complicationAndMotivationPojo = staffListRepository.findByAllComplicationAndMotivation();
+            File file = ResourceUtils.getFile("classpath:ReportComplicationAndMotivation.jrxml");
+            jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+            dataSource = new JRBeanCollectionDataSource(complicationAndMotivationPojo);
+        }
+//        } else if (addPayTypeId == 3) {
+//            System.out.println(addPayTypeId);
+//            List<BonusPojo> bonusPojo = staffListRepository.findByAllBonus();
+//            File file = ResourceUtils.getFile("classpath:ReportBonus.jrxml");
+//            jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//            dataSource = new JRBeanCollectionDataSource(bonusPojo);
+//        }
+        Map<String, Object> parameters = new HashMap<>();
         LocalDate localDate = calcSettingsService.getMaxDateCalcSettings().getCalcDate();
         Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("NumberDateOrder", addPayFundService.getAddPayFundNumberOrder(addPayTypeId));
         parameters.put("CalcDate", date);
-        parameters.put("NumberDateOrder", addPayFundService.getAddPayFundNumberOrder(1));
         return JasperFillManager.fillReport(jasperReport, parameters, dataSource);
     }
 }

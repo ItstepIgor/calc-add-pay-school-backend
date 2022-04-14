@@ -2,11 +2,9 @@ package com.calcaddpayschoolbackend.pojo;
 
 import java.math.BigDecimal;
 
-public interface BonusPojo {
+public interface ComplicationAndMotivationPojo {
     String getFio();
     String getPos();
-    BigDecimal getBonusSum();
     BigDecimal getAddSum();
     String getCod();
-    BigDecimal getAllSum();
 }
