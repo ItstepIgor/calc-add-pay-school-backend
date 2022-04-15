@@ -65,18 +65,12 @@ public class ReportService {
 
         } else if (addPayTypeId == 2 || addPayTypeId == 3) {
             System.out.println(addPayTypeId);
-            List<ComplicationAndMotivationPojo> complicationAndMotivationPojo = staffListRepository.findByAllComplicationAndMotivation();
+            List<ComplicationAndMotivationPojo> complicationAndMotivationPojo =
+                    staffListRepository.findByAllComplicationAndMotivation(addPayTypeId);
             File file = ResourceUtils.getFile("classpath:ReportComplicationAndMotivation.jrxml");
             jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
             dataSource = new JRBeanCollectionDataSource(complicationAndMotivationPojo);
         }
-//        } else if (addPayTypeId == 3) {
-//            System.out.println(addPayTypeId);
-//            List<BonusPojo> bonusPojo = staffListRepository.findByAllBonus();
-//            File file = ResourceUtils.getFile("classpath:ReportBonus.jrxml");
-//            jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-//            dataSource = new JRBeanCollectionDataSource(bonusPojo);
-//        }
         Map<String, Object> parameters = new HashMap<>();
         LocalDate localDate = calcSettingsService.getMaxDateCalcSettings().getCalcDate();
         Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());

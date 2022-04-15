@@ -6,8 +6,6 @@ import com.calcaddpayschoolbackend.entity.StaffList;
 import com.calcaddpayschoolbackend.entity.TimeSheet;
 import com.calcaddpayschoolbackend.exception.EntityExistsOnThisDateException;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
-import com.calcaddpayschoolbackend.pojo.BonusPojo;
-import com.calcaddpayschoolbackend.pojo.ComplicationAndMotivationPojo;
 import com.calcaddpayschoolbackend.repository.StaffListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -48,17 +46,6 @@ public class StaffListService {
     }
 
     public List<StaffList> getAllStaffLists() {
-//        List<BonusPojo> bonusPojo = staffListRepository.findByAllBonus();
-//        for (BonusPojo pojo : bonusPojo) {
-//            System.out.println(pojo.getFio() + " " + pojo.getPos() + " " + pojo.getBonusSum()
-//                    + " " + pojo.getAddSum() + " " + pojo.getCod() + " " + pojo.getAllSum());
-//        }
-
-        List<ComplicationAndMotivationPojo> bonusPojo1 = staffListRepository.findByAllComplicationAndMotivation();
-        for (ComplicationAndMotivationPojo pojo : bonusPojo1) {
-            System.out.println(pojo.getFio() + " " + pojo.getPos()
-                    + " " + pojo.getAddSum() + " " + pojo.getCod());
-        }
         return staffListRepository.findAllByOrderByIdAsc();
     }
 
@@ -129,14 +116,14 @@ public class StaffListService {
                 percentSalaryResultService.createPercentSalaryResult(percentSalaryResult);
 
                 if (staffList.isYoungSpecial()) {
-//                BigDecimal bigDecimalYoungSpecial = BigDecimal.valueOf(maxTimeSheetForStaffList.getActualDaysWorked())
-//                        .multiply(BigDecimal.valueOf((((double) percentDate.getPercentSalaryForYoungSpecial() / 100)
-//                                * staffList.getSalary().doubleValue()) / workingDays))
-//                        .setScale(2, RoundingMode.HALF_UP);
-//             Уточнить какой процент брать  Если просто процент от оклада то берем эту переменную
-                    BigDecimal bigDecimalYoungSpecial = BigDecimal.valueOf(((double) percentDate.getPercentSalaryForYoungSpecial() / 100)
-                                    * staffList.getSalary().doubleValue())
+                    BigDecimal bigDecimalYoungSpecial = BigDecimal.valueOf(maxTimeSheetForStaffList.getActualDaysWorked())
+                            .multiply(BigDecimal.valueOf((((double) percentDate.getPercentSalaryForYoungSpecial() / 100)
+                                    * staffList.getSalary().doubleValue()) / workingDays))
                             .setScale(2, RoundingMode.HALF_UP);
+//             Уточнить какой процент брать  Если просто процент от оклада то берем эту переменную
+//                    BigDecimal bigDecimalYoungSpecial = BigDecimal.valueOf(((double) percentDate.getPercentSalaryForYoungSpecial() / 100)
+//                                    * staffList.getSalary().doubleValue())
+//                            .setScale(2, RoundingMode.HALF_UP);
                     PercentSalaryResult percentSalaryResultYoungSpecial = PercentSalaryResult.builder()
                             .staffList(percentSalaryResult.getStaffList())
                             .timeSheets(percentSalaryResult.getTimeSheets())

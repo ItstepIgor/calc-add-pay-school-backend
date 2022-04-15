@@ -32,7 +32,7 @@ public class ReportController {
     public void getReportBonus(@RequestParam long id, HttpServletResponse responseReportBonus) throws JRException, IOException {
         JasperPrint jasperPrint = reportService.createReport(id);
         responseReportBonus.setContentType("application/x-pdf");
-        responseReportBonus.setHeader(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=report.pdf");
+        responseReportBonus.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report.pdf");
         final OutputStream outStream = responseReportBonus.getOutputStream();
         JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
     }

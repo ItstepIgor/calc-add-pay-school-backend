@@ -59,7 +59,7 @@ public interface StaffListRepository extends JpaRepository<StaffList, Long> {
             "LEFT JOIN add_pay_type apt on apt.id = ap.add_pay_type_id " +
             "LEFT JOIN time_sheet ts on ts.id = apr.time_sheet_id " +
             "LEFT JOIN calc_settings cs on ts.calc_settings_id = cs.id " +
-            "WHERE cs.calc_date = (SELECT MAX(calc_date) FROM calc_settings) AND apt.id = 3 " +
+            "WHERE cs.calc_date = (SELECT MAX(calc_date) FROM calc_settings) AND apt.id = :addPayTypeId " +
             "GROUP BY fio, pos", nativeQuery = true)
-    List<ComplicationAndMotivationPojo> findByAllComplicationAndMotivation();
+    List<ComplicationAndMotivationPojo> findByAllComplicationAndMotivation(@Param("addPayTypeId") long addPayTypeId);
 }
