@@ -22,5 +22,5 @@
     рекомендуется изменить.
 
 Использованные технологии:
-Java, Spring(Data, Validation, Security, Web MVC), База данных Postgresql, Liquibase, ModelMapper, JasperReport.
+Java, Spring(Data, Validation, Security, Web MVC), Postgresql, Liquibase, ModelMapper, JasperReport.
 
