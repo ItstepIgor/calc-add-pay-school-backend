@@ -14,6 +14,10 @@ configurations {
     }
 }
 
+bootJar {
+    archiveFileName = 'calc-add-pay.jar'
+}
+
 repositories {
     mavenCentral()
     maven { url "https://jaspersoft.jfrog.io/artifactory/third-party-ce-artifacts/" }

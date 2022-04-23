@@ -11,6 +11,7 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -51,7 +52,7 @@ public class ReportService {
         return "report generated in path : " + path;
     }
 
-    public JasperPrint createReport(long addPayTypeId) throws FileNotFoundException, JRException {
+    public JasperPrint createReport(long addPayTypeId) throws JRException {
 
         JRBeanCollectionDataSource dataSource = null;
         JasperReport jasperReport = null;
@@ -59,16 +60,16 @@ public class ReportService {
         if (addPayTypeId == 1) {
             System.out.println(addPayTypeId);
             List<BonusPojo> bonusPojo = staffListRepository.findByAllBonus();
-            File file = ResourceUtils.getFile("classpath:ReportBonus.jrxml");
-            jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+            InputStream reportBonus = ReportService.class.getClassLoader().getResourceAsStream("ReportBonus.jrxml");
+            jasperReport = JasperCompileManager.compileReport(reportBonus);
             dataSource = new JRBeanCollectionDataSource(bonusPojo);
 
         } else if (addPayTypeId == 2 || addPayTypeId == 3) {
             System.out.println(addPayTypeId);
             List<ComplicationAndMotivationPojo> complicationAndMotivationPojo =
                     staffListRepository.findByAllComplicationAndMotivation(addPayTypeId);
-            File file = ResourceUtils.getFile("classpath:ReportComplicationAndMotivation.jrxml");
-            jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+            InputStream reportComplication = ReportService.class.getClassLoader().getResourceAsStream("ReportComplicationAndMotivation.jrxml");
+            jasperReport = JasperCompileManager.compileReport(reportComplication);
             dataSource = new JRBeanCollectionDataSource(complicationAndMotivationPojo);
         }
         Map<String, Object> parameters = new HashMap<>();
