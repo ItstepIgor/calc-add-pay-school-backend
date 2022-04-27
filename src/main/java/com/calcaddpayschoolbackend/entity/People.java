@@ -21,7 +21,6 @@ public class People extends AbstractEntity {
     private String firstName;
     @Column(nullable = false)
     private String patronymic;
-    @Column(nullable = false)
     private String personnelNumber;
     @Column(nullable = false)
     private String phoneNumber;

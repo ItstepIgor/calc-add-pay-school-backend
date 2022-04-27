@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS people
     address          VARCHAR(255) NOT NULL,
     first_name       VARCHAR(255) NOT NULL,
     patronymic       VARCHAR(255) NOT NULL,
-    personnel_number VARCHAR(255) NOT NULL,
+    personnel_number VARCHAR(255) ,
     phone_number     VARCHAR(255) NOT NULL,
     sur_name         VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
