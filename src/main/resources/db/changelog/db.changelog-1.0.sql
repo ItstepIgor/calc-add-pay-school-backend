@@ -31,7 +31,6 @@ CREATE TABLE IF NOT EXISTS add_pay_result
     sum            NUMERIC(19, 2) NOT NULL,
     add_pay_id     INT8           NOT NULL,
     basic_norms_id INT8           NOT NULL,
-    staff_list_id  INT8           NOT NULL,
     time_sheet_id  INT8           NOT NULL,
     PRIMARY KEY (id)
 );
@@ -93,7 +92,6 @@ CREATE TABLE IF NOT EXISTS percent_salary_result
     percent           int4           NOT NULL,
     sum               NUMERIC(19, 2) NOT NULL,
     percent_salary_id INT8           NOT NULL,
-    staff_list_id     INT8           NOT NULL,
     time_sheet_id     INT8           NOT NULL,
     PRIMARY KEY (id)
 );

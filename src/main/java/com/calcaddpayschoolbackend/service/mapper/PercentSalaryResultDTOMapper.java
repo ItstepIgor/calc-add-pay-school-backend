@@ -4,7 +4,6 @@ import com.calcaddpayschoolbackend.dto.PercentSalaryResultDTO;
 import com.calcaddpayschoolbackend.entity.PercentSalaryResult;
 import com.calcaddpayschoolbackend.service.PeopleService;
 import com.calcaddpayschoolbackend.service.PercentSalaryService;
-import com.calcaddpayschoolbackend.service.StaffListService;
 import com.calcaddpayschoolbackend.service.TimeSheetService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -15,16 +14,13 @@ public class PercentSalaryResultDTOMapper implements EntityToDTOMapper<PercentSa
 
     private final ModelMapper modelMapper = new ModelMapper();
 
-    private final StaffListService staffListService;
-
     private final TimeSheetService timeSheetService;
 
     private final PeopleService peopleService;
 
     private final PercentSalaryService percentSalaryService;
 
-    public PercentSalaryResultDTOMapper(StaffListService staffListService, TimeSheetService timeSheetService, PeopleService peopleService, PercentSalaryService percentSalaryService) {
-        this.staffListService = staffListService;
+    public PercentSalaryResultDTOMapper(TimeSheetService timeSheetService, PeopleService peopleService, PercentSalaryService percentSalaryService) {
         this.timeSheetService = timeSheetService;
         this.peopleService = peopleService;
         this.percentSalaryService = percentSalaryService;
@@ -35,6 +31,13 @@ public class PercentSalaryResultDTOMapper implements EntityToDTOMapper<PercentSa
     public PercentSalaryResultDTO toDTO(PercentSalaryResult entity, Object... args) {
         PercentSalaryResultDTO percentSalaryResultDTO = modelMapper.map(entity, PercentSalaryResultDTO.class);
         if (entity.getTimeSheets() != null) {
+            percentSalaryResultDTO.setStaffListId(entity.getTimeSheets().getStaffList().getId());
+            percentSalaryResultDTO.setPeopleSurAndFirstName(peopleService.findFIOPeopleById(entity
+                    .getTimeSheets()
+                    .getStaffList()
+                    .getPeople()
+                    .getId()));
+            percentSalaryResultDTO.setPositionName(entity.getTimeSheets().getStaffList().getPosition().getPositionName());
             percentSalaryResultDTO.setTimeSheetId(entity.getTimeSheets().getId());
             percentSalaryResultDTO.setCalcDate(entity.getTimeSheets().getCalcSettings().getCalcDate());
         }
