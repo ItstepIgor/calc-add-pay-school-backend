@@ -9,7 +9,7 @@ import java.util.Set;
 @Entity
 @Data
 @Table
-@ToString(exclude = {"staffLists", "timeSheet", "users"})
+@ToString(exclude = {"staffLists", "users"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -28,8 +28,8 @@ public class People extends AbstractEntity {
     private String address;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "people")
     private Set<StaffList> staffLists;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "people")
-    private Set<TimeSheet> timeSheet;
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "people")
+//    private Set<TimeSheet> timeSheet;
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "people")
     private Users users;
 }

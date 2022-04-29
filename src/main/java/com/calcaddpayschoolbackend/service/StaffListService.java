@@ -90,7 +90,6 @@ public class StaffListService {
                         .setScale(2, RoundingMode.HALF_UP);
 
                 PercentSalaryResult percentSalaryResult = PercentSalaryResult.builder()
-                        .staffList(staffList)
                         .timeSheets(maxTimeSheetForStaffList)
                         .percentSalary(percentDate)
                         .percent(percentDate.getPercentSalaryAll())
@@ -108,7 +107,6 @@ public class StaffListService {
 //                                    * staffList.getSalary().doubleValue())
 //                            .setScale(2, RoundingMode.HALF_UP);
                     PercentSalaryResult percentSalaryResultYoungSpecial = PercentSalaryResult.builder()
-                            .staffList(percentSalaryResult.getStaffList())
                             .timeSheets(percentSalaryResult.getTimeSheets())
                             .percentSalary(percentSalaryResult.getPercentSalary())
                             .percent(percentDate.getPercentSalaryForYoungSpecial())

@@ -38,10 +38,10 @@ public class AddPayResultService {
         if (addPayResult.getPercent() > addPayResult.getAddPay().getMaxPercent()) {
             throw new PercentValueException();
         } else if (addPayResultRepository.isExistsAddPayResults(addPayResult.getAddPay().getId(),
-                addPayResult.getTimeSheets().getId(), addPayResult.getStaffList().getId())) {
+                addPayResult.getTimeSheets().getId())) {
             throw new EntityExistsOnThisDateException(String.format("На текущую дату дополнительная оплата с кодом %s " +
                             "для %s уже сохранен", addPayResult.getAddPay().getAddPayCode(),
-                    peopleService.findFIOPeopleById(addPayResult.getStaffList().getPeople().getId())));
+                    peopleService.findFIOPeopleById(addPayResult.getTimeSheets().getStaffList().getPeople().getId())));
         } else {
             BigDecimal sum = calcSumAddPay(addPayResult);
             addPayResult.setSum(sum);
@@ -57,10 +57,9 @@ public class AddPayResultService {
             if (addPayResult.getPercent() > addPayResult.getAddPay().getMaxPercent()) {
                 throw new PercentValueException();
             } else if (addPayResultRepository.isExistsAddPayResults(addPayResult.getAddPay().getId(),
-                    addPayResult.getTimeSheets().getId(), addPayResult.getStaffList().getId())) {
+                    addPayResult.getTimeSheets().getId())) {
                 AddPayResult addPayResultFromDb = addPayResultRepository.getAddPayResultsByAddPayAndStaffList(
-                        addPayResult.getAddPay().getId(), addPayResult.getTimeSheets().getId(),
-                        addPayResult.getStaffList().getId());
+                        addPayResult.getAddPay().getId(), addPayResult.getTimeSheets().getId());
                 addPayResultFromDb.setSum(addPayResultFromDb.getSum()
                         .add(calcBalanceSum(addPayResult.getAddPay().getAddPayTypes().getId())));
                 addPayResultRepository.save(addPayResultFromDb);
@@ -77,11 +76,11 @@ public class AddPayResultService {
     public BigDecimal calcSumAddPay(AddPayResult addPayResult) {
         int workDay = calcSettingsService.getMaxDateCalcSettings().getWorkingDays();
         int actualDaysWorked = timeSheetService
-                .getMaxTimeSheetForStaffList(addPayResult.getStaffList().getId()).getActualDaysWorked();
+                .getMaxTimeSheetForStaffList(addPayResult.getTimeSheets().getStaffList().getId()).getActualDaysWorked();
         if (actualDaysWorked == 0) {
             throw new NotTimeSheetDayException(String.format("В табеле для сотрудника %s заполнено 0 рабочих дней",
                     peopleService.findFIOPeopleById(staffListService
-                            .findStaffListById(addPayResult.getStaffList().getId()).getPeople().getId())));
+                            .findStaffListById(addPayResult.getTimeSheets().getStaffList().getId()).getPeople().getId())));
         }
         double coefficient = addPayResult.getPercent() / 100;
         BigDecimal sumForAllDays = basicNormsService.getMaxDateBasicNorms().getBasicNormValue()

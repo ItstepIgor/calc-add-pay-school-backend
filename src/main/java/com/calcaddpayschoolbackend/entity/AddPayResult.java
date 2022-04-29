@@ -19,9 +19,6 @@ public class AddPayResult extends AbstractEntity {
     @JoinColumn(name = "add_pay_id", nullable = false)
     private AddPay addPay;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "staff_list_id", nullable = false)
-    private StaffList staffList;
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "time_sheet_id", nullable = false)
     private TimeSheet timeSheets;
     @Column(nullable = false)

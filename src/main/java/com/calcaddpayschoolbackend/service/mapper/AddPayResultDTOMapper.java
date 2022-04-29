@@ -38,14 +38,6 @@ public class AddPayResultDTOMapper implements EntityToDTOMapper<AddPayResult, Ad
             addPayResultDTO.setAddPayCode(entity.getAddPay().getAddPayCode());
 
         }
-        if (entity.getStaffList() != null) {
-            addPayResultDTO.setStaffListId(entity.getStaffList().getId());
-            addPayResultDTO.setPeopleSurAndFirstName(peopleService.findFIOPeopleById(entity
-                    .getStaffList()
-                    .getPeople()
-                    .getId()));
-            addPayResultDTO.setPositionName(entity.getStaffList().getPosition().getPositionName());
-        }
         if (entity.getTimeSheets() != null) {
             addPayResultDTO.setTimeSheetId(entity.getTimeSheets().getId());
             addPayResultDTO.setCalcDate(entity.getTimeSheets().getCalcSettings().getCalcDate());
@@ -60,7 +52,6 @@ public class AddPayResultDTOMapper implements EntityToDTOMapper<AddPayResult, Ad
     @Override
     public AddPayResult toEntity(AddPayResultDTO dto, Object... args) {
         AddPayResult addPayResult = modelMapper.map(dto, AddPayResult.class);
-        addPayResult.setStaffList(staffListService.findStaffListById(dto.getStaffListId()));
         addPayResult.setTimeSheets(timeSheetService.getMaxTimeSheetForStaffList(dto.getStaffListId()));
         addPayResult.setBasicNorms(basicNormsService.getMaxDateBasicNorms());
         addPayResult.setAddPay(addPayService.findAddPayById(dto.getAddPayId()));

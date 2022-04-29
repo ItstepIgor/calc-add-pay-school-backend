@@ -25,9 +25,9 @@ public class TimeSheetDTOMapper implements EntityToDTOMapper<TimeSheet, TimeShee
     @Override
     public TimeSheetDTO toDTO(TimeSheet entity, Object... args) {
         TimeSheetDTO timeSheetDTO = modelMapper.map(entity, TimeSheetDTO.class);
-        if (entity.getPeople() != null) {
-            timeSheetDTO.setPeopleId(entity.getPeople().getId());
-            timeSheetDTO.setPeopleSurAndFirstName(peopleService.findFIOPeopleById(entity.getPeople().getId()));
+        if (entity.getStaffList().getPeople() != null) {
+            timeSheetDTO.setPeopleId(entity.getStaffList().getPeople().getId());
+            timeSheetDTO.setPeopleSurAndFirstName(peopleService.findFIOPeopleById(entity.getStaffList().getPeople().getId()));
 /*                    entity.getPeople().getSurName() + " "
                     + entity.getPeople().getFirstName() + " " + entity.getPeople().getPatronymic());*/
         }

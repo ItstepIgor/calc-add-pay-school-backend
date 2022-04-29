@@ -17,8 +17,8 @@ import java.util.Set;
 public class TimeSheet extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "people_id", nullable = false)
-    private People people;
+    @JoinColumn(name = "staff_list_id", nullable = false)
+    private StaffList staffList;
     @Column(nullable = false)
     private int actualDaysWorked;
     @ManyToOne(fetch = FetchType.LAZY)

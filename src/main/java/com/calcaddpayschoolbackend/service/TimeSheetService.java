@@ -1,6 +1,7 @@
 package com.calcaddpayschoolbackend.service;
 
 import com.calcaddpayschoolbackend.entity.People;
+import com.calcaddpayschoolbackend.entity.StaffList;
 import com.calcaddpayschoolbackend.entity.TimeSheet;
 import com.calcaddpayschoolbackend.exception.EntityExistsOnThisDateException;
 import com.calcaddpayschoolbackend.exception.NoCurrentCalcDateException;
@@ -20,6 +21,7 @@ import java.util.List;
 public class TimeSheetService {
     private final TimeSheetRepository timeSheetRepository;
 
+    private final StaffListService staffListService;
     private final CalcSettingsService calcSettingsService;
 
     private final PeopleService peopleService;
@@ -28,9 +30,9 @@ public class TimeSheetService {
         if (Period.between(timeSheet.getCalcSettings().getCalcDate(), LocalDate.now()).getDays() > 25) {
             throw new NoCurrentCalcDateException();
         } else if (timeSheet.getCalcSettings().getCalcDate().equals(timeSheetRepository
-                .getMaxTimeSheetForPeople(timeSheet.getPeople().getId()))) {
+                .getMaxTimeSheetForPeople(timeSheet.getStaffList().getPeople().getId()))) {
             throw new EntityExistsOnThisDateException(String.format("На текущую дату табель для %s " +
-                    "уже сохранен", peopleService.findFIOPeopleById(timeSheet.getPeople().getId())));
+                    "уже сохранен", peopleService.findFIOPeopleById(timeSheet.getStaffList().getPeople().getId())));
         } else {
             timeSheetRepository.save(timeSheet);
         }
@@ -39,10 +41,10 @@ public class TimeSheetService {
 
     @org.springframework.transaction.annotation.Transactional
     public void createAllTimeSheetsWhoWorked() {
-        List<People> peoples = peopleService.findAllByWhoWorkedFirst();
-        for (People people : peoples) {
+        List<StaffList> staffLists = staffListService.getStaffListsWhoWorked();
+        for (StaffList staffList : staffLists) {
             TimeSheet timeSheet = TimeSheet.builder()
-                    .people(people)
+                    .staffList(staffList)
                     .calcSettings(calcSettingsService.getMaxDateCalcSettings())
                     .actualDaysWorked(0)
                     .build();

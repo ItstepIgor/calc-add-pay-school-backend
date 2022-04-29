@@ -11,7 +11,6 @@ import java.util.Set;
 @Entity
 @Data
 @Table
-@ToString(exclude = {"addPayResults", "percentSalaryResult"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -31,7 +30,5 @@ public class StaffList extends AbstractEntity {
     @Column(columnDefinition = "boolean default false")
     private Boolean disabled;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "staffList")
-    private Set<AddPayResult> addPayResults;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "staffList")
-    private Set<PercentSalaryResult> percentSalaryResult;
+    private Set<TimeSheet> timeSheet;
 }

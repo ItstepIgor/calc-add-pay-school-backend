@@ -17,9 +17,6 @@ public class PercentSalaryResult extends AbstractEntity {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "staff_list_id", nullable = false)
-    private StaffList staffList;
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "time_sheet_id", nullable = false)
     private TimeSheet timeSheets;
     @ManyToOne(fetch = FetchType.LAZY)
