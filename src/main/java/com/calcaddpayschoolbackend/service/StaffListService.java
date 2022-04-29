@@ -1,9 +1,6 @@
 package com.calcaddpayschoolbackend.service;
 
-import com.calcaddpayschoolbackend.entity.PercentSalary;
-import com.calcaddpayschoolbackend.entity.PercentSalaryResult;
-import com.calcaddpayschoolbackend.entity.StaffList;
-import com.calcaddpayschoolbackend.entity.TimeSheet;
+import com.calcaddpayschoolbackend.entity.*;
 import com.calcaddpayschoolbackend.exception.EntityExistsOnThisDateException;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.repository.StaffListRepository;
@@ -70,20 +67,6 @@ public class StaffListService {
     public StaffList findStaffListById(long id) {
         return staffListRepository.findById(id).orElseThrow(() ->
                 new NoSuchEntityException(String.format("Штатное с id %d не найден", id)));
-    }
-
-
-    @Transactional
-    public void createAllTimeSheetsWhoWorked() {
-        List<StaffList> staffLists = getStaffListsWhoWorked();
-        for (StaffList staffList : staffLists) {
-            TimeSheet timeSheet = TimeSheet.builder()
-                    .people(staffList.getPeople())
-                    .calcSettings(calcSettingsService.getMaxDateCalcSettings())
-                    .actualDaysWorked(0)
-                    .build();
-            timeSheetService.createTimeSheet(timeSheet);
-        }
     }
 
     @Transactional

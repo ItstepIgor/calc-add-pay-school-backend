@@ -1,5 +1,6 @@
 package com.calcaddpayschoolbackend.service;
 
+import com.calcaddpayschoolbackend.entity.People;
 import com.calcaddpayschoolbackend.entity.TimeSheet;
 import com.calcaddpayschoolbackend.exception.EntityExistsOnThisDateException;
 import com.calcaddpayschoolbackend.exception.NoCurrentCalcDateException;
@@ -34,6 +35,21 @@ public class TimeSheetService {
             timeSheetRepository.save(timeSheet);
         }
     }
+
+
+    @org.springframework.transaction.annotation.Transactional
+    public void createAllTimeSheetsWhoWorked() {
+        List<People> peoples = peopleService.findAllByWhoWorkedFirst();
+        for (People people : peoples) {
+            TimeSheet timeSheet = TimeSheet.builder()
+                    .people(people)
+                    .calcSettings(calcSettingsService.getMaxDateCalcSettings())
+                    .actualDaysWorked(0)
+                    .build();
+            createTimeSheet(timeSheet);
+        }
+    }
+
 
     public void updateTimeSheet(TimeSheet timeSheet) {
         timeSheetRepository.save(timeSheet);

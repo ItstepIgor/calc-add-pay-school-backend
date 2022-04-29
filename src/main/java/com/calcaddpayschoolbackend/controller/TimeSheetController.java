@@ -24,6 +24,11 @@ public class TimeSheetController {
         return timeSheetDTOMapper.toDTOs(timeSheetService.getAllTimeSheets());
     }
 
+    @GetMapping("/createalltimesheets")
+    public void createAllTimeSheetsWhoWorked() {
+        timeSheetService.createAllTimeSheetsWhoWorked();
+    }
+
     @GetMapping("/getbyid")
     public TimeSheetDTO findTimeSheetById(@RequestParam long id) {
         return timeSheetDTOMapper.toDTO(timeSheetService.findTimeSheetById(id));

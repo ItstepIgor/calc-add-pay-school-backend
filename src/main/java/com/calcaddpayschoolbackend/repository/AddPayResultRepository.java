@@ -17,12 +17,14 @@ public interface AddPayResultRepository extends JpaRepository<AddPayResult, Long
             "asr.timeSheets ts join ts.calcSettings cs where apt.id=:id and cs.calcDate=:calcDate")
     BigDecimal getAllSumForMonth(@Param("id") long id, @Param("calcDate") LocalDate calcDate);
 
-    @Query("select asr from AddPayResult asr join asr.timeSheets ts join ts.calcSettings cs join ts.people p " +
-            "join p.staffLists st join st.position pos where cs.calcDate=:calcDate order by pos.sorting, p.surName")
+    @Query("select asr, min(pos.sorting) as sort from AddPayResult asr join asr.timeSheets ts join ts.calcSettings " +
+            "cs join ts.people p join p.staffLists st join st.position pos where cs.calcDate=:calcDate " +
+            "group by asr, p.surName order by sort, p.surName")
     List<AddPayResult> getAllAddPayResultForMonth(@Param("calcDate") LocalDate calcDate);
 
-    @Query("select asr from AddPayResult asr join asr.timeSheets ts join ts.calcSettings cs join ts.people p " +
-            "join p.staffLists st join st.position pos order by cs.calcDate, pos.sorting, p.surName")
+    @Query("select asr, min(pos.sorting) as sort from AddPayResult asr join asr.timeSheets ts join ts.calcSettings " +
+            "cs join ts.people p join p.staffLists st join st.position pos group by asr, p.surName, cs.calcDate " +
+            "order by cs.calcDate, sort, p.surName")
     List<AddPayResult> findAllSortingByPosition();
 
     @Query("select (count (apr) > 0) from AddPayResult apr join apr.timeSheets ts join apr.addPay ap " +

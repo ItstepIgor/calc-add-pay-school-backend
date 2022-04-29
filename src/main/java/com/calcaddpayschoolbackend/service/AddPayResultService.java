@@ -86,8 +86,10 @@ public class AddPayResultService {
         double coefficient = addPayResult.getPercent() / 100;
         BigDecimal sumForAllDays = basicNormsService.getMaxDateBasicNorms().getBasicNormValue()
                 .multiply(BigDecimal.valueOf(coefficient));
-        return sumForAllDays.divide(BigDecimal.valueOf(workDay), 2, RoundingMode.CEILING)
-                .multiply(BigDecimal.valueOf(actualDaysWorked));
+//        BigDecimal temp2 = sumForAllDays.multiply(BigDecimal.valueOf(actualDaysWorked)).divide(BigDecimal.valueOf(workDay));
+
+        BigDecimal temp = sumForAllDays.multiply(BigDecimal.valueOf(actualDaysWorked));
+        return temp.divide(BigDecimal.valueOf(workDay), 2, RoundingMode.CEILING);
     }
 
     public void updateResult(AddPayResult addPayResult) {

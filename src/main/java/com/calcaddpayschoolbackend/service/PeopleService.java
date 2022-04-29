@@ -45,4 +45,7 @@ public class PeopleService {
                 new NoSuchEntityException(String.format("Сотрудник с id %d не найден", id)));
     }
 
+    public List<People> findAllByWhoWorkedFirst(){
+        return peopleRepository.findAllByWhoWorked();
+    }
 }
