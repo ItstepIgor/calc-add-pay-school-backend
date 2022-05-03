@@ -28,10 +28,6 @@ public class AddPayResultService {
 
     private final CalcSettingsService calcSettingsService;
 
-    private final TimeSheetService timeSheetService;
-
-    private final StaffListService staffListService;
-
     private final PeopleService peopleService;
 
     public void createResult(AddPayResult addPayResult) {
@@ -75,12 +71,10 @@ public class AddPayResultService {
 
     public BigDecimal calcSumAddPay(AddPayResult addPayResult) {
         int workDay = calcSettingsService.getMaxDateCalcSettings().getWorkingDays();
-        int actualDaysWorked = timeSheetService
-                .getMaxTimeSheetForStaffList(addPayResult.getTimeSheets().getStaffList().getId()).getActualDaysWorked();
+        int actualDaysWorked = addPayResult.getTimeSheets().getActualDaysWorked();
         if (actualDaysWorked == 0) {
             throw new NotTimeSheetDayException(String.format("В табеле для сотрудника %s заполнено 0 рабочих дней",
-                    peopleService.findFIOPeopleById(staffListService
-                            .findStaffListById(addPayResult.getTimeSheets().getStaffList().getId()).getPeople().getId())));
+                    peopleService.findFIOPeopleById(addPayResult.getTimeSheets().getStaffList().getPeople().getId())));
         }
         double coefficient = addPayResult.getPercent() / 100;
         BigDecimal sumForAllDays = basicNormsService.getMaxDateBasicNorms().getBasicNormValue()

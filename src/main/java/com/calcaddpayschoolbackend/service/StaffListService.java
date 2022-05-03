@@ -80,7 +80,7 @@ public class StaffListService {
 
             TimeSheet maxTimeSheetForStaffList = timeSheetService.getMaxTimeSheetForStaffList(staffList.getId());
 
-            if (percentSalaryResultService.isExistsPercentSalaryResult(staffList.getId(), maxTimeSheetForStaffList.getId())) {
+            if (percentSalaryResultService.isExistsPercentSalaryResult(maxTimeSheetForStaffList.getId())) {
                 throw new EntityExistsOnThisDateException(String.format("Премия для %s уже посчитана", peopleService
                         .findFIOPeopleById(staffList.getPeople().getId())));
             } else {

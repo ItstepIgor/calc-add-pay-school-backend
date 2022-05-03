@@ -18,12 +18,12 @@ public interface AddPayResultRepository extends JpaRepository<AddPayResult, Long
     BigDecimal getAllSumForMonth(@Param("id") long id, @Param("calcDate") LocalDate calcDate);
 
     @Query("select asr, min(pos.sorting) as sort from AddPayResult asr join asr.timeSheets ts join ts.calcSettings " +
-            "cs join ts.people p join p.staffLists st join st.position pos where cs.calcDate=:calcDate " +
+            "cs join ts.staffList st join st.position pos join st.people p where cs.calcDate=:calcDate " +
             "group by asr, p.surName order by sort, p.surName")
     List<AddPayResult> getAllAddPayResultForMonth(@Param("calcDate") LocalDate calcDate);
 
     @Query("select asr, min(pos.sorting) as sort from AddPayResult asr join asr.timeSheets ts join ts.calcSettings " +
-            "cs join ts.people p join p.staffLists st join st.position pos group by asr, p.surName, cs.calcDate " +
+            "cs join ts.staffList st join st.position pos join st.people p group by asr, p.surName, cs.calcDate " +
             "order by cs.calcDate, sort, p.surName")
     List<AddPayResult> findAllSortingByPosition();
 

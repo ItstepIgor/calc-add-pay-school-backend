@@ -42,8 +42,8 @@ public class PercentSalaryResultService {
         percentSalaryResultRepository.delete(percentSalaryResult);
     }
 
-    public boolean isExistsPercentSalaryResult(long staffListId, long timeSheetsId) {
-        return percentSalaryResultRepository.isExistsPercentSalaryResult(staffListId, timeSheetsId);
+    public boolean isExistsPercentSalaryResult(long timeSheetsId) {
+        return percentSalaryResultRepository.isExistsPercentSalaryResult(timeSheetsId);
     }
 
     public void deletePercentSalaryResultById(Long id) {

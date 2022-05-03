@@ -1,12 +1,12 @@
 package com.calcaddpayschoolbackend.service;
 
-import com.calcaddpayschoolbackend.entity.People;
 import com.calcaddpayschoolbackend.entity.StaffList;
 import com.calcaddpayschoolbackend.entity.TimeSheet;
 import com.calcaddpayschoolbackend.exception.EntityExistsOnThisDateException;
 import com.calcaddpayschoolbackend.exception.NoCurrentCalcDateException;
 import com.calcaddpayschoolbackend.exception.NoSuchEntityException;
 import com.calcaddpayschoolbackend.pojo.TimeSheetUpdateDayPojo;
+import com.calcaddpayschoolbackend.repository.StaffListRepository;
 import com.calcaddpayschoolbackend.repository.TimeSheetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,8 @@ import java.util.List;
 public class TimeSheetService {
     private final TimeSheetRepository timeSheetRepository;
 
-    private final StaffListService staffListService;
+    private final StaffListRepository staffListRepository;
+
     private final CalcSettingsService calcSettingsService;
 
     private final PeopleService peopleService;
@@ -29,8 +30,8 @@ public class TimeSheetService {
     public void createTimeSheet(TimeSheet timeSheet) {
         if (Period.between(timeSheet.getCalcSettings().getCalcDate(), LocalDate.now()).getDays() > 25) {
             throw new NoCurrentCalcDateException();
-        } else if (timeSheet.getCalcSettings().getCalcDate().equals(timeSheetRepository
-                .getMaxTimeSheetForPeople(timeSheet.getStaffList().getPeople().getId()))) {
+        } else if ((timeSheet.getCalcSettings().getId() == calcSettingsService.getMaxDateCalcSettings().getId())
+                && timeSheetRepository.isExistsTimeSheet(timeSheet.getStaffList().getId())) {
             throw new EntityExistsOnThisDateException(String.format("На текущую дату табель для %s " +
                     "уже сохранен", peopleService.findFIOPeopleById(timeSheet.getStaffList().getPeople().getId())));
         } else {
@@ -41,7 +42,7 @@ public class TimeSheetService {
 
     @org.springframework.transaction.annotation.Transactional
     public void createAllTimeSheetsWhoWorked() {
-        List<StaffList> staffLists = staffListService.getStaffListsWhoWorked();
+        List<StaffList> staffLists = staffListRepository.findAllByWhoWorked();
         for (StaffList staffList : staffLists) {
             TimeSheet timeSheet = TimeSheet.builder()
                     .staffList(staffList)

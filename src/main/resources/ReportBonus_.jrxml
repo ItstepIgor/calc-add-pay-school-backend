@@ -308,7 +308,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{bonusSum}+$F{addSum})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{allSum}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -360,6 +360,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$V{allSum1}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>
