@@ -22,6 +22,9 @@
 		<variableExpression><![CDATA[$F{allSum}]]></variableExpression>
 	</variable>
 	<variable name="Year" class="java.lang.String"/>
+	<variable name="sum_column" class="java.lang.String" calculation="Sum">
+		<variableExpression><![CDATA[$F{bonusSum}+$F{addSum}]]></variableExpression>
+	</variable>
 	<background>
 		<band/>
 	</background>
@@ -308,7 +311,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{bonusSum}+$F{addSum})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{sum_column}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
