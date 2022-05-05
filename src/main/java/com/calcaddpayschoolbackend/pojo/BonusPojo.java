@@ -8,5 +8,4 @@ public interface BonusPojo {
     BigDecimal getBonusSum();
     BigDecimal getAddSum();
     String getCod();
-    BigDecimal getAllSum();
 }
