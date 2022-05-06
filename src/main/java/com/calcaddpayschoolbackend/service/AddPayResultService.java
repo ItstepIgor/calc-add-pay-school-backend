@@ -107,12 +107,13 @@ public class AddPayResultService {
 
     public ResultAllSumForMonthPojo getAllAddPayResultSumForMonth() {
         ResultAllSumForMonthPojo resultAllSumForMonthPojo = new ResultAllSumForMonthPojo();
-        BigDecimal allSumForMonth = percentSalaryResultService.getAllSumForMonth();
+        BigDecimal allSumForMonth = percentSalaryResultService.getSumForMonthWithPercent(1);
+        BigDecimal allSumForMonthYoungSpecial = percentSalaryResultService.getSumForMonthWithPercent(3);
         resultAllSumForMonthPojo.setBonusSum(calcBalanceSum(1).subtract(allSumForMonth));
         resultAllSumForMonthPojo.setBonusName(addPayTypeService.findAddPayTypeById(1).getAddPayTypeName());
         resultAllSumForMonthPojo.setComplicationSum(calcBalanceSum(2));
         resultAllSumForMonthPojo.setComplicationName(addPayTypeService.findAddPayTypeById(2).getAddPayTypeName());
-        resultAllSumForMonthPojo.setMotivationSum(calcBalanceSum(3));
+        resultAllSumForMonthPojo.setMotivationSum(calcBalanceSum(3).subtract(allSumForMonthYoungSpecial));
         resultAllSumForMonthPojo.setMotivationName(addPayTypeService.findAddPayTypeById(3).getAddPayTypeName());
         return resultAllSumForMonthPojo;
     }

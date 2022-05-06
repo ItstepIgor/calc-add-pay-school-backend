@@ -274,7 +274,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{addSum}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{addSum}.intValue() == 0 ? "" : $F{addSum}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="380" y="0" width="134" height="15" uuid="f6b932f3-4a67-4720-9e27-53a9da43dedc">
@@ -327,10 +327,10 @@
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="15">
+	<summary>
+		<band height="83">
 			<textField textAdjust="StretchHeight">
-				<reportElement positionType="Float" x="28" y="0" width="486" height="15" uuid="ffeca331-024e-4e6a-a377-ae27e560476a">
+				<reportElement positionType="Float" x="28" y="0" width="486" height="15" uuid="ddb5d2ce-9cbe-487f-b031-6dac17bd6708">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c05cb4c4-7321-464e-b20b-38a19f892a19"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -347,7 +347,7 @@
 				<textFieldExpression><![CDATA["  Итого"]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement positionType="Float" x="514" y="0" width="45" height="15" uuid="958a3d15-33ab-4dee-a5a8-aeba1864eace">
+				<reportElement positionType="Float" x="514" y="0" width="45" height="15" uuid="ae23e084-7bf1-4ce6-abb3-6dec99183253">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aafde1ac-9f21-4267-b383-ffd18072315c"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -363,40 +363,20 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Summa}]]></textFieldExpression>
 			</textField>
-		</band>
-	</columnFooter>
-	<pageFooter>
-		<band height="113">
-			<textField>
-				<reportElement mode="Opaque" x="70" y="100" width="515" height="13" backcolor="#E6E6E6" uuid="c7f5dcbd-921c-4949-8f5c-3922c35efa2c"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Serif"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement mode="Opaque" x="515" y="94" width="40" height="13" backcolor="#E6E6E6" uuid="0f776560-e86c-4c18-bb5a-76c0842abe06"/>
+			<staticText>
+				<reportElement x="40" y="33" width="465" height="16" uuid="5595a7d0-04a5-4dbf-9e9a-bbe5237aa581"/>
 				<textElement>
-					<font fontName="DejaVu Serif"/>
+					<font fontName="DejaVu Serif" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="0" y="94" width="100" height="13" uuid="4f042a9c-a347-4667-9795-ae1c1612e30f"/>
-				<box>
-					<topPen lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineStyle="Solid" lineColor="#000000"/>
-				</box>
+				<text><![CDATA[Согласовано с профсоюзным комитетом (пр №11   от 28 .03.2022)                       О.В.Орлова]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="59" width="290" height="13" uuid="48942bf9-0afc-4fb4-8f5b-0f111797d1b1"/>
 				<textElement>
-					<font fontName="DejaVu Serif"/>
+					<font fontName="DejaVu Serif" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
+				<text><![CDATA[Директор                                                        С. А. Билалова]]></text>
+			</staticText>
 		</band>
-	</pageFooter>
-	<summary>
-		<band/>
 	</summary>
 </jasperReport>

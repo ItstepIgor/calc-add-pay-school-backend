@@ -17,6 +17,8 @@ public class PercentSalaryResultService {
 
     private final CalcSettingsService calcSettingsService;
 
+    private final PercentSalaryService percentSalaryService;
+
     public void createPercentSalaryResult(PercentSalaryResult percentSalaryResult) {
         percentSalaryResultRepository.save(percentSalaryResult);
     }
@@ -37,6 +39,22 @@ public class PercentSalaryResultService {
         }
         return allSumForMonth;
     }
+
+    public BigDecimal getSumForMonthWithPercent(long id) {
+        int percent = 0;
+        if (id == 1) {
+            percent = percentSalaryService.getMaxDatePercentSalary().getPercentSalaryAll();
+        } else if (id == 3) {
+            percent = percentSalaryService.getMaxDatePercentSalary().getPercentSalaryForYoungSpecial();
+        }
+        BigDecimal allSumForMonthWithPercent = percentSalaryResultRepository
+                .getSumForMonthWithPercent(calcSettingsService.getMaxDateCalcSettings().getCalcDate(), percent);
+        if (allSumForMonthWithPercent == null) {
+            allSumForMonthWithPercent = BigDecimal.valueOf(0);
+        }
+        return allSumForMonthWithPercent;
+    }
+
 
     public void deletePercentSalaryResult(PercentSalaryResult percentSalaryResult) {
         percentSalaryResultRepository.delete(percentSalaryResult);

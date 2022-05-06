@@ -17,6 +17,9 @@ public interface PercentSalaryResultRepository extends JpaRepository<PercentSala
             "where cs.calcDate=:calcDate")
     BigDecimal getAllSumForMonth(@Param("calcDate") LocalDate calcDate);
 
+    @Query("select sum(psr.sum) from PercentSalaryResult psr join psr.timeSheets t join t.calcSettings cs " +
+            "where cs.calcDate=:calcDate and psr.percent=:percent")
+    BigDecimal getSumForMonthWithPercent(@Param("calcDate") LocalDate calcDate, @Param("percent") int percent);
 
     @Query("select (count (psr)>0)from PercentSalaryResult psr where psr.timeSheets.id=:timeSheetsId")
     boolean isExistsPercentSalaryResult(@Param("timeSheetsId") long timeSheetsId);

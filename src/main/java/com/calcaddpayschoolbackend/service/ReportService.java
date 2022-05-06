@@ -31,7 +31,7 @@ public class ReportService {
 
     public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
         String path = "E:\\";
-        List<BonusPojo> bonusPojo = staffListRepository.findByAllBonus();
+        List<BonusPojo> bonusPojo = staffListRepository.findByAllBonus(1);
         //load file and compile it
         File file = ResourceUtils.getFile("classpath:ReportBonus.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
@@ -59,7 +59,7 @@ public class ReportService {
 
         if (addPayTypeId == 1) {
             System.out.println(addPayTypeId);
-            List<BonusPojo> bonusPojo = staffListRepository.findByAllBonus();
+            List<BonusPojo> bonusPojo = staffListRepository.findByAllBonus(addPayTypeId);
             InputStream reportBonus = ReportService.class.getClassLoader().getResourceAsStream("ReportBonus.jrxml");
             jasperReport = JasperCompileManager.compileReport(reportBonus);
             dataSource = new JRBeanCollectionDataSource(bonusPojo);
