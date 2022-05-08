@@ -9,6 +9,7 @@ public class TimeSheetDTO {
     private long id;
     private long peopleId;
     private String peopleSurAndFirstName;
+    private String positionName;
     private int actualDaysWorked;
     private long calcSettingsId;
     private LocalDate calcDate;

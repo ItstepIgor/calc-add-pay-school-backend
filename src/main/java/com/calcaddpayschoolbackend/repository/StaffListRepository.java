@@ -82,6 +82,7 @@ public interface StaffListRepository extends JpaRepository<StaffList, Long> {
             "       STRING_AGG(compl.cod, ', ') as cod " +
             "FROM (SELECT p.sur_name || ' ' || p.first_name || ' ' || p.patronymic AS fio, " +
             "             posit.position_name                                      AS pos, " +
+            "             posit.sorting                                            AS sort, " +
             "             psr.sum                                                  AS addsum, " +
             "             (SELECT ps.percent_young_special_code " +
             "              FROM percent_salary ps " +
@@ -101,6 +102,7 @@ public interface StaffListRepository extends JpaRepository<StaffList, Long> {
             "      UNION " +
             "      SELECT p.sur_name || ' ' || p.first_name || ' ' || p.patronymic AS fio, " +
             "             posit.position_name                                      AS pos, " +
+            "             posit.sorting                                            AS sort, " +
             "             SUM(apr.sum)                                             AS addsum, " +
             "             STRING_AGG(ap.add_pay_code, ', ')                        as cod " +
             "      FROM add_pay_result apr " +
@@ -113,7 +115,7 @@ public interface StaffListRepository extends JpaRepository<StaffList, Long> {
             "               LEFT JOIN calc_settings cs on ts.calc_settings_id = cs.id " +
             "      WHERE cs.calc_date = (SELECT MAX(calc_date) FROM calc_settings) " +
             "        AND apt.id = :addPayTypeId" +
-            "      GROUP BY fio, pos) AS compl " +
-            "GROUP BY fio, pos", nativeQuery = true)
+            "      GROUP BY fio, pos, posit.sorting) AS compl " +
+            "GROUP BY fio, pos, sort ORDER BY sort, fio", nativeQuery = true)
     List<ComplicationAndMotivationPojo> findByAllMotivation(@Param("addPayTypeId") long addPayTypeId);
 }
