@@ -23,4 +23,6 @@ public class AddPayFundDTO {
     private BigDecimal addPayFunds;
     @NotBlank
     private String numberOrder;
+    @NotBlank
+    private String numberOrderTradeUnion;
 }

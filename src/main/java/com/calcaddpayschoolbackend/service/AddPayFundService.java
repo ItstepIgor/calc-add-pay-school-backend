@@ -53,6 +53,11 @@ public class AddPayFundService {
                 calcSettingsService.getMaxDateCalcSettings().getId()).getNumberOrder();
     }
 
+    public String getAddPayFundNumberOrderTradeUnion(long addPayTypeId) {
+        return addPayFundRepository.getLastAddPayFund(addPayTypeId,
+                calcSettingsService.getMaxDateCalcSettings().getId()).getNumberOrderTradeUnion();
+    }
+
     public void deleteAddPayFund(AddPayFund addPayFund) {
         addPayFundRepository.delete(addPayFund);
     }

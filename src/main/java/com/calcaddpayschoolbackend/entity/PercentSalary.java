@@ -23,6 +23,8 @@ public class PercentSalary extends AbstractEntity {
     private int percentSalaryAll;
     @Column(nullable = false)
     private int percentSalaryForYoungSpecial;
+    @Column(nullable = false)
+    private String percentYoungSpecialCode;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "percentSalary")
     private Set<PercentSalaryResult> percentSalaryResult;
 }

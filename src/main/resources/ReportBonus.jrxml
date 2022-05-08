@@ -6,6 +6,7 @@
 		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
 	</parameter>
 	<parameter name="NumberDateOrder" class="java.lang.String"/>
+	<parameter name="NumberOrderTradeUnion" class="java.lang.String"/>
 	<field name="fio" class="java.lang.String"/>
 	<field name="pos" class="java.lang.String"/>
 	<field name="bonusSum" class="java.math.BigDecimal"/>
@@ -364,19 +365,19 @@
 				<textFieldExpression><![CDATA[$V{Summa}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="40" y="33" width="465" height="16" uuid="5595a7d0-04a5-4dbf-9e9a-bbe5237aa581"/>
-				<textElement>
-					<font fontName="DejaVu Serif" size="9"/>
-				</textElement>
-				<text><![CDATA[Согласовано с профсоюзным комитетом (пр №11   от 28 .03.2022)                       О.В.Орлова]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="215" y="59" width="290" height="13" uuid="48942bf9-0afc-4fb4-8f5b-0f111797d1b1"/>
 				<textElement>
 					<font fontName="DejaVu Serif" size="9"/>
 				</textElement>
 				<text><![CDATA[Директор                                                        С. А. Билалова]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="39" y="30" width="464" height="14" uuid="ff250073-2efe-47f8-9a39-060b45975a2a"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Согласовано с профсоюзным комитетом (" + $P{NumberOrderTradeUnion} + ")                       О.В.Орлова"]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

@@ -64,10 +64,17 @@ public class ReportService {
             jasperReport = JasperCompileManager.compileReport(reportBonus);
             dataSource = new JRBeanCollectionDataSource(bonusPojo);
 
-        } else if (addPayTypeId == 2 || addPayTypeId == 3) {
+        } else if (addPayTypeId == 2) {
             System.out.println(addPayTypeId);
             List<ComplicationAndMotivationPojo> complicationAndMotivationPojo =
-                    staffListRepository.findByAllComplicationAndMotivation(addPayTypeId);
+                    staffListRepository.findByAllComplication(addPayTypeId);
+            InputStream reportComplication = ReportService.class.getClassLoader().getResourceAsStream("ReportComplicationAndMotivation.jrxml");
+            jasperReport = JasperCompileManager.compileReport(reportComplication);
+            dataSource = new JRBeanCollectionDataSource(complicationAndMotivationPojo);
+        } else if (addPayTypeId == 3) {
+            System.out.println(addPayTypeId);
+            List<ComplicationAndMotivationPojo> complicationAndMotivationPojo =
+                    staffListRepository.findByAllMotivation(addPayTypeId);
             InputStream reportComplication = ReportService.class.getClassLoader().getResourceAsStream("ReportComplicationAndMotivation.jrxml");
             jasperReport = JasperCompileManager.compileReport(reportComplication);
             dataSource = new JRBeanCollectionDataSource(complicationAndMotivationPojo);
@@ -76,6 +83,7 @@ public class ReportService {
         LocalDate localDate = calcSettingsService.getMaxDateCalcSettings().getCalcDate();
         Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         parameters.put("NumberDateOrder", addPayFundService.getAddPayFundNumberOrder(addPayTypeId));
+        parameters.put("NumberOrderTradeUnion", addPayFundService.getAddPayFundNumberOrderTradeUnion(addPayTypeId));
         parameters.put("CalcDate", date);
         return JasperFillManager.fillReport(jasperReport, parameters, dataSource);
     }

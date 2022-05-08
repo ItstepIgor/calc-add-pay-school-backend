@@ -25,4 +25,6 @@ public class AddPayFund extends AbstractEntity {
     private BigDecimal addPayFunds;
     @Column(nullable = false)
     private String numberOrder;
+    @Column(nullable = false)
+    private String numberOrderTradeUnion;
 }
